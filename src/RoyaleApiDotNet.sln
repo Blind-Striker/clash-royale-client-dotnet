@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyaleApi.Client", "RoyaleApi.Client\RoyaleApi.Client.csproj", "{6F03E85E-84CD-4138-B334-16E396855B83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{51EC1534-8BA8-4655-B818-2982B5329FB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyaleApi.Sandbox", "Tests\RoyaleApi.Sandbox\RoyaleApi.Sandbox.csproj", "{4DC14AFC-C642-45AE-924E-134AEC7E3121}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F03E85E-84CD-4138-B334-16E396855B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F03E85E-84CD-4138-B334-16E396855B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F03E85E-84CD-4138-B334-16E396855B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F03E85E-84CD-4138-B334-16E396855B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC14AFC-C642-45AE-924E-134AEC7E3121}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC14AFC-C642-45AE-924E-134AEC7E3121}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC14AFC-C642-45AE-924E-134AEC7E3121}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC14AFC-C642-45AE-924E-134AEC7E3121}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DC14AFC-C642-45AE-924E-134AEC7E3121} = {51EC1534-8BA8-4655-B818-2982B5329FB9}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B09C7A4-5B95-4F3B-9295-E1B7DB94DB67}
+	EndGlobalSection
+EndGlobal
