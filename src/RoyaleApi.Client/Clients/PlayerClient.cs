@@ -21,7 +21,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Player>(Endpoints.GetPlayerUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Player>(UrlBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
@@ -30,7 +30,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(Endpoints.GetPlayerUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(UrlBuilder.GetPlayerUrl(playerTags));
 
             return apiResponse;
         }
@@ -39,7 +39,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(Endpoints.GetPlayerBattlesUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTag));
 
             return apiResponse;
         }
@@ -48,7 +48,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(Endpoints.GetPlayerBattlesUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTags));
 
             return apiResponse;
         }
@@ -57,7 +57,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<PlayerChest>(Endpoints.GetPlayerChestsUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<PlayerChest>(UrlBuilder.GetPlayerChestsUrl(playerTag));
 
             return apiResponse;
         }
@@ -66,21 +66,21 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerChest>>(Endpoints.GetPlayerChestsUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerChest>>(UrlBuilder.GetPlayerChestsUrl(playerTags));
 
             return apiResponse;
         }
 
         public async Task<ApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, int max = 10, int page = 0)
         {
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerSummary>>(Endpoints.GetTopPlayersUrl(location, max, page));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlBuilder.GetTopPlayersUrl(location, max, page));
 
             return apiResponse;
         }
 
         public async Task<ApiResponse<List<Player>>> GetPopularPlayersResponseAsync()
         {
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(Endpoints.PopularPlayersUrl);
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(UrlBuilder.PopularPlayersUrl);
 
             return apiResponse;
         }
@@ -89,7 +89,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<Player>(Endpoints.GetPlayerUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetAsync<Player>(UrlBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
@@ -98,7 +98,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(Endpoints.GetPlayerUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(UrlBuilder.GetPlayerUrl(playerTags));
 
             return apiResponse;
         }
@@ -107,7 +107,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(Endpoints.GetPlayerBattlesUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTag));
 
             return apiResponse;
         }
@@ -116,7 +116,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(Endpoints.GetPlayerBattlesUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTags));
 
             return apiResponse;
         }
@@ -125,7 +125,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<PlayerChest>(Endpoints.GetPlayerChestsUrl(playerTag));
+            var apiResponse = await _royaleApiClient.GetAsync<PlayerChest>(UrlBuilder.GetPlayerChestsUrl(playerTag));
 
             return apiResponse;
         }
@@ -134,21 +134,21 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerChest>>(Endpoints.GetPlayerChestsUrl(playerTags));
+            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerChest>>(UrlBuilder.GetPlayerChestsUrl(playerTags));
 
             return apiResponse;
         }
 
         public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None, int max = 10, int page = 0)
         {
-            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerSummary>>(Endpoints.GetTopPlayersUrl(location, max, page));
+            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerSummary>>(UrlBuilder.GetTopPlayersUrl(location, max, page));
 
             return apiResponse;
         }
 
         public async Task<List<Player>> GetPopularPlayersAsync()
         {
-            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(Endpoints.PopularPlayersUrl);
+            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(UrlBuilder.PopularPlayersUrl);
 
             return apiResponse;
         }

@@ -21,7 +21,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Clan>(Endpoints.GetClanUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Clan>(UrlBuilder.GetClanUrl(clanTag));
 
             return apiResponse;
         }
@@ -30,7 +30,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Clan>>(Endpoints.GetClanUrl(clanTags));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Clan>>(UrlBuilder.GetClanUrl(clanTags));
 
             return apiResponse;
         }
@@ -39,7 +39,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(Endpoints.GetClanBattleUrl(clanBattleType, clanTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetClanBattleUrl(clanBattleType, clanTag));
 
             return apiResponse;
         }
@@ -48,7 +48,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<ClanWarLog>>(Endpoints.GetClanWarLogUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<ClanWarLog>>(UrlBuilder.GetClanWarLogUrl(clanTag));
 
             return apiResponse;
         }
@@ -57,7 +57,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanWar>(Endpoints.GetClanWarUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanWar>(UrlBuilder.GetClanWarUrl(clanTag));
 
             return apiResponse;
         }
@@ -66,7 +66,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanTracking>(Endpoints.GetClanTrackingUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanTracking>(UrlBuilder.GetClanTrackingUrl(clanTag));
 
             return apiResponse;
         }
@@ -75,7 +75,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<Clan>(Endpoints.GetClanUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetAsync<Clan>(UrlBuilder.GetClanUrl(clanTag));
 
             return apiResponse;
         }
@@ -84,7 +84,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Clan>>(Endpoints.GetClanUrl(clanTags));
+            var apiResponse = await _royaleApiClient.GetAsync<List<Clan>>(UrlBuilder.GetClanUrl(clanTags));
 
             return apiResponse;
         }
@@ -93,7 +93,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(Endpoints.GetClanBattleUrl(clanBattleType, clanTag));
+            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetClanBattleUrl(clanBattleType, clanTag));
 
             return apiResponse;
         }
@@ -102,7 +102,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<ClanWarLog>>(Endpoints.GetClanWarLogUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetAsync<List<ClanWarLog>>(UrlBuilder.GetClanWarLogUrl(clanTag));
 
             return apiResponse;
         }
@@ -111,7 +111,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<ClanWar>(Endpoints.GetClanWarUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetAsync<ClanWar>(UrlBuilder.GetClanWarUrl(clanTag));
 
             return apiResponse;
         }
@@ -120,7 +120,7 @@ namespace RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<ClanTracking>(Endpoints.GetClanTrackingUrl(clanTag));
+            var apiResponse = await _royaleApiClient.GetAsync<ClanTracking>(UrlBuilder.GetClanTrackingUrl(clanTag));
 
             return apiResponse;
         }

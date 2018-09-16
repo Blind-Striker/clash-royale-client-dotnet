@@ -16,10 +16,7 @@ namespace RoyaleApi.Sandbox
         {
             Console.WriteLine("Hello World!");
 
-            ApiOptions apiOptions =
-                new ApiOptions(
-                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5MCwiaWRlbiI6IjQ5MDUwNjcyNzU5MTExNjgwMyIsIm1kIjp7fSwidHMiOjE1MzcwMTY0NTE3MDZ9.9tPpWG86V6PmGXW0kAxE9lhYIisIH8DM8NitRfaNpKY",
-                    "https://api.royaleapi.com/");
+            ApiOptions apiOptions = new ApiOptions("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5MCwiaWRlbiI6IjQ5MDUwNjcyNzU5MTExNjgwMyIsIm1kIjp7fSwidHMiOjE1MzcwMTY0NTE3MDZ9.9tPpWG86V6PmGXW0kAxE9lhYIisIH8DM8NitRfaNpKY", "https://api.royaleapi.com/");
 
             var services = new ServiceCollection();
             services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();

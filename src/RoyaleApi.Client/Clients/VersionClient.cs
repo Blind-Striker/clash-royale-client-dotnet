@@ -15,12 +15,12 @@ namespace RoyaleApi.Client.Clients
 
         public async Task<ApiResponse> GetVersionResponse()
         {
-           return await _royaleApiClient.GetStringContentAsync(Endpoints.Version);
+           return await _royaleApiClient.GetStringContentAsync(UrlBuilder.Version);
         }
 
         public async Task<string> GetVersion()
         {
-            ApiResponse apiResponse = await _royaleApiClient.GetStringContentAsync(Endpoints.Version);
+            ApiResponse apiResponse = await _royaleApiClient.GetStringContentAsync(UrlBuilder.Version);
 
             return apiResponse.Message;
         }

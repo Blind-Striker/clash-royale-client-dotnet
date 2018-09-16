@@ -1,11 +1,10 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using RoyaleApi.Client.Models;
 using RoyaleApi.Client.Helpers;
 
 namespace RoyaleApi.Client
 {
-    public static class Endpoints
+    public static class UrlBuilder
     {
         public const string Version = "version";
 
