@@ -41,10 +41,10 @@ It can be used with any DI library, or it can be used standalone.
 If you do not want to use any DI framework, you have to instantiate RoyaleApiStandalone as follows.
 
 ```csharp
-    ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
-    var apiClientContext = RoyaleApiStandalone.Create(apiOptions);
-    IPlayerClient playerClient = apiClientContext.PlayerClient;
-    IClanClient clanClient = apiClientContext.ClanClient;
+ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
+var apiClientContext = RoyaleApiStandalone.Create(apiOptions);
+IPlayerClient playerClient = apiClientContext.PlayerClient;
+IClanClient clanClient = apiClientContext.ClanClient;
 ```
 
 `apiClientContext` contains all necessary clients.
@@ -65,20 +65,20 @@ If you don't want to use `HttpClientFactory`, you must register `HttpClient` you
 Register necessary depedencies to `ServiceCollection` as follows
 
 ```csharp
-    ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
+ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 
-    var services = new ServiceCollection();
-    services.AddSingleton(apiOptions);
-    services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();
-    services.AddTransient<IPlayerClient, PlayerClient>();
-    services.AddTransient<IClanClient, ClanClient>();
-    services.AddTransient<IVersionClient, VersionClient>();
+var services = new ServiceCollection();
+services.AddSingleton(apiOptions);
+services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();
+services.AddTransient<IPlayerClient, PlayerClient>();
+services.AddTransient<IClanClient, ClanClient>();
+services.AddTransient<IVersionClient, VersionClient>();
 
-    var buildServiceProvider = services.BuildServiceProvider();
+var buildServiceProvider = services.BuildServiceProvider();
 
-    var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
-    var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
-    var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
+var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 ```
 
 ## License
