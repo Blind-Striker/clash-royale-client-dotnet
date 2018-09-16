@@ -1,9 +1,10 @@
-﻿namespace RoyaleApi.Client.Models
+﻿namespace RoyaleApi.Client.Models.Player
 {
-    public class BestSeason
+    public class PlayerSeason
     {
         public string Id { get; set; }
         public int Rank { get; set; }
         public int Trophies { get; set; }
+        public int? BestTrophies { get; set; }
     }
 }

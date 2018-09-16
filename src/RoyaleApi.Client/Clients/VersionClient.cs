@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using RoyaleApi.Client.Contracts;
+using RoyaleApi.Client.Responses;
 
 namespace RoyaleApi.Client.Clients
 {
@@ -14,14 +15,14 @@ namespace RoyaleApi.Client.Clients
 
         public async Task<ApiResponse> GetVersionResponse()
         {
-           return await _royaleApiClient.GetStringContentAsync("version");
+           return await _royaleApiClient.GetStringContentAsync(Endpoints.Version);
         }
 
         public async Task<string> GetVersion()
         {
-            ApiResponse apiResponse = await _royaleApiClient.GetStringContentAsync("version");
+            ApiResponse apiResponse = await _royaleApiClient.GetStringContentAsync(Endpoints.Version);
 
-            return apiResponse.Content;
+            return apiResponse.Message;
         }
     }
 }

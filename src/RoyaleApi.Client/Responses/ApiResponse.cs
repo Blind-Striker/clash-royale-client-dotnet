@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace RoyaleApi.Client
+namespace RoyaleApi.Client.Responses
 {
     public class ApiResponse<TModel> : ApiResponse where TModel : class, new()
     {
@@ -11,6 +11,8 @@ namespace RoyaleApi.Client
     {
         public HttpStatusCode HttpStatusCode { get; set; }
 
-        public string Content { get; set; }
+        public string Message { get; set; }
+
+        public bool Error { get; set; }
     }
 }

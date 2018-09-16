@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace RoyaleApi.Client.Helpers
 {
@@ -8,7 +6,7 @@ namespace RoyaleApi.Client.Helpers
     {
         public static string JoinToString(this IEnumerable<string> enumerable, string separator)
         {
-            return string.Join(",", enumerable);
+            return string.Join(separator, enumerable);
         }
     }
 }

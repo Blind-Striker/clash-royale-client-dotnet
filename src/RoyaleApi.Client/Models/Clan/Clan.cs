@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RoyaleApi.Client.Models
+namespace RoyaleApi.Client.Models.Clan
 {
     public class Clan
     {
@@ -12,9 +12,15 @@ namespace RoyaleApi.Client.Models
         public int MemberCount { get; set; }
         public int RequiredScore { get; set; }
         public int Donations { get; set; }
+        public ClanChest ClanChest { get; set; }
         public Badge Badge { get; set; }
-        public Location Location { get; set; }
-        public IList<Member> Members { get; set; }
-        public Tracking Tracking { get; set; }
+        public ClanRegion Location { get; set; }
+        public IList<ClanMember> Members { get; set; }
+        public ClanTracking Tracking { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}-{Tag}";
+        }
     }
 }

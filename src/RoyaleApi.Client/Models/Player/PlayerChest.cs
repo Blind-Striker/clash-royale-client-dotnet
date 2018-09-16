@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace RoyaleApi.Client.Models
+namespace RoyaleApi.Client.Models.Player
 {
-    public class Chest
+    public class PlayerChest
     {
         public List<string> Upcoming { get; set; }
         public int SuperMagical { get; set; }

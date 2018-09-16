@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using RoyaleApi.Client.Models.Player;
 
 namespace RoyaleApi.Client.Models
 {
@@ -14,8 +15,8 @@ namespace RoyaleApi.Client.Models
         public int Winner { get; set; }
         public int TeamCrowns { get; set; }
         public int OpponentCrowns { get; set; }
-        public List<Team> Team { get; set; }
-        public List<Opponent> Opponent { get; set; }
+        public List<PlayerInfo> Team { get; set; }
+        public List<PlayerInfo> Opponent { get; set; }
         public ArenaInfo Arena { get; set; }
     }
 }

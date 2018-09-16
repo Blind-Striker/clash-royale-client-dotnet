@@ -1,6 +1,6 @@
-﻿namespace RoyaleApi.Client.Models
+﻿namespace RoyaleApi.Client.Models.Player
 {
-    public class Games
+    public class PlayerGames
     {
         public int Total { get; set; }
         public int TournamentGames { get; set; }

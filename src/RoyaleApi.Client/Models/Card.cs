@@ -3,11 +3,11 @@
     public class Card
     {
         public string Name { get; set; }
-        public int Level { get; set; }
-        public int MaxLevel { get; set; }
-        public int Count { get; set; }
+        public int? Level { get; set; }
+        public int? MaxLevel { get; set; }
+        public int? Count { get; set; }
         public string Rarity { get; set; }
-        public object RequiredForUpgrade { get; set; }
+        public string RequiredForUpgrade { get; set; }
         public string Icon { get; set; }
         public string Key { get; set; }
         public int Elixir { get; set; }

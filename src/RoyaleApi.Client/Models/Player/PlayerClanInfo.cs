@@ -1,6 +1,6 @@
-﻿namespace RoyaleApi.Client.Models
+﻿namespace RoyaleApi.Client.Models.Player
 {
-    public class ClanInfo
+    public class PlayerClanInfo
     {
         public string Tag { get; set; }
         public string Name { get; set; }
@@ -9,5 +9,10 @@
         public int DonationsReceived { get; set; }
         public int DonationsDelta { get; set; }
         public Badge Badge { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}-{Tag}";
+        }
     }
 }
