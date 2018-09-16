@@ -7,6 +7,7 @@ using RoyaleApi.Client;
 using RoyaleApi.Client.Clients;
 using RoyaleApi.Client.Contracts;
 using RoyaleApi.Client.Models;
+using RoyaleApi.Client.Standalone;
 
 namespace RoyaleApi.Sandbox
 {
@@ -16,24 +17,34 @@ namespace RoyaleApi.Sandbox
         {
             Console.WriteLine("Hello World!");
 
-            ApiOptions apiOptions = new ApiOptions("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5MCwiaWRlbiI6IjQ5MDUwNjcyNzU5MTExNjgwMyIsIm1kIjp7fSwidHMiOjE1MzcwMTY0NTE3MDZ9.9tPpWG86V6PmGXW0kAxE9lhYIisIH8DM8NitRfaNpKY", "https://api.royaleapi.com/");
+            ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 
             var services = new ServiceCollection();
+            services.AddSingleton(apiOptions);
             services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();
+            services.AddTransient<IPlayerClient, PlayerClient>();
+            services.AddTransient<IClanClient, ClanClient>();
+            services.AddTransient<IVersionClient, VersionClient>();
 
-            ContainerBuilder containerBuilder = new ContainerBuilder();
-            containerBuilder.Populate(services);
+            var buildServiceProvider = services.BuildServiceProvider();
 
-            containerBuilder.RegisterInstance(apiOptions);
-            containerBuilder.RegisterType<PlayerClient>().As<IPlayerClient>();
-            containerBuilder.RegisterType<ClanClient>().As<IClanClient>();
-            containerBuilder.RegisterType<VersionClient>().As<IVersionClient>();
+            var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+            var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+            var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 
-            var container = containerBuilder.Build();
+            //ContainerBuilder containerBuilder = new ContainerBuilder();
+            //containerBuilder.Populate(services);
 
-            var playerClient = container.Resolve<IPlayerClient>();
-            var clanClient = container.Resolve<IClanClient>();
-            var versionClient = container.Resolve<IVersionClient>();
+            //containerBuilder.RegisterInstance(apiOptions);
+            //containerBuilder.RegisterType<PlayerClient>().As<IPlayerClient>();
+            //containerBuilder.RegisterType<ClanClient>().As<IClanClient>();
+            //containerBuilder.RegisterType<VersionClient>().As<IVersionClient>();
+
+            //var container = containerBuilder.Build();
+
+            //var playerClient = container.Resolve<IPlayerClient>();
+            //var clanClient = container.Resolve<IClanClient>();
+            //var versionClient = container.Resolve<IVersionClient>();
 
             var version = await versionClient.GetVersion();
 
