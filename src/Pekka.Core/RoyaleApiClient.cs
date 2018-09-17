@@ -4,11 +4,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Pekka.RoyaleApi.Client.Contracts;
-using Pekka.RoyaleApi.Client.Helpers;
-using Pekka.RoyaleApi.Client.Responses;
+using Pekka.Core.Contracts;
+using Pekka.Core.Helpers;
+using Pekka.Core.Responses;
 
-namespace Pekka.RoyaleApi.Client.Clients
+namespace Pekka.Core
 {
     public class RoyaleApiClient : IRoyaleApiClient
     {

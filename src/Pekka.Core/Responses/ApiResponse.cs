@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Pekka.RoyaleApi.Client.Responses
+namespace Pekka.Core.Responses
 {
     public class ApiResponse<TModel> : ApiResponse where TModel : class, new()
     {

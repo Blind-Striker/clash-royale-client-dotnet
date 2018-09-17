@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Pekka.RoyaleApi.Client.Helpers
+namespace Pekka.Core.Helpers
 {
     /// <summary>
     ///   Ensure input parameters

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pekka.Core.Contracts;
+using Pekka.Core.Helpers;
+using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
-using Pekka.RoyaleApi.Client.Helpers;
 using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.Player;
-using Pekka.RoyaleApi.Client.Responses;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {

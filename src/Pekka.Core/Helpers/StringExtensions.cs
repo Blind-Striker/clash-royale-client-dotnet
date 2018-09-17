@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pekka.RoyaleApi.Client.Helpers
+namespace Pekka.Core.Helpers
 {
     public static class StringExtensions
     {

@@ -1,4 +1,4 @@
-﻿namespace Pekka.RoyaleApi.Client
+﻿namespace Pekka.Core
 {
     public class ApiOptions
     {

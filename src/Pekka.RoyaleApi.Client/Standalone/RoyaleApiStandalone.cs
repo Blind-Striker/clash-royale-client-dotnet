@@ -1,4 +1,6 @@
 ﻿using System.Net.Http;
+using Pekka.Core;
+using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 

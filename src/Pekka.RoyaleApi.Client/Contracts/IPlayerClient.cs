@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.Player;
-using Pekka.RoyaleApi.Client.Responses;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {

@@ -1,4 +1,4 @@
-﻿namespace Pekka.RoyaleApi.Client.Responses
+﻿namespace Pekka.Core.Responses
 {
     public class ErrorResponse
     {

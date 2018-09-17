@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Pekka.RoyaleApi.Client.Responses;
+using Pekka.Core.Responses;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {
