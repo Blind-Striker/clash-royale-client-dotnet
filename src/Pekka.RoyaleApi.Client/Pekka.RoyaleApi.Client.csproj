@@ -11,6 +11,9 @@
     <PackageIconUrl>http://royaleapi.com/static/img/branding/cr-api-logo.png</PackageIconUrl>
     <PackageTags>clashroyale, clash-royale-api, clash-royale, client-library, dotnet-core, dotnet</PackageTags>
     <Version>0.7.1</Version>
+    
+    <AssemblyName>Pekka.RoyaleApi.Client</AssemblyName>
+    <RootNamespace>Pekka.RoyaleApi.Client</RootNamespace>
 
     <!-- When compiling .NET SDK 2.0 projects targeting .NET 4.x on Mono using 'dotnet build' you -->
     <!-- have to teach MSBuild where the Mono copy of the reference asssemblies is -->
@@ -35,8 +38,6 @@
 
     <!-- Add the Facades directory.  Not sure how else to do this. Necessary at least for .NET 4.5 -->
     <AssemblySearchPaths Condition="'$(BaseFrameworkPathOverrideForMono)' != ''">$(FrameworkPathOverride)/Facades;$(AssemblySearchPaths)</AssemblySearchPaths>
-    <AssemblyName>Pekka.RoyaleApi.Client</AssemblyName>
-    <RootNamespace>Pekka.RoyaleApi.Client</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,17 +46,27 @@
     <Reference Include="System.IO" Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND $(TargetFramework.StartsWith('net4'))" />
     <Reference Include="System.Net.Primitives" Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND $(TargetFramework.StartsWith('net4'))" />
     <Reference Include="System.Threading.Tasks" Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND $(TargetFramework.StartsWith('net4'))" />
+    <Reference Include="System.Web" Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND $(TargetFramework.StartsWith('net4'))" />
   </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.3" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\Pekka.Core\Pekka.Core.csproj" />
+    <ProjectReference Include="..\Pekka.Core\Pekka.Core.csproj">
+      <PrivateAssets>all</PrivateAssets>
+    </ProjectReference>
   </ItemGroup>
 
+  <PropertyGroup>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeReferencedProjectInPackage</TargetsForTfmSpecificContentInPackage>
+  </PropertyGroup>
+
+  <Target Name="IncludeReferencedProjectInPackage" Condition="'$(IncludeBuildOutput)' != 'false'">
+    <ItemGroup>
+      <TfmSpecificPackageFile Include="$(OutputPath)\Pekka.Core.dll" PackagePath="lib/$(TargetFramework)" />
+    </ItemGroup>
+  </Target>
 </Project>

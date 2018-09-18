@@ -5,24 +5,24 @@ using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.Models;
-using Pekka.RoyaleApi.Client.Models.Clan;
+using Pekka.RoyaleApi.Client.Models.ClanModels;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {
     public class ClanClient : IClanClient
     {
-        private readonly IRoyaleApiClient _royaleApiClient;
+        private readonly IRestApiClient _restApiClient;
 
-        public ClanClient(IRoyaleApiClient royaleApiClient)
+        public ClanClient(IRestApiClient restApiClient)
         {
-            _royaleApiClient = royaleApiClient;
+            _restApiClient = restApiClient;
         }
 
         public async Task<ApiResponse<Clan>> GetClanResponseAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Clan>(UrlBuilder.GetClanUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag));
 
             return apiResponse;
         }
@@ -31,7 +31,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Clan>>(UrlBuilder.GetClanUrl(clanTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.GetClanUrl(clanTags));
 
             return apiResponse;
         }
@@ -40,7 +40,19 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetClanBattleUrl(clanBattleType, clanTag));
+            string urlPath = UrlPathBuilder.GetClanBattleUrl(clanTag);
+
+            IList<KeyValuePair<string, string>> queryParams = null;
+
+            if (clanBattleType != null)
+            {
+                queryParams = new List<KeyValuePair<string, string>>
+                {
+                    new KeyValuePair<string, string>("type", clanBattleType.ToString()),
+                };
+            }
+
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(urlPath, queryParams);
 
             return apiResponse;
         }
@@ -49,7 +61,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<ClanWarLog>>(UrlBuilder.GetClanWarLogUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanWarLog>>(UrlPathBuilder.GetClanWarLogUrl(clanTag));
 
             return apiResponse;
         }
@@ -58,7 +70,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanWar>(UrlBuilder.GetClanWarUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanWar>(UrlPathBuilder.GetClanWarUrl(clanTag));
 
             return apiResponse;
         }
@@ -67,7 +79,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<ClanTracking>(UrlBuilder.GetClanTrackingUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanTracking>(UrlPathBuilder.GetClanTrackingUrl(clanTag));
 
             return apiResponse;
         }
@@ -76,54 +88,54 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<Clan>(UrlBuilder.GetClanUrl(clanTag));
+            var apiResponse = await GetClanResponseAsync(clanTag);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
 
         public async Task<List<Clan>> GetClansAsync(params string[] clanTags)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Clan>>(UrlBuilder.GetClanUrl(clanTags));
+            var apiResponse = await GetClansResponseAsync(clanTags);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
 
         public async Task<List<Battle>> GetBattlesAsync(string clanTag, ClanBattleType clanBattleType = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetClanBattleUrl(clanBattleType, clanTag));
+            var apiResponse = await GetBattlesResponseAsync(clanTag);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
 
         public async Task<List<ClanWarLog>> GetWarLogsAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<ClanWarLog>>(UrlBuilder.GetClanWarLogUrl(clanTag));
+            var apiResponse = await GetWarLogsResponseAsync(clanTag);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
 
         public async Task<ClanWar> GetWarAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<ClanWar>(UrlBuilder.GetClanWarUrl(clanTag));
+            var apiResponse = await GetWarResponseAsync(clanTag);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
 
         public async Task<ClanTracking> GetTrackingAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<ClanTracking>(UrlBuilder.GetClanTrackingUrl(clanTag));
+            var apiResponse = await GetTrackingResponseAsync(clanTag);
 
-            return apiResponse;
+            return apiResponse.GetModel();
         }
     }
 }

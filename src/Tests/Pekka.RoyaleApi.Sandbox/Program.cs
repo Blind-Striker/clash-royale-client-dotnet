@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Pekka.RoyaleApi.Client;
+using Pekka.Core;
+using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.Models;
@@ -18,7 +19,7 @@ namespace Pekka.RoyaleApi.Sandbox
 
             var services = new ServiceCollection();
             services.AddSingleton(apiOptions);
-            services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();
+            services.AddHttpClient<IRestApiClient, RestApiClient>();
             services.AddTransient<IPlayerClient, PlayerClient>();
             services.AddTransient<IClanClient, ClanClient>();
             services.AddTransient<IVersionClient, VersionClient>();

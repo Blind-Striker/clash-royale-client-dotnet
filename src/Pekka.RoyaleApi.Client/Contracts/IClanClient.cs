@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Models;
-using Pekka.RoyaleApi.Client.Models.Clan;
+using Pekka.RoyaleApi.Client.Models.ClanModels;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {

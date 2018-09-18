@@ -1,28 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pekka.Core.Contracts;
+using Pekka.Core.Exceptions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.Models;
-using Pekka.RoyaleApi.Client.Models.Player;
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {
     public class PlayerClient : IPlayerClient
     {
-        private readonly IRoyaleApiClient _royaleApiClient;
+        private readonly IRestApiClient _restApiClient;
 
-        public PlayerClient(IRoyaleApiClient royaleApiClient)
+        public PlayerClient(IRestApiClient restApiClient)
         {
-            _royaleApiClient = royaleApiClient;
+            _restApiClient = restApiClient;
         }
 
         public async Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<Player>(UrlBuilder.GetPlayerUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
@@ -31,7 +32,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(UrlBuilder.GetPlayerUrl(playerTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.GetPlayerUrl(playerTags));
 
             return apiResponse;
         }
@@ -40,7 +41,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetPlayerBattlesUrl(playerTag));
 
             return apiResponse;
         }
@@ -49,7 +50,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetPlayerBattlesUrl(playerTags));
 
             return apiResponse;
         }
@@ -58,7 +59,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<PlayerChest>(UrlBuilder.GetPlayerChestsUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag));
 
             return apiResponse;
         }
@@ -67,21 +68,29 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerChest>>(UrlBuilder.GetPlayerChestsUrl(playerTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerChest>>(UrlPathBuilder.GetPlayerChestsUrl(playerTags));
 
             return apiResponse;
         }
 
         public async Task<ApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, int max = 10, int page = 0)
         {
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlBuilder.GetTopPlayersUrl(location, max, page));
+            string urlPath = UrlPathBuilder.GetTopPlayersUrl(location);
+
+            var queryParams = new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>("max", max.ToString()),
+                new KeyValuePair<string, string>("page", page.ToString())
+            };
+
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(urlPath, queryParams);
 
             return apiResponse;
         }
 
         public async Task<ApiResponse<List<Player>>> GetPopularPlayersResponseAsync()
         {
-            var apiResponse = await _royaleApiClient.GetApiResponseAsync<List<Player>>(UrlBuilder.PopularPlayersUrl);
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.PopularPlayersUrl);
 
             return apiResponse;
         }
@@ -90,68 +99,68 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<Player>(UrlBuilder.GetPlayerUrl(playerTag));
+            var response = await GetPlayerResponseAsync(playerTag);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<Player>> GetPlayersAsync(params string[] playerTags)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(UrlBuilder.GetPlayerUrl(playerTags));
+            var response = await GetPlayersResponseAsync(playerTags);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<Battle>> GetBattlesAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTag));
+            var response = await GetBattlesResponseAsync(playerTag);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<Battle>> GetBattlesAsync(params string[] playerTags)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<Battle>>(UrlBuilder.GetPlayerBattlesUrl(playerTags));
+            var response = await GetBattlesResponseAsync(playerTags);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<PlayerChest> GetChestAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _royaleApiClient.GetAsync<PlayerChest>(UrlBuilder.GetPlayerChestsUrl(playerTag));
+            var response = await GetChestResponseAsync(playerTag);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<PlayerChest>> GetChestsAsync(params string[] playerTags)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerChest>>(UrlBuilder.GetPlayerChestsUrl(playerTags));
+            var response = await GetChestsResponseAsync(playerTags);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None, int max = 10, int page = 0)
         {
-            var apiResponse = await _royaleApiClient.GetAsync<List<PlayerSummary>>(UrlBuilder.GetTopPlayersUrl(location, max, page));
+            var response = await GetTopPlayersResponseAsync(location, max, page);
 
-            return apiResponse;
+            return response.GetModel();
         }
 
         public async Task<List<Player>> GetPopularPlayersAsync()
         {
-            var apiResponse = await _royaleApiClient.GetAsync<List<Player>>(UrlBuilder.PopularPlayersUrl);
+            var response = await GetPopularPlayersResponseAsync();
 
-            return apiResponse;
+            return response.GetModel();
         }
     }
 }

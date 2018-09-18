@@ -35,8 +35,8 @@ namespace Pekka.RoyaleApi.Client.Standalone
         {
             HttpClient httpClient = new HttpClient();
 
-            IRoyaleApiClient royaleApiClient = new RoyaleApiClient(httpClient, apiOptions);
-            IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(new VersionClient(royaleApiClient), new PlayerClient(royaleApiClient), new ClanClient(royaleApiClient));
+            Core.Contracts.IRestApiClient restApiClient = new Core.RestApiClient(httpClient, apiOptions);
+            IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(new VersionClient(restApiClient), new PlayerClient(restApiClient), new ClanClient(restApiClient));
 
             return apiClientContext;
         }

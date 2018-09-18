@@ -7,23 +7,23 @@ namespace Pekka.RoyaleApi.Client.Clients
 {
     public class VersionClient : IVersionClient
     {
-        private readonly IRoyaleApiClient _royaleApiClient;
+        private readonly IRestApiClient _restApiClient;
 
-        public VersionClient(IRoyaleApiClient royaleApiClient)
+        public VersionClient(IRestApiClient restApiClient)
         {
-            _royaleApiClient = royaleApiClient;
+            _restApiClient = restApiClient;
         }
 
         public async Task<ApiResponse> GetVersionResponse()
         {
-           return await _royaleApiClient.GetStringContentAsync(UrlBuilder.Version);
+           return await _restApiClient.GetApiResponseAsync(UrlPathBuilder.Version);
         }
 
         public async Task<string> GetVersion()
         {
-            ApiResponse apiResponse = await _royaleApiClient.GetStringContentAsync(UrlBuilder.Version);
+            string content = await _restApiClient.GetStringContentAsync(UrlPathBuilder.Version);
 
-            return apiResponse.Message;
+            return content;
         }
     }
 }
