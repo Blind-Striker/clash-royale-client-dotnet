@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 {
-    public class BattleLogTeamCard
+    public class PlayerDetailCard
     {
         public string Name { get; set; }
 
@@ -10,6 +10,8 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public int? MaxLevel { get; set; }
 
-        public List<IconUrl> IconUrls { get; set; }
+        public int? Count { get; set; }
+
+        public IconUrl IconUrls { get; set; }
     }
 }

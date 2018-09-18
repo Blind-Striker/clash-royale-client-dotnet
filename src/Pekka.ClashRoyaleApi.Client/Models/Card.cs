@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.ClashRoyaleApi.Client.Models

@@ -17,6 +17,6 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public ClanBase Clan { get; set; }
 
-        public List<BattleLogTeamCard> Cards { get; set; }
+        public List<Card> Cards { get; set; }
     }
 }

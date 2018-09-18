@@ -52,11 +52,6 @@
     </ProjectReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Clients\" />
-    <Folder Include="Contracts\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeReferencedProjectInPackage</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>

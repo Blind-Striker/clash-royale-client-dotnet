@@ -51,7 +51,7 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public List<PlayerDetailAchievement> Achievements { get; set; }
 
-        public List<PlayerDetailCards> Cards { get; set; }
+        public List<PlayerDetailCard> Cards { get; set; }
 
         public Card CurrentFavouriteCard { get; set; }
     }

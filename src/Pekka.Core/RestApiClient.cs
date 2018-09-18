@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
@@ -142,8 +140,6 @@ namespace Pekka.Core
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            var uriBuilder = new UriBuilder(path) {Port = -1};
-
             if (queryParams != null && queryParams.Any())
             {
                 var query = HttpUtility.ParseQueryString(string.Empty);
@@ -153,12 +149,10 @@ namespace Pekka.Core
                     query[queryParam.Key] = queryParam.Value;
                 }
 
-                uriBuilder.Query = query.ToString();
+                path = $"{path}{query}";
             }
 
-            Uri uri = uriBuilder.Uri;
-
-            var requestMessage = new HttpRequestMessage(httpMethod, uri);
+            var requestMessage = new HttpRequestMessage(httpMethod, path);
 
             if (headerParams == null || !headerParams.Any())
             {
