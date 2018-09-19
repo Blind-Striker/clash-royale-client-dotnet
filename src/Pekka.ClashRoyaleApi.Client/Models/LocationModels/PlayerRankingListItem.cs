@@ -1,6 +1,6 @@
 using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
 
-namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
+namespace Pekka.ClashRoyaleApi.Client.Models.LocationModels
 {
     public class PlayerRankingListItem
     {

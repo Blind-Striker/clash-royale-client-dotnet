@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;

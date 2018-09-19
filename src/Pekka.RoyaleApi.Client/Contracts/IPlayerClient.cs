@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pekka.Core;
+using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.PlayerModels;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 
 namespace Pekka.Core.Helpers
 {
@@ -61,6 +62,20 @@ namespace Pekka.Core.Helpers
             if (value.Any()) return;
 
             throw new ArgumentException("List cannot be empty", name);
+        }
+
+        public static void AtleastOneCriteriaMustBeDefined<T>(T value, string name) where T : class, new()
+        {
+            ArgumentNotNull(value, name);
+
+            PropertyInfo[] propertyInfos = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+
+            bool allNull = propertyInfos.All(info => info.GetValue(value) == null);
+
+            if (allNull)
+            {
+                throw new ArgumentException("At least one filtering criteria must be defined");
+            }
         }
     }
 }

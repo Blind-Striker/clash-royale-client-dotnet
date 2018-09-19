@@ -6,13 +6,6 @@ using Pekka.RoyaleApi.Client.Contracts;
 
 namespace Pekka.RoyaleApi.Client.Standalone
 {
-    public interface IRoyaleApiClientContext
-    {
-        IVersionClient VersionClient { get; }
-        IPlayerClient PlayerClient { get; }
-        IClanClient ClanClient { get; }
-    }
-
     public class RoyaleApiStandalone : IRoyaleApiClientContext
     {
         private RoyaleApiStandalone(IVersionClient versionClient, IPlayerClient playerClient, IClanClient clanClient)
@@ -35,7 +28,7 @@ namespace Pekka.RoyaleApi.Client.Standalone
         {
             HttpClient httpClient = new HttpClient();
 
-            Core.Contracts.IRestApiClient restApiClient = new Core.RestApiClient(httpClient, apiOptions);
+            IRestApiClient restApiClient = new Core.RestApiClient(httpClient, apiOptions);
             IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(new VersionClient(restApiClient), new PlayerClient(restApiClient), new ClanClient(restApiClient));
 
             return apiClientContext;

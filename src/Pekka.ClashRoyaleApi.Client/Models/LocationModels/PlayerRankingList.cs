@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
+namespace Pekka.ClashRoyaleApi.Client.Models.LocationModels
 {
     public class PlayerRankingList
     {

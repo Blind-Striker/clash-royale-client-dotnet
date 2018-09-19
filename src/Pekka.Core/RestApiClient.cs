@@ -149,7 +149,7 @@ namespace Pekka.Core
                     query[queryParam.Key] = queryParam.Value;
                 }
 
-                path = $"{path}{query}";
+                path = $"{path}?{query}";
             }
 
             var requestMessage = new HttpRequestMessage(httpMethod, path);
