@@ -16,6 +16,7 @@ namespace Pekka.RoyaleApi.Client
         public const string PopularPlayersUrl = "popular/players";
 
         public const string ClanUrl = "clan";
+        public const string ClanSearchUrl = "clan/search";
         public const string ClanWarLog = "warlog";
         public const string ClanWar = "war";
         public const string ClanTracking = "tracking";

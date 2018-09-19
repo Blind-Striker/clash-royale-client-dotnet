@@ -15,7 +15,7 @@ namespace Pekka.ClashRoyaliApi.Sandbox
         {
             Console.WriteLine("Hello World!");
 
-            ApiOptions apiOptions = new ApiOptions("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImZlOWYwMjcwLTJkNzQtNDBiNy05MzQyLWM4YTA4ZTJkMjAyNSIsImlhdCI6MTUzNzE4ODYxNywic3ViIjoiZGV2ZWxvcGVyLzdlYTBkNDk0LWVkY2ItOTFmMC05NGJiLWNhMWM4ZjJhMDk4ZiIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI4Mi4yMjIuNDcuMTIyIl0sInR5cGUiOiJjbGllbnQifV19.d7oXuWh2oXgcJNhTbDKuVQh0beCA6v5E_yMpDh4carRdhgE8NEo81pU7wxVpoj_0Uz0RiJjm7Ub47xOsiUwwPQ", "https://api.clashroyale.com/v1/");
+            ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
 
             var services = new ServiceCollection();
             services.AddSingleton(apiOptions);

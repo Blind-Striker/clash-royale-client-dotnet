@@ -11,5 +11,10 @@
         public int Donations { get; set; }
         public Badge Badge { get; set; }
         public ClanRegion Location { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name}-{Tag}";
+        }
     }
 }

@@ -4,6 +4,7 @@ using Pekka.Core.Contracts;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
+using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.ClanModels;
 
@@ -18,122 +19,124 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<Clan>> GetClanResponseAsync(string clanTag)
+        public async Task<ApiResponse<List<ClanSummary>>> SearchClanResponseAsync(ClanFilter clanFilter = null)
         {
-            Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
-
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(UrlPathBuilder.ClanSearchUrl, clanFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Clan>>> GetClansResponseAsync(params string[] clanTags)
+        public async Task<ApiResponse<Clan>> GetClanResponseAsync(string clanTag, Pagination pagination = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
+
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag), pagination?.ToQueryParams());
+
+            return apiResponse;
+        }
+
+        public async Task<ApiResponse<List<Clan>>> GetClansResponseAsync(string[] clanTags, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.GetClanUrl(clanTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.GetClanUrl(clanTags), pagination?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string clanTag, ClanBattleType clanBattleType = null)
+        public async Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string clanTag, ClanBattleFilter clanBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            string urlPath = UrlPathBuilder.GetClanBattleUrl(clanTag);
-
-            IList<KeyValuePair<string, string>> queryParams = null;
-
-            if (clanBattleType != null)
-            {
-                queryParams = new List<KeyValuePair<string, string>>
-                {
-                    new KeyValuePair<string, string>("type", clanBattleType.ToString()),
-                };
-            }
-
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(urlPath, queryParams);
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetClanBattleUrl(clanTag), clanBattleFilter.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag)
+        public async Task<ApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanWarLog>>(UrlPathBuilder.GetClanWarLogUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanWarLog>>(UrlPathBuilder.GetClanWarLogUrl(clanTag), pagination?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<ClanWar>> GetWarResponseAsync(string clanTag)
+        public async Task<ApiResponse<ClanWar>> GetWarResponseAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanWar>(UrlPathBuilder.GetClanWarUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanWar>(UrlPathBuilder.GetClanWarUrl(clanTag), pagination?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<ClanTracking>> GetTrackingResponseAsync(string clanTag)
+        public async Task<ApiResponse<ClanTracking>> GetTrackingResponseAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanTracking>(UrlPathBuilder.GetClanTrackingUrl(clanTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanTracking>(UrlPathBuilder.GetClanTrackingUrl(clanTag), pagination?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<Clan> GetClanAsync(string clanTag)
+        public async Task<List<ClanSummary>> SearchClanAsync(ClanFilter clanFilter = null)
         {
-            Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
-
-            var apiResponse = await GetClanResponseAsync(clanTag);
+            var apiResponse = await SearchClanResponseAsync(clanFilter);
 
             return apiResponse.GetModel();
         }
 
-        public async Task<List<Clan>> GetClansAsync(params string[] clanTags)
+        public async Task<Clan> GetClanAsync(string clanTag, Pagination pagination = null)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
+
+            var apiResponse = await GetClanResponseAsync(clanTag, pagination);
+
+            return apiResponse.GetModel();
+        }
+
+        public async Task<List<Clan>> GetClansAsync(string[] clanTags, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
-            var apiResponse = await GetClansResponseAsync(clanTags);
+            var apiResponse = await GetClansResponseAsync(clanTags, pagination);
 
             return apiResponse.GetModel();
         }
 
-        public async Task<List<Battle>> GetBattlesAsync(string clanTag, ClanBattleType clanBattleType = null)
+        public async Task<List<Battle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await GetBattlesResponseAsync(clanTag);
+            var apiResponse = await GetBattlesResponseAsync(clanTag, clanBattleFilter);
 
             return apiResponse.GetModel();
         }
 
-        public async Task<List<ClanWarLog>> GetWarLogsAsync(string clanTag)
+        public async Task<List<ClanWarLog>> GetWarLogsAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await GetWarLogsResponseAsync(clanTag);
+            var apiResponse = await GetWarLogsResponseAsync(clanTag, pagination);
 
             return apiResponse.GetModel();
         }
 
-        public async Task<ClanWar> GetWarAsync(string clanTag)
+        public async Task<ClanWar> GetWarAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await GetWarResponseAsync(clanTag);
+            var apiResponse = await GetWarResponseAsync(clanTag, pagination);
 
             return apiResponse.GetModel();
         }
 
-        public async Task<ClanTracking> GetTrackingAsync(string clanTag)
+        public async Task<ClanTracking> GetTrackingAsync(string clanTag, Pagination pagination = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await GetTrackingResponseAsync(clanTag);
+            var apiResponse = await GetTrackingResponseAsync(clanTag, pagination);
 
             return apiResponse.GetModel();
         }

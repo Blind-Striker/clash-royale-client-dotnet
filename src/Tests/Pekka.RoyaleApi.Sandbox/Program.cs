@@ -5,6 +5,7 @@ using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
+using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models;
 
 namespace Pekka.RoyaleApi.Sandbox
@@ -49,19 +50,21 @@ namespace Pekka.RoyaleApi.Sandbox
             string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
             string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
 
-            var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
-            var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
+            //var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
+            //var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
 
-            var players = await playerClient.GetPlayersResponseAsync(playerList);
-            var battles = await playerClient.GetBattlesResponseAsync(playerList);
-            var chests = await playerClient.GetChestsResponseAsync(playerList);
+            //var players = await playerClient.GetPlayersResponseAsync(playerList);
+            //var battles = await playerClient.GetBattlesResponseAsync(playerList);
+            //var chests = await playerClient.GetChestsResponseAsync(playerList);
 
-            foreach (var playerTag in playerList)
-            {
-                var player = await playerClient.GetPlayerResponseAsync(playerTag);
-                var playerBattle = await playerClient.GetBattlesResponseAsync(playerTag);
-                var playerChest = await playerClient.GetChestResponseAsync(playerTag);
-            }
+            //foreach (var playerTag in playerList)
+            //{
+            //    var player = await playerClient.GetPlayerResponseAsync(playerTag);
+            //    var playerBattle = await playerClient.GetBattlesResponseAsync(playerTag);
+            //    var playerChest = await playerClient.GetChestResponseAsync(playerTag);
+            //}
+
+            var clanSummaries = await clanClient.SearchClanAsync(new ClanFilter() {Name = "eyyam", LocationId = (int)Locations._INT, MinMembers = 0, MaxMembers = 50});
 
             var clans = await clanClient.GetClansResponseAsync(clanList);
 
@@ -70,9 +73,9 @@ namespace Pekka.RoyaleApi.Sandbox
                 var clanResult = await clanClient.GetClanResponseAsync(clanTag);
 
                 var clan = await clanClient.GetBattlesResponseAsync(clanTag);
-                var clanAll = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.All);
-                var clanMate = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.ClanMate);
-                var clanWar = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.War);
+                //var clanAll = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.All);
+                //var clanMate = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.ClanMate);
+                //var clanWar = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.War);
 
                 var warResponse = await clanClient.GetWarResponseAsync(clanTag);
                 var warlogs = await clanClient.GetWarLogsResponseAsync(clanTag);
