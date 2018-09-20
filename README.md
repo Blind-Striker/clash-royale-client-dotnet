@@ -10,7 +10,7 @@ All API requests must be accompanied by a developer key. You need to register th
 * [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
-* Depedency injection friendly (can also be used standalone, see below)
+* Dependency injection friendly (can also be used standalone, see below)
 * Supports async and sync (via extension method, see below) calls.
 
 ## Builds status
@@ -27,7 +27,7 @@ All API requests must be accompanied by a developer key. You need to register th
 | P.E.K.K.A Royale API (unofficial) | <img src="https://www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)    |
 
 
-Following commands can be use too install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
+Following commands can be used to install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
 
 ```
 Install-Package Pekka.ClashRoyaleApi.Client
@@ -42,7 +42,7 @@ dotnet Pekka.RoyaleApi.Client
 ```
 # Usage
 
-The usage of both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client libraries is similar. And both can be used with any DI library, or it can be used standalone.
+The usage of both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client libraries are similar. And both can be used with any DI library, or it can be used standalone.
 
 ## Standalone Initialization
 
@@ -72,7 +72,7 @@ ILocationClient locationClient = apiClientContext.LocationClient;
 
 ## Microsoft.Extensions.DependencyInjection Initialization
 
-First you need to install `Microsoft.Extensions.DependencyInjection` and `Microsoft.Extensions.Http` nuget package as follows
+First, you need to install `Microsoft.Extensions.DependencyInjection` and `Microsoft.Extensions.Http` NuGet package as follows
 
 ```
 dotnet add package Microsoft.Extensions.DependencyInjection
@@ -83,7 +83,7 @@ By installing `Microsoft.Extensions.Http` you will be able to use [`HttpClientFa
 
 If you don't want to use `HttpClientFactory`, you must register `HttpClient` yourself with the container.
 
-Register necessary depedencies to `ServiceCollection` as follows
+Register necessary dependencies to `ServiceCollection` as follows
 
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
@@ -104,7 +104,7 @@ var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 
 ## Synchronous Wrappers
 
-For synchronous calls Task extension method `RunSync` can be used. 
+For synchronous calls, Task extension method `RunSync` can be used. 
 
 ```csharp
 var player = playerClient.GetPlayerResponseAsync(playerTag).RunSync(); ;
