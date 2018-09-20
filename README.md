@@ -7,7 +7,7 @@ All API requests must be accompanied by a developer key. You need to register th
 ## Supported Platforms
 
 * .NET 4.6.1 (Desktop / Server)
-* [.NET Standard 1.1](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
+* [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
 * Depedency injection friendly (can also be used standalone, see below)
@@ -23,8 +23,8 @@ All API requests must be accompanied by a developer key. You need to register th
 
 |       | Logo | Package |
 |-------|-------|----------|
-| P.E.K.K.A Clash Royale API (official) | ![logo](https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png)     | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)     |
-| P.E.K.K.A Royale API (unofficial) | ![logo](https://www.codefiction.tech/assets/pekka-royale-api-logo.png)      | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)    |
+| P.E.K.K.A Clash Royale API (official) | <img src="https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo">    | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)     |
+| P.E.K.K.A Royale API (unofficial) | <img src="https://www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)    |
 
 
 Following commands can be use too install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
@@ -101,6 +101,16 @@ var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
 var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
 var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 ```
+
+## Synchronous Wrappers
+
+For synchronous calls Task extension method `RunSync` can be used. 
+
+```csharp
+var player = playerClient.GetPlayerResponseAsync(playerTag).RunSync(); ;
+```
+
+But there is a possibility that this extension method can't cover all cases. See Stackoverflow [article](https://stackoverflow.com/a/25097498/1577827)
 
 ## License
 Licensed under Apache 2.0, see [LICENSE](LICENSE) for the full text.
