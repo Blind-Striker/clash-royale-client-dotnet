@@ -20,6 +20,11 @@ namespace Pekka.RoyaleApi.Client
         public const string ClanWarLog = "warlog";
         public const string ClanWar = "war";
         public const string ClanTracking = "tracking";
+        public const string ClanHistoryDaily = "history";
+        public const string ClanHistoryWeekly = "history/weekly";
+        public const string TopClansUrl = "top/clans";
+        public const string PopularClansUrl = "popular/clans";
+        public const string TopWarClanWarsUrl = "top/clans";
 
         private static readonly string PlayerTemplate = $"{PlayerUrl}/{{0}}";
         private static readonly string BattlesTemplate = $"{PlayerUrl}/{{0}}/{BattlesUrl}";
@@ -31,6 +36,10 @@ namespace Pekka.RoyaleApi.Client
         private static readonly string ClanWarLogTemplate = $"{ClanUrl}/{{0}}/{ClanWarLog}";
         private static readonly string ClanWarTemplate = $"{ClanUrl}/{{0}}/{ClanWar}";
         private static readonly string ClanTrackingTemplate = $"{ClanUrl}/{{0}}/{ClanTracking}";
+        private static readonly string ClanHistoryDailyTemplate = $"{ClanUrl}/{{0}}/{ClanHistoryDaily}";
+        private static readonly string ClanHistoryWeeklyTemplate = $"{ClanUrl}/{{0}}/{ClanHistoryWeekly}";
+        private static readonly string TopClansTemplate = $"{TopClansUrl}/{{0}}";
+        private static readonly string TopWarClanWarsTemplate = $"{TopWarClanWarsUrl}/{{0}}";
 
         public static string GetPlayerUrl(params string[] playerTags)
         {
@@ -75,6 +84,26 @@ namespace Pekka.RoyaleApi.Client
         public static string GetClanTrackingUrl(string clanTag)
         {
             return string.Format(ClanTrackingTemplate, clanTag);
+        }
+
+        public static string GetClanHistoryDailyUrl(string clanTag)
+        {
+            return string.Format(ClanHistoryDailyTemplate, clanTag);
+        }
+
+        public static string GetClanHistoryWeeklyUrl(string clanTag)
+        {
+            return string.Format(ClanHistoryWeeklyTemplate, clanTag);
+        }
+
+        public static string GetTopClansUrl(Locations location)
+        {
+            return string.Format(TopClansTemplate, location.ToString());
+        }
+
+        public static string GetTopWarClanWarsUrl(Locations location)
+        {
+            return string.Format(TopWarClanWarsTemplate, location.ToString());
         }
     }
 }
