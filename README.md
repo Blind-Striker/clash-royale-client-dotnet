@@ -17,7 +17,7 @@ All API requests must be accompanied by a developer key. You need to register th
 
 |       | Linux | Windows |
 |-------|-------|----------|
-| Build | [![Build Status](https://travis-ci-job-status.herokuapp.com/badge/Blind-Striker/clash-royale-client-dotnet/master/linux)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)      | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)     |
+| Build | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)   | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)     |
 
 ## Installation
 
