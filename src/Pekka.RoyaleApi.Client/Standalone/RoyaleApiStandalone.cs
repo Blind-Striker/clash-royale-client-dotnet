@@ -19,14 +19,17 @@ namespace Pekka.RoyaleApi.Client.Standalone
         public IPlayerClient PlayerClient { get; }
         public IClanClient ClanClient { get; }
 
-        public static IRoyaleApiClientContext Create(string baseUrl, string authToken)
+        public static IRoyaleApiClientContext Create(string baseUrl, string authToken, HttpClient httpClient = null)
         {   
-            return Create(new ApiOptions(authToken, baseUrl));
+            return Create(new ApiOptions(authToken, baseUrl), httpClient);
         }
 
-        public static IRoyaleApiClientContext Create(ApiOptions apiOptions)
+        public static IRoyaleApiClientContext Create(ApiOptions apiOptions, HttpClient httpClient = null)
         {
-            HttpClient httpClient = new HttpClient();
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             IRestApiClient restApiClient = new Core.RestApiClient(httpClient, apiOptions);
             IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(new VersionClient(restApiClient), new PlayerClient(restApiClient), new ClanClient(restApiClient));

@@ -1,14 +1,17 @@
-# Clash Royale .NET Client Library
+# P.E.K.K.A - Clash Royale API (official) and Royale API (unofficial) Client Library Client for .NET
 
-.NET client library for accessing unofficial [Clash Royale API](https://royaleapi.com/)
+P.E.K.K.A is a client library targeting .NET Standard 2.0 and .NET 4.6.1 that provides an easy way to interact with both official [Clash Royale API](https://developer.clashroyale.com) and unofficial public API [Royale API](https://royaleapi.com/)
 
-Built using .NET Standard 2. Supports .NET Framework , .NET Core 2.0 runtimes, .NET Core 2.1 runtimes.
+All API requests must be accompanied by a developer key. You need to register then create a key for Clash Royale API (official) on [Clash Royale API Website](https://developer.clashroyale.com). You can learn how to obtain and manage your developer key for Royale API (unofficial) on [Royale API Website](https://docs.royaleapi.com/#/authentication?id=key-management).
 
-All API requests must be accompanied by a developer key. You can learn how to obtain and manage your developer key on [Royale Api Website](https://docs.royaleapi.com/#/authentication?id=key-management).
+## Supported Platforms
+
+* .NET 4.6.1 (Desktop / Server)
+* [.NET Standard 1.1](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
-- Depedency injection friendly (can also be used standalone, see below)
-- Supports async
+* Depedency injection friendly (can also be used standalone, see below)
+* Supports async and sync (via extension method, see below) calls.
 
 ## Builds status
 
@@ -18,33 +21,51 @@ All API requests must be accompanied by a developer key. You can learn how to ob
 
 ## Installation
 
-[![NuGet](https://img.shields.io/nuget/v/RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)
+|       | Logo | Package |
+|-------|-------|----------|
+| P.E.K.K.A Clash Royale API (official) | ![logo](https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png)     | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)     |
+| P.E.K.K.A Royale API (unofficial) | ![logo](https://www.codefiction.tech/assets/pekka-royale-api-logo.png)      | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)    |
 
-To install RoyaleApi.Client, run the following command in the Package Manager Console
+
+Following commands can be use too install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
 
 ```
-Install-Package RoyaleApi.Client
+Install-Package Pekka.ClashRoyaleApi.Client
+Install-Package Pekka.RoyaleApi.Client
 ```
 
 Or use `dotnet cli`
 
 ```
-dotnet add package RoyaleApi.Client
+dotnet Pekka.ClashRoyaleApi.Client
+dotnet Pekka.RoyaleApi.Client
 ```
-
 # Usage
 
-It can be used with any DI library, or it can be used standalone.
+The usage of both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client libraries is similar. And both can be used with any DI library, or it can be used standalone.
 
 ## Standalone Initialization
 
-If you do not want to use any DI framework, you have to instantiate RoyaleApiStandalone as follows.
+If you do not want to use any DI framework, you have to instantiate `ClashRoyaleApiStandalone` or `RoyaleApiStandalone` as follows.
 
+### RoyaleApiStandalone
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 var apiClientContext = RoyaleApiStandalone.Create(apiOptions);
 IPlayerClient playerClient = apiClientContext.PlayerClient;
 IClanClient clanClient = apiClientContext.ClanClient;
+IVersionClient clanClient = apiClientContext.VersionClient;
+```
+
+### ClashRoyaleApiStandalone
+```csharp
+ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+var apiClientContext = ClashRoyaleApiStandalone.Create(apiOptions);
+IPlayerClient playerClient = apiClientContext.PlayerClient;
+IClanClient clanClient = apiClientContext.ClanClient;
+ITournamentClient tournamentClient = apiClientContext.TournamentClient;
+ICardClient cardClient = apiClientContext.CardClient;
+ILocationClient locationClient = apiClientContext.LocationClient;
 ```
 
 `apiClientContext` contains all necessary clients.

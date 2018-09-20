@@ -3,14 +3,16 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
 
-    <Title>Clash Royale .NET Client Library</Title>
+    <Title>P.E.K.K.A Royale API .NET Client Library</Title>
     <Authors>Deniz İrgin</Authors>
-    <Description>.NET and .NET Core client library for Clash Royale public API</Description>
+    <Description>
+      P.E.K.K.A is a client library targeting .NET Standard 2.0 and .NET 4.6.1 that provides an easy way to interact with the unofficial public API for Clash Royale (https://royaleapi.com/)
+    </Description>
     <PackageProjectUrl>https://github.com/Blind-Striker/clash-royale-client-dotnet</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Blind-Striker/clash-royale-client-dotnet/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>http://royaleapi.com/static/img/branding/cr-api-logo.png</PackageIconUrl>
-    <PackageTags>clashroyale, clash-royale-api, clash-royale, client-library, dotnet-core, dotnet</PackageTags>
-    <Version>0.7.1</Version>
+    <PackageIconUrl>https://www.codefiction.tech/assets/pekka-royale-api-logo.png</PackageIconUrl>
+    <PackageTags>clashroyale, clash-royale-api, clash-royale, client-library, dotnet-core, dotnet, unofficial</PackageTags>
+    <Version>0.8.1</Version>
     
     <AssemblyName>Pekka.RoyaleApi.Client</AssemblyName>
     <RootNamespace>Pekka.RoyaleApi.Client</RootNamespace>
