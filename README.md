@@ -13,11 +13,26 @@ All API requests must be accompanied by a developer key. You need to register th
 * Dependency injection friendly (can also be used standalone, see below)
 * Supports async and sync (via extension method, see below) calls.
 
-## Builds status
+## Continuous integration
 
-|       | Linux | Windows |
-|-------|-------|----------|
-| Build | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)   | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)     |
+| Build server                | Platform      | Build status                                                                                                                                                        | Integration tests                                                                                                                                                   |
+|-----------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Azure Pipelines             | Windows       | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20Windows)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=1) | |
+| Azure Pipelines             | Ubuntu        | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20Ubuntu16)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=3) | |
+| Azure Pipelines             | MacOS         | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20MacOs)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=2) | |
+| AppVeyor                    | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)            | |
+| Travis                      | Linux / MacOS | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)  | |
+
+## Table of Contents
+
+1. [Installation](https://github.com/Blind-Striker/clash-royale-client-dotnet#installation)
+2. [Usage](https://github.com/Blind-Striker/clash-royale-client-dotnet#usage)
+    - [Standalone Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#standalone-initialization)
+      - [RoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapistandalone)
+      - [ClashRoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#clashroyaleapistandalone)
+3. [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#microsoftextensionsdependencyinjection-initialization)
+4. [Synchronous Wrapper](https://github.com/Blind-Striker/clash-royale-client-dotnet#synchronous-wrapper)
+5. [License](https://github.com/Blind-Striker/clash-royale-client-dotnet#license)
 
 ## Installation
 
@@ -40,15 +55,15 @@ Or use `dotnet cli`
 dotnet Pekka.ClashRoyaleApi.Client
 dotnet Pekka.RoyaleApi.Client
 ```
-# Usage
+## Usage
 
 The usage of both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client libraries are similar. And both can be used with any DI library, or it can be used standalone.
 
-## Standalone Initialization
+### Standalone Initialization
 
 If you do not want to use any DI framework, you have to instantiate `ClashRoyaleApiStandalone` or `RoyaleApiStandalone` as follows.
 
-### RoyaleApiStandalone
+#### RoyaleApiStandalone
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 var apiClientContext = RoyaleApiStandalone.Create(apiOptions);
@@ -57,7 +72,7 @@ IClanClient clanClient = apiClientContext.ClanClient;
 IVersionClient clanClient = apiClientContext.VersionClient;
 ```
 
-### ClashRoyaleApiStandalone
+#### ClashRoyaleApiStandalone
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
 var apiClientContext = ClashRoyaleApiStandalone.Create(apiOptions);
@@ -70,7 +85,7 @@ ILocationClient locationClient = apiClientContext.LocationClient;
 
 `apiClientContext` contains all necessary clients.
 
-## Microsoft.Extensions.DependencyInjection Initialization
+### Microsoft.Extensions.DependencyInjection Initialization
 
 First, you need to install `Microsoft.Extensions.DependencyInjection` and `Microsoft.Extensions.Http` NuGet package as follows
 
@@ -102,7 +117,7 @@ var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
 var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 ```
 
-## Synchronous Wrappers
+## Synchronous Wrapper
 
 For synchronous calls, Task extension method `RunSync` can be used. 
 
