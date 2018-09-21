@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Pekka.ClashRoyaleApi.Client.Clients;
-using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.FilterModels;
+using Pekka.ClashRoyaleApi.Client.Standalone;
 using Pekka.Core;
-using Pekka.Core.Contracts;
 
 namespace Pekka.ClashRoyaliApi.Sandbox
 {
@@ -17,22 +14,26 @@ namespace Pekka.ClashRoyaliApi.Sandbox
 
             ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
 
-            var services = new ServiceCollection();
-            services.AddSingleton(apiOptions);
-            services.AddHttpClient<IRestApiClient, RestApiClient>();
-            services.AddTransient<IPlayerClient, PlayerClient>();
-            services.AddTransient<IClanClient, ClanClient>();
-            services.AddTransient<ITournamentClient, TournamentClient>();
-            services.AddTransient<ICardClient, CardClient>();
-            services.AddTransient<ILocationClient, LocationClient>();
+            //var services = new ServiceCollection();
+            //services.AddSingleton(apiOptions);
+            //services.AddHttpClient<IRestApiClient, RestApiClient>();
+            //services.AddTransient<IPlayerClient, PlayerClient>();
+            //services.AddTransient<IClanClient, ClanClient>();
+            //services.AddTransient<ITournamentClient, TournamentClient>();
+            //services.AddTransient<ICardClient, CardClient>();
+            //services.AddTransient<ILocationClient, LocationClient>();
 
-            var buildServiceProvider = services.BuildServiceProvider();
+            //var buildServiceProvider = services.BuildServiceProvider();
 
-            var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
-            var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
-            var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
-            var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
-            var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+            //var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+            //var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+            //var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
+            //var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
+            //var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+
+            var clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions);
+
+            var locationClient = clashRoyaleApiStandalone.LocationClient;
 
             // ApiResponse<PlayerDetail> apiResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
 

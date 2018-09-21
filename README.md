@@ -1,57 +1,78 @@
-# Clash Royale .NET Client Library
+# P.E.K.K.A - Clash Royale API (official) and Royale API (unofficial) Client Library for .NET
 
-.NET client library for accessing unofficial [Clash Royale API](https://royaleapi.com/)
+P.E.K.K.A is a client library (C# wrapper) targeting .NET Standard 2.0 and .NET 4.6.1 that provides an easy way to interact with both official [Clash Royale API](https://developer.clashroyale.com) and unofficial public API [Royale API](https://royaleapi.com/)
 
-Built using .NET Standard 2. Supports .NET Framework , .NET Core 2.0 runtimes, .NET Core 2.1 runtimes.
+All API requests must be accompanied by a developer key. You need to register then create a key for Clash Royale API (official) on [Clash Royale API Website](https://developer.clashroyale.com). You can learn how to obtain and manage your developer key for Royale API (unofficial) on [Royale API Website](https://docs.royaleapi.com/#/authentication?id=key-management).
 
-All API requests must be accompanied by a developer key. You can learn how to obtain and manage your developer key on [Royale Api Website](https://docs.royaleapi.com/#/authentication?id=key-management).
+## Supported Platforms
+
+* .NET 4.6.1 (Desktop / Server)
+* [.NET Standard 2.0](https://docs.microsoft.com/en-us/dotnet/standard/net-standard)
 
 ## Features
-- Depedency injection friendly (can also be used standalone, see below)
-- Supports async
+* Dependency injection friendly (can also be used standalone, see below)
+* Supports async and sync (via extension method, see below) calls.
 
 ## Builds status
 
 |       | Linux | Windows |
 |-------|-------|----------|
-| Build | [![Build Status](https://travis-ci-job-status.herokuapp.com/badge/Blind-Striker/clash-royale-client-dotnet/master/linux)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)      | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)     |
+| Build | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)   | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)     |
 
 ## Installation
 
-[![NuGet](https://img.shields.io/nuget/v/RoyaleApi.Client.svg)](https://www.nuget.org/packages/RoyaleApi.Client)
+|       | Logo | Package |
+|-------|-------|----------|
+| P.E.K.K.A Clash Royale API (official) | <img src="https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo">    | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client)     |
+| P.E.K.K.A Royale API (unofficial) | <img src="https://www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client)    |
 
-To install RoyaleApi.Client, run the following command in the Package Manager Console
+
+Following commands can be used to install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
 
 ```
-Install-Package RoyaleApi.Client
+Install-Package Pekka.ClashRoyaleApi.Client
+Install-Package Pekka.RoyaleApi.Client
 ```
 
 Or use `dotnet cli`
 
 ```
-dotnet add package RoyaleApi.Client
+dotnet Pekka.ClashRoyaleApi.Client
+dotnet Pekka.RoyaleApi.Client
 ```
-
 # Usage
 
-It can be used with any DI library, or it can be used standalone.
+The usage of both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client libraries are similar. And both can be used with any DI library, or it can be used standalone.
 
 ## Standalone Initialization
 
-If you do not want to use any DI framework, you have to instantiate RoyaleApiStandalone as follows.
+If you do not want to use any DI framework, you have to instantiate `ClashRoyaleApiStandalone` or `RoyaleApiStandalone` as follows.
 
+### RoyaleApiStandalone
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 var apiClientContext = RoyaleApiStandalone.Create(apiOptions);
 IPlayerClient playerClient = apiClientContext.PlayerClient;
 IClanClient clanClient = apiClientContext.ClanClient;
+IVersionClient clanClient = apiClientContext.VersionClient;
+```
+
+### ClashRoyaleApiStandalone
+```csharp
+ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+var apiClientContext = ClashRoyaleApiStandalone.Create(apiOptions);
+IPlayerClient playerClient = apiClientContext.PlayerClient;
+IClanClient clanClient = apiClientContext.ClanClient;
+ITournamentClient tournamentClient = apiClientContext.TournamentClient;
+ICardClient cardClient = apiClientContext.CardClient;
+ILocationClient locationClient = apiClientContext.LocationClient;
 ```
 
 `apiClientContext` contains all necessary clients.
 
 ## Microsoft.Extensions.DependencyInjection Initialization
 
-First you need to install `Microsoft.Extensions.DependencyInjection` and `Microsoft.Extensions.Http` nuget package as follows
+First, you need to install `Microsoft.Extensions.DependencyInjection` and `Microsoft.Extensions.Http` NuGet package as follows
 
 ```
 dotnet add package Microsoft.Extensions.DependencyInjection
@@ -62,7 +83,7 @@ By installing `Microsoft.Extensions.Http` you will be able to use [`HttpClientFa
 
 If you don't want to use `HttpClientFactory`, you must register `HttpClient` yourself with the container.
 
-Register necessary depedencies to `ServiceCollection` as follows
+Register necessary dependencies to `ServiceCollection` as follows
 
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
@@ -81,5 +102,15 @@ var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
 var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 ```
 
+## Synchronous Wrappers
+
+For synchronous calls, Task extension method `RunSync` can be used. 
+
+```csharp
+var player = playerClient.GetPlayerResponseAsync(playerTag).RunSync(); ;
+```
+
+But there is a possibility that this extension method can't cover all cases. See Stackoverflow [article](https://stackoverflow.com/a/25097498/1577827)
+
 ## License
-Licensed under Apache 2.0, see [LICENSE](LICENSE) for the full text.
+Licensed under MIT, see [LICENSE](LICENSE) for the full text.
