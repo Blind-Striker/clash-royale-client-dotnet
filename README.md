@@ -30,7 +30,7 @@ All API requests must be accompanied by a developer key. You need to register th
     - [Standalone Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#standalone-initialization)
       - [RoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapistandalone)
       - [ClashRoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#clashroyaleapistandalone)
-3. [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#microsoftextensionsdependencyinjection-initialization)
+    - [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#microsoftextensionsdependencyinjection-initialization)
 4. [Synchronous Wrapper](https://github.com/Blind-Striker/clash-royale-client-dotnet#synchronous-wrapper)
 5. [License](https://github.com/Blind-Striker/clash-royale-client-dotnet#license)
 
@@ -38,8 +38,8 @@ All API requests must be accompanied by a developer key. You need to register th
 
 |       | Logo | Package |
 |-------|-------|----------|
-| P.E.K.K.A Clash Royale API (official) | <img src="https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo">    | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client)     |
-| P.E.K.K.A Royale API (unofficial) | <img src="https://www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client)    |
+| P.E.K.K.A Clash Royale API (official) | <img src="https://www.codefiction.tech/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo">    | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client)     |
+| P.E.K.K.A Royale API (unofficial) | <img src="https://www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client)    |
 
 
 Following commands can be used to install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
