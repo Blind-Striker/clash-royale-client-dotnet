@@ -8,7 +8,8 @@ var configuration = "Release";
 var fullFrameworkTarget = "net461";
 var netCoreTarget = "netcoreapp2.0";
 
-var nugetOutput = "./artifacts/";
+var royaleNugetOutput = "./artifacts/Pekka.RoyaleApi.Client";
+var clashRoyaleNugetOutput = "./artifacts/Pekka.ClashRoyaleApi.Client";
 
 string royaleApiPath = "src/Pekka.RoyaleApi.Client";
 string clashRoyaleApiPath = "src/Pekka.ClashRoyaleApi.Client";
@@ -59,10 +60,12 @@ Task("Nuget-Pack")
     {
         var settings = new DotNetCorePackSettings();
         settings.Configuration = configuration;
-        settings.OutputDirectory = nugetOutput;
-        settings.WorkingDirectory = royaleApiPath;
 
+        settings.OutputDirectory = royaleNugetOutput;
+        settings.WorkingDirectory = royaleApiPath;
         DotNetCorePack(royaleApiProj, settings);
+
+        settings.OutputDirectory = clashRoyaleNugetOutput;
         settings.WorkingDirectory = clashRoyaleApiPath;
         DotNetCorePack(clashRoyaleApiProj, settings);
     });
