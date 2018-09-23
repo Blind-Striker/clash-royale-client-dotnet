@@ -31,8 +31,9 @@ All API requests must be accompanied by a developer key. You need to register th
       - [RoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapistandalone)
       - [ClashRoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#clashroyaleapistandalone)
     - [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#microsoftextensionsdependencyinjection-initialization)
-4. [Synchronous Wrapper](https://github.com/Blind-Striker/clash-royale-client-dotnet#synchronous-wrapper)
-5. [License](https://github.com/Blind-Striker/clash-royale-client-dotnet#license)
+    - [Call Endpoints](https://github.com/Blind-Striker/clash-royale-client-dotnet#call-endpoints)
+    - [Synchronous Wrapper](https://github.com/Blind-Striker/clash-royale-client-dotnet#synchronous-wrapper)
+3. [License](https://github.com/Blind-Striker/clash-royale-client-dotnet#license)
 
 ## Installation
 
@@ -117,12 +118,37 @@ var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
 var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
 ```
 
-## Synchronous Wrapper
+### Call Endpoints
+
+There are two ways to call an endpoint. The only difference is the return types. The methods that end with ResponseAsync returns `ApiResponse<TModel>` which contains model itself, HTTP status codes, error message and response headers.
+
+```csharp
+ApiResponse<Player> playerResponse = await playerClient.GetPlayerResponseAsync(playerTag);
+
+if(playerResponse.Error)
+{
+HttpStatusCode statusCode = playerResponse.HttpStatusCode;
+string errorMessage = playerResponse.Message;
+IDictionary<string, string> headers = playerResponse.Headers;
+string urlPath = playerResponse.UrlPath;
+  // Handle http error
+}
+
+Player player = playerResponse.Model;
+```
+
+The methods that end with Async returns model itself without additional HTTP response information. But in the case of HTTP error, you need to handle exceptions.
+
+```csharp
+Player player = await playerClient.GetPlayerAsync(playerTag);
+```
+
+### Synchronous Wrapper
 
 For synchronous calls, Task extension method `RunSync` can be used. 
 
 ```csharp
-var player = playerClient.GetPlayerResponseAsync(playerTag).RunSync(); ;
+var player = playerClient.GetPlayerResponseAsync(playerTag).RunSync();
 ```
 
 But there is a possibility that this extension method can't cover all cases. See Stackoverflow [article](https://stackoverflow.com/a/25097498/1577827)

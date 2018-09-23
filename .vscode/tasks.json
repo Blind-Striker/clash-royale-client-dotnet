@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Tests/Pekka.ClashRoyaliApi.Sandbox/Pekka.ClashRoyaliApi.Sandbox.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

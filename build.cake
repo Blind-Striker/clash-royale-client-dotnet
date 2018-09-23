@@ -8,8 +8,15 @@ var configuration = "Release";
 var fullFrameworkTarget = "net461";
 var netCoreTarget = "netcoreapp2.0";
 
+var nugetOutput = "./artifacts/";
+
+string royaleApiPath = "src/Pekka.RoyaleApi.Client";
+string clashRoyaleApiPath = "src/Pekka.ClashRoyaleApi.Client";
+string royaleApiProj = $"Pekka.RoyaleApi.Client.csproj";
+string clashRoyaleApiProj = $"Pekka.ClashRoyaleApi.Client.csproj";
+
 Task("Default")
-    .IsDependentOn("Compile");
+    .IsDependentOn("Test");
 
 Task("Compile")
     .Description("Builds all the projects in the solution")
@@ -46,11 +53,18 @@ Task("Test")
 
     });
 
-Task("Nuget")
+Task("Nuget-Pack")
     .Description("Publish to nuget")
     .Does(() =>
     {
+        var settings = new DotNetCorePackSettings();
+        settings.Configuration = configuration;
+        settings.OutputDirectory = nugetOutput;
+        settings.WorkingDirectory = royaleApiPath;
 
+        DotNetCorePack(royaleApiProj, settings);
+        settings.WorkingDirectory = clashRoyaleApiPath;
+        DotNetCorePack(clashRoyaleApiProj, settings);
     });
 
 RunTarget(target);
