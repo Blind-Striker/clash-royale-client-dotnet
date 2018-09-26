@@ -26,6 +26,16 @@ namespace Pekka.RoyaleApi.Client
         public const string PopularClansUrl = "popular/clans";
         public const string TopWarClanWarsUrl = "top/clans";
 
+        public const string TournamentUrl = "tournament";
+        public const string KnownTournamentUrl = "tournaments/known";
+        public const string OpenTournamentUrl = "tournaments/open";
+        public const string OneKTournamentUrl = "tournaments/1k";
+        public const string InPrepTournamentUrl = "tournaments/inprep";
+        public const string FullTournamentUrl = "tournaments/full";
+        public const string JoinableTournamentUrl = "tournaments/joinable";
+        public const string TournamentSearchUrl = "tournaments/search";
+        public const string PopularTournamentUrl = "popular/tournaments";
+
         private static readonly string PlayerTemplate = $"{PlayerUrl}/{{0}}";
         private static readonly string BattlesTemplate = $"{PlayerUrl}/{{0}}/{BattlesUrl}";
         private static readonly string ChestsTemplate = $"{PlayerUrl}/{{0}}/{ChestsUrl}";
@@ -40,6 +50,8 @@ namespace Pekka.RoyaleApi.Client
         private static readonly string ClanHistoryWeeklyTemplate = $"{ClanUrl}/{{0}}/{ClanHistoryWeekly}";
         private static readonly string TopClansTemplate = $"{TopClansUrl}/{{0}}";
         private static readonly string TopWarClanWarsTemplate = $"{TopWarClanWarsUrl}/{{0}}";
+
+        private static readonly string TournamentTemplate = $"{TournamentUrl}/{{0}}";
 
         public static string GetPlayerUrl(params string[] playerTags)
         {
@@ -104,6 +116,11 @@ namespace Pekka.RoyaleApi.Client
         public static string GetTopWarClanWarsUrl(Locations location)
         {
             return string.Format(TopWarClanWarsTemplate, location.ToString());
+        }
+
+        public static string GetTournamentUrl(params string[] tournamentTags)
+        {
+            return string.Format(TournamentTemplate, tournamentTags.JoinToString(","));
         }
     }
 }

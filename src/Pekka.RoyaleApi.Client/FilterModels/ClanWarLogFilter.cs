@@ -2,7 +2,7 @@
 
 namespace Pekka.RoyaleApi.Client.FilterModels
 {
-    public class ClanFilter : BaseFilter<Clan>
+    public class ClanWarLogFilter : BaseFilter<ClanWarLog>
     {
     }
 }

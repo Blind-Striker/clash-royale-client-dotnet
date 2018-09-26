@@ -6,6 +6,7 @@ using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
+using Pekka.RoyaleApi.Client.Models.ClanModels;
 
 namespace Pekka.RoyaleApi.Sandbox
 {
@@ -65,12 +66,12 @@ namespace Pekka.RoyaleApi.Sandbox
 
             var apiResponse = await clanClient.GetClanHistoryDailyResponseAsync("2U2GGQJ");
             var clanHistories = await clanClient.GetClanHistoryWeeklyResponseAsync("2U2GGQJ");
-            var topClans = await clanClient.GetTopClansResponseAsync(Locations._INT, new Pagination(){Max = 10});
-            var response = await clanClient.GetPopularPlayersResponseAsync(new Pagination() { Max = 10 });
-            await clanClient.GetGetTopWarClanWarsResponseAsync(Locations._INT, new Pagination() { Max = 10 });
+            var topClans = await clanClient.GetTopClansResponseAsync(Locations._INT, new BaseFilter<ClanSummary>(){Max = 10});
+            var response = await clanClient.GetPopularPlayersResponseAsync(new BaseFilter<Clan>(){Max = 10});
+            await clanClient.GetTopWarClanWarsResponseAsync(Locations._INT, new BaseFilter<ClanSummary>(){Max = 10});
 
 
-            var clanSummaries = await clanClient.SearchClanAsync(new ClanFilter() { Name = "eyyam", LocationId = (int)Locations._INT, MinMembers = 0, MaxMembers = 50 });
+            var clanSummaries = await clanClient.SearchClanAsync(new ClanSummaryFilter() { Name = "eyyam", LocationId = (int)Locations._INT, MinMembers = 0, MaxMembers = 50 });
 
             var clans = await clanClient.GetClansResponseAsync(clanList);
 
