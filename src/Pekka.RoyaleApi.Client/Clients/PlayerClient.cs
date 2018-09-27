@@ -20,11 +20,11 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag)
+        public async Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag), playerFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -56,11 +56,11 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag)
+        public async Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag), playerChestFilter.ToQueryParams());
 
             return apiResponse;
         }
@@ -88,7 +88,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<Player> GetPlayerAsync(string playerTag)
+        public async Task<Player> GetPlayerAsync(string playerTag, PlayerFilter playerFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
@@ -124,11 +124,11 @@ namespace Pekka.RoyaleApi.Client.Clients
             return response.GetModel();
         }
 
-        public async Task<PlayerChest> GetChestAsync(string playerTag)
+        public async Task<PlayerChest> GetChestAsync(string playerTag, PlayerChestFilter playerChestFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var response = await GetChestResponseAsync(playerTag);
+            var response = await GetChestResponseAsync(playerTag, playerChestFilter);
 
             return response.GetModel();
         }

@@ -25,7 +25,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
         Task<ApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryDailyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
         Task<ApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryWeeklyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
         Task<ApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
-        Task<ApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(BaseFilter<Clan> baseFilter = null);
+        Task<ApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null);
         Task<ApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
     }
 
@@ -39,9 +39,9 @@ namespace Pekka.RoyaleApi.Client.Contracts
         Task<ClanWar> GetWarAsync(string clanTag, ClanWarFilter clanWarFilter = null);
         Task<ClanTracking> GetTrackingAsync(string clanTag, ClanTrackingFilter clanTrackingFilter = null);
         Task<Dictionary<string, ClanHistory>> GetClanHistoryDailyAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
-        Task<Dictionary<string, ClanHistory>> GetClanHistoryWeeklAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
+        Task<Dictionary<string, ClanHistory>> GetClanHistoryWeeklyAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
         Task<List<ClanSummary>> GetTopClanAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
         Task<List<ClanSummary>> GetTopWarClanWarsAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
-        Task<List<Clan>> GetPopularClanAsync(BaseFilter<Clan> baseFilter = null);
+        Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null);
     }
 }

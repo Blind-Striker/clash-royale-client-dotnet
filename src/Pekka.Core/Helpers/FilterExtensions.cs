@@ -32,9 +32,9 @@ namespace Pekka.Core.Helpers
                 }
 
                 var customAttribute = propertyInfo.GetCustomAttribute<QueryAttribute>();
-                var queryStringkey = customAttribute.QueryStringkey;
+                var queryStringKey = customAttribute.QueryStringKey;
 
-                queryParams.Add(new KeyValuePair<string, string>(queryStringkey, value.ToString()));
+                queryParams.Add(new KeyValuePair<string, string>(queryStringKey, value.ToString()));
             }
 
             return queryParams;

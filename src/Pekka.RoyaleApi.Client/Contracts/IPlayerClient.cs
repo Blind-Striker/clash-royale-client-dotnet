@@ -15,11 +15,11 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IPlayerClientWithApiResponse
     {
-        Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag);
+        Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null);
         Task<ApiResponse<List<Player>>> GetPlayersResponseAsync(string[] playerTags, PlayerFilter playerFilter = null);
         Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null);
         Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null);
-        Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag);
+        Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null);
         Task<ApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null);
         Task<ApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null);
         Task<ApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null);
@@ -27,11 +27,11 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IPlayerClientWithModel
     {
-        Task<Player> GetPlayerAsync(string playerTag);
+        Task<Player> GetPlayerAsync(string playerTag, PlayerFilter playerFilter = null);
         Task<List<Player>> GetPlayersAsync(string[] playerTags, PlayerFilter playerFilter = null);
         Task<List<Battle>> GetBattlesAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null);
         Task<List<Battle>> GetBattlesAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null);
-        Task<PlayerChest> GetChestAsync(string playerTag);
+        Task<PlayerChest> GetChestAsync(string playerTag, PlayerChestFilter playerChestFilter = null);
         Task<List<PlayerChest>> GetChestsAsync(string[] playerTags, PlayerChestFilter playerChestFilter);
         Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null);
         Task<List<Player>> GetPopularPlayersAsync(PlayerFilter playerFilter = null);

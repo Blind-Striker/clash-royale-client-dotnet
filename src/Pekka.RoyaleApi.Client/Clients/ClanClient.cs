@@ -108,9 +108,9 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(BaseFilter<Clan> baseFilter = null)
+        public async Task<ApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.PopularClansUrl, baseFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.PopularClansUrl, clanFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -190,7 +190,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.GetModel();
         }
 
-        public async Task<Dictionary<string, ClanHistory>> GetClanHistoryWeeklAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null)
+        public async Task<Dictionary<string, ClanHistory>> GetClanHistoryWeeklyAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null)
         {
             var apiResponse = await GetClanHistoryWeeklyResponseAsync(clanTag, clanHistoryFilter);
 
@@ -211,9 +211,9 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.GetModel();
         }
 
-        public async Task<List<Clan>> GetPopularClanAsync(BaseFilter<Clan> baseFilter = null)
+        public async Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null)
         {
-            var apiResponse = await GetPopularPlayersResponseAsync(baseFilter);
+            var apiResponse = await GetPopularPlayersResponseAsync(clanFilter);
 
             return apiResponse.GetModel();
         }

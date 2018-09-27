@@ -4,11 +4,11 @@ namespace Pekka.Core
 {
     public class QueryAttribute : Attribute
     {
-        public QueryAttribute(string queryStringkey)
+        public QueryAttribute(string queryStringKey)
         {
-            QueryStringkey = queryStringkey;
+            QueryStringKey = queryStringKey;
         }
 
-        public string QueryStringkey { get; }
+        public string QueryStringKey { get; }
     }
 }

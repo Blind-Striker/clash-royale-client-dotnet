@@ -67,7 +67,7 @@ namespace Pekka.RoyaleApi.Sandbox
             var apiResponse = await clanClient.GetClanHistoryDailyResponseAsync("2U2GGQJ");
             var clanHistories = await clanClient.GetClanHistoryWeeklyResponseAsync("2U2GGQJ");
             var topClans = await clanClient.GetTopClansResponseAsync(Locations._INT, new ClanSummaryFilter(){Max = 10});
-            var response = await clanClient.GetPopularPlayersResponseAsync(new BaseFilter<Clan>(){Max = 10});
+            var response = await clanClient.GetPopularPlayersResponseAsync(new ClanFilter(){Max = 10});
             await clanClient.GetTopWarClanWarsResponseAsync(Locations._INT, new ClanSummaryFilter(){Max = 10});
 
 
