@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pekka.ClashRoyaleApi.Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pekka.RoyaleApi.Sandbox", "Tests\Pekka.RoyaleApi.Sandbox\Pekka.RoyaleApi.Sandbox.csproj", "{E2EF6A6A-EE00-4165-92D8-33DF30BF6D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pekka.ClashRoyaliApi.Sandbox", "Tests\Pekka.ClashRoyaliApi.Sandbox\Pekka.ClashRoyaliApi.Sandbox.csproj", "{B06FBC28-4929-445B-A771-3AEC24A8D4D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pekka.ClashRoyaliApi.Sandbox", "Tests\Pekka.ClashRoyaliApi.Sandbox\Pekka.ClashRoyaliApi.Sandbox.csproj", "{B06FBC28-4929-445B-A771-3AEC24A8D4D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pekka.Core.Tests", "Tests\Pekka.Core.Tests\Pekka.Core.Tests.csproj", "{B73A3E5D-16F6-4472-AAA5-2A5268F5870B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{B06FBC28-4929-445B-A771-3AEC24A8D4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B06FBC28-4929-445B-A771-3AEC24A8D4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B06FBC28-4929-445B-A771-3AEC24A8D4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B73A3E5D-16F6-4472-AAA5-2A5268F5870B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B73A3E5D-16F6-4472-AAA5-2A5268F5870B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B73A3E5D-16F6-4472-AAA5-2A5268F5870B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B73A3E5D-16F6-4472-AAA5-2A5268F5870B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E2EF6A6A-EE00-4165-92D8-33DF30BF6D07} = {51EC1534-8BA8-4655-B818-2982B5329FB9}
 		{B06FBC28-4929-445B-A771-3AEC24A8D4D3} = {51EC1534-8BA8-4655-B818-2982B5329FB9}
+		{B73A3E5D-16F6-4472-AAA5-2A5268F5870B} = {51EC1534-8BA8-4655-B818-2982B5329FB9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5B09C7A4-5B95-4F3B-9295-E1B7DB94DB67}

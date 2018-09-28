@@ -25,11 +25,11 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Tournament>>> GetTournamentsResponseAsync(params string[] tournamentTags)
+        public async Task<ApiResponse<List<Tournament>>> GetTournamentsResponseAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(tournamentTags, nameof(tournamentTags));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.GetTournamentUrl(tournamentTags));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.GetTournamentUrl(tournamentTags), tournamentSearchFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -90,9 +90,9 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.GetModel();
         }
 
-        public async Task<List<Tournament>> GetTournamentsAsync(params string[] tournamentTags)
+        public async Task<List<Tournament>> GetTournamentsAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null)
         {
-            var apiResponse = await GetTournamentsResponseAsync(tournamentTags);
+            var apiResponse = await GetTournamentsResponseAsync(tournamentTags, tournamentSearchFilter);
 
             return apiResponse.GetModel();
         }

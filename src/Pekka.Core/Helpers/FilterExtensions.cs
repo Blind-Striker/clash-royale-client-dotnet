@@ -1,43 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using Pekka.Core.Builders;
+using Pekka.Core.Contracts;
 
 namespace Pekka.Core.Helpers
 {
     public static class FilterExtensions
     {
         public static IList<KeyValuePair<string, string>> ToQueryParams<TFilterModel>(this TFilterModel filter)
-            where TFilterModel : class, new()
+            where TFilterModel : class, IFilter, new()
         {
-            Ensure.ArgumentNotNull(filter, nameof(filter));
+            var expressionQueryStringBuilder = new ExpressionQueryStringBuilder();
+            var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
+            propertyQueryStringBuilder.SetSuccessor(expressionQueryStringBuilder);
 
-            var propertyInfos = filter.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(info => Attribute.IsDefined(info, typeof(QueryAttribute))).ToList();
 
-            if (!propertyInfos.Any())
-            {
-                return null;
-            }
+            var queryParameters = new List<KeyValuePair<string, string>>();
 
-            var queryParams = new List<KeyValuePair<string, string>>();
+            propertyQueryStringBuilder.ProcessRequest(queryParameters, filter);
 
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            {
-                object value = propertyInfo.GetValue(filter);
-                if (value == null)
-                {
-                    continue;
-                }
-
-                var customAttribute = propertyInfo.GetCustomAttribute<QueryAttribute>();
-                var queryStringKey = customAttribute.QueryStringKey;
-
-                queryParams.Add(new KeyValuePair<string, string>(queryStringKey, value.ToString()));
-            }
-
-            return queryParams;
+            return queryParameters;
         }
     }
 }

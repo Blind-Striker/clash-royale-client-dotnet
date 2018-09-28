@@ -3,7 +3,7 @@ using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.FilterModels
 {
-    public class TournamentFilter : IFilter
+    public class TournamentFilter : IApiFilter
     {
         [Query("name")]
         public string Name { get; set; }

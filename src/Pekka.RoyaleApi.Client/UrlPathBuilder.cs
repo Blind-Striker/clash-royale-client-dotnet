@@ -1,7 +1,5 @@
-﻿using System.Text;
-using Pekka.Core;
+﻿using Pekka.Core;
 using Pekka.Core.Helpers;
-using Pekka.RoyaleApi.Client.Models;
 
 namespace Pekka.RoyaleApi.Client
 {

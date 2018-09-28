@@ -49,7 +49,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetClanBattleUrl(clanTag), clanBattleFilter.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetClanBattleUrl(clanTag), clanBattleFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -85,8 +85,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Dictionary<string, ClanHistory>>(
-                UrlPathBuilder.GetClanHistoryDailyUrl(clanTag), clanHistoryFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Dictionary<string, ClanHistory>>(UrlPathBuilder.GetClanHistoryDailyUrl(clanTag), clanHistoryFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -95,8 +94,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Dictionary<string, ClanHistory>>(
-                UrlPathBuilder.GetClanHistoryWeeklyUrl(clanTag), clanHistoryFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Dictionary<string, ClanHistory>>(UrlPathBuilder.GetClanHistoryWeeklyUrl(clanTag), clanHistoryFilter?.ToQueryParams());
 
             return apiResponse;
         }

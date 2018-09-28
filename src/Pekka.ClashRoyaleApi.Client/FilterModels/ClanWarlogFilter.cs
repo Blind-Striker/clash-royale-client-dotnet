@@ -1,9 +1,9 @@
-﻿using Pekka.Core;
-using IFilter = Pekka.ClashRoyaleApi.Client.Contracts.IFilter;
+﻿using Pekka.ClashRoyaleApi.Client.Contracts;
+using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.FilterModels
 {
-    public class ClanWarlogFilter : IFilter
+    public class ClanWarlogFilter : IApiFilter
     {
         [Query("limit")]
         public int? Limit { get; set; }

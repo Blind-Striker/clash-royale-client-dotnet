@@ -3,7 +3,7 @@ using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.FilterModels
 {
-    public class LocationFilter : IFilter
+    public class LocationFilter : IApiFilter
     {
         [Query("limit")]
         public int? Limit { get; set; }

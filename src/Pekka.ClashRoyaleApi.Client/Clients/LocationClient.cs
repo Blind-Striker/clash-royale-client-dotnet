@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.FilterModels;
-using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
 using Pekka.ClashRoyaleApi.Client.Models.LocationModels;
 using Pekka.Core;
 using Pekka.Core.Contracts;

@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 {
     public class PlayerDetailCard

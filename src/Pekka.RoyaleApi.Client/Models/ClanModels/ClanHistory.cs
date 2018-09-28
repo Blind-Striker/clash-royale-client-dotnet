@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Pekka.RoyaleApi.Client.Models.ClanModels
+﻿namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class ClanHistory
     {

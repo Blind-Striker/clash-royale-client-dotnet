@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Pekka.Core;
+using Pekka.Core.Contracts;
 
 namespace Pekka.RoyaleApi.Client.FilterModels
 {
     public class BaseFilter<TModel> : IPaginationFilter
     {
-        public Expression<Func<TModel, object>> Keys { get; set; }
+        [ExpressionQuery("keys")]
+        public Expression<Func<TModel, object>>[] Keys { get; set; }
 
-        public Expression<Func<TModel, object>> Exclude { get; set; }
+        [ExpressionQuery("exclude")]
+        public Expression<Func<TModel, object>>[] Excludes { get; set; }
 
         [Query("max")]
         public int? Max { get; set; }
@@ -17,7 +20,7 @@ namespace Pekka.RoyaleApi.Client.FilterModels
         public int? Page { get; set; }
     }
 
-    public interface IPaginationFilter
+    public interface IPaginationFilter : IFilter
     {
         [Query("max")]
         int? Max { get; set; }

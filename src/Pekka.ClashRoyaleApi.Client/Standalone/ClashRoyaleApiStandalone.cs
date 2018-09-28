@@ -37,8 +37,10 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
 
             IRestApiClient restApiClient = new RestApiClient(httpClient, apiOptions);
             IClashRoyaleApiClientContext apiClientContext = new ClashRoyaleApiStandalone(
-                new PlayerClient(restApiClient), new ClanClient(restApiClient),
-                new LocationClient(restApiClient), new TournamentClient(restApiClient),
+                new PlayerClient(restApiClient), 
+                new ClanClient(restApiClient),
+                new LocationClient(restApiClient), 
+                new TournamentClient(restApiClient),
                 new CardClient(restApiClient));
 
             return apiClientContext;

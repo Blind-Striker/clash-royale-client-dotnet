@@ -13,6 +13,7 @@ namespace Pekka.Core.Exceptions
         }
 
         public string UrlPath { get; }
+
         public HttpStatusCode Code { get; }
     }
 }

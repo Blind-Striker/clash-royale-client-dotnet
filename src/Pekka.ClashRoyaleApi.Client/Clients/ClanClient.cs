@@ -18,22 +18,22 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<ClanSearchResult>> SearchClanResponseAsync(ClanFilter clanFilter)
+        public async Task<ApiResponse<ClanSearchResult>> SearchClanResponseAsync(ClanFilter clanApiFilter)
         {
-            Ensure.ArgumentNotNull(clanFilter, nameof(clanFilter));
-            Ensure.AtleastOneCriteriaMustBeDefined(clanFilter, nameof(clanFilter));
+            Ensure.ArgumentNotNull(clanApiFilter, nameof(clanApiFilter));
+            Ensure.AtleastOneCriteriaMustBeDefined(clanApiFilter, nameof(clanApiFilter));
 
-            if (clanFilter.Name != null && clanFilter.Name.Length < 3)
+            if (clanApiFilter.Name != null && clanApiFilter.Name.Length < 3)
             {
                 throw new ArgumentException("Name needs to be at least three characters long.", nameof(ClanFilter.Name));
             }
 
-            if (clanFilter.After.HasValue && clanFilter.Before.HasValue)
+            if (clanApiFilter.After.HasValue && clanApiFilter.Before.HasValue)
             {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
             }
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanSearchResult>(UrlPathBuilder.ClanUrl, clanFilter.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanSearchResult>(UrlPathBuilder.ClanUrl, clanApiFilter.ToQueryParams());
 
             return apiResponse;
         }
@@ -84,9 +84,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ClanSearchResult> SearchClanAsync(ClanFilter clanFilter)
+        public async Task<ClanSearchResult> SearchClanAsync(ClanFilter clanApiFilter)
         {
-            var apiResponse = await SearchClanResponseAsync(clanFilter);
+            var apiResponse = await SearchClanResponseAsync(clanApiFilter);
 
             return apiResponse.GetModel();
         }

@@ -60,7 +60,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag), playerChestFilter.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag), playerChestFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -92,7 +92,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var response = await GetPlayerResponseAsync(playerTag);
+            var response = await GetPlayerResponseAsync(playerTag, playerFilter);
 
             return response.GetModel();
         }

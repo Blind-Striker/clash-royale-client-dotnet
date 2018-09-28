@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Pekka.Core;
@@ -6,7 +7,7 @@ using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
-using Pekka.RoyaleApi.Client.Models.ClanModels;
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Sandbox
 {
@@ -24,12 +25,15 @@ namespace Pekka.RoyaleApi.Sandbox
             services.AddTransient<IPlayerClient, PlayerClient>();
             services.AddTransient<IClanClient, ClanClient>();
             services.AddTransient<IVersionClient, VersionClient>();
+            services.AddTransient<ITournamentClient, TournamentClient>();
 
             var buildServiceProvider = services.BuildServiceProvider();
 
             var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
             var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
             var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
+            var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
+            var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
 
             //ContainerBuilder containerBuilder = new ContainerBuilder();
             //containerBuilder.Populate(services);
@@ -45,7 +49,7 @@ namespace Pekka.RoyaleApi.Sandbox
             //var clanClient = container.Resolve<IClanClient>();
             //var versionClient = container.Resolve<IVersionClient>();
 
-            var version = await versionClient.GetVersion();
+            //var version = await versionClient.GetVersion();
 
             string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
             string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
@@ -57,9 +61,17 @@ namespace Pekka.RoyaleApi.Sandbox
             var battles = await playerClient.GetBattlesResponseAsync(playerList);
             var chests = await playerClient.GetChestsResponseAsync(playerList);
 
+            var openTournamentResponse = await tournamentClient.GetOpenTournamentsResponseAsync();
+            var one1KTournamentResponse = await tournamentClient.Get1KTournamentsResponseAsync();
+            var fullTournamentResponse = await tournamentClient.GetFullTournamentsResponseAsync();
+            var inPrepTournamentResponse = await tournamentClient.GetInPrepTournamentsResponseAsync();
+            var joinableTournamentResponse = await tournamentClient.GetJoinableTournamentsResponseAsync();
+            var knowTournamentResponse = await tournamentClient.GetKnownTournamentsResponseAsync();
+
             foreach (var playerTag in playerList)
             {
                 var player = await playerClient.GetPlayerResponseAsync(playerTag);
+                var playerClanless = await playerClient.GetPlayerResponseAsync(playerTag, new PlayerFilter(){Excludes = new Expression<Func<Player, object>>[]{p => p.Clan}});
                 var playerBattle = await playerClient.GetBattlesResponseAsync(playerTag);
                 var playerChest = await playerClient.GetChestResponseAsync(playerTag);
             }
