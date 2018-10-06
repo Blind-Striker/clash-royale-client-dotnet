@@ -16,6 +16,6 @@
 
         public int? Wins { get; set; }
 
-        public int? ClanChestMaxLevel { get; set; }
+        public int? Crowns { get; set; }
     }
 }
