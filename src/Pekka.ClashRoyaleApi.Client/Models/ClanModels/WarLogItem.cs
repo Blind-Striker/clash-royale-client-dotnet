@@ -9,5 +9,7 @@ namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
         public string CreatedDate { get; set; }
 
         public List<WarParticipant> Participants { get; set; }
+
+        public List<WarResult> Standings { get; set; }
     }
 }
