@@ -1,112 +1,263 @@
-var target = Argument("target", "Default");
-
 using System;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 
-// Variables
-var configuration = "Release";
-var fullFrameworkTarget = "net461";
-var netCoreTarget20 = "netcoreapp2.0";
-var netCoreTarget21 = "netcoreapp2.1";
+var target = Argument("target", "default");
+var configuration = Argument("config", "Release");
+var buildNumber = Argument<int>("buildnumber", 1);
 
+// Variables
 var royaleNugetOutput = "./artifacts/Pekka.RoyaleApi.Client";
 var clashRoyaleNugetOutput = "./artifacts/Pekka.ClashRoyaleApi.Client";
 
+var testResults = "results.trx";
+
 string royaleApiPath = "src/Pekka.RoyaleApi.Client";
 string clashRoyaleApiPath = "src/Pekka.ClashRoyaleApi.Client";
-string royaleApiProj = $"Pekka.RoyaleApi.Client.csproj";
-string clashRoyaleApiProj = $"Pekka.ClashRoyaleApi.Client.csproj";
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("init")
+    .IsDependentOn("tests");
 
-Task("Compile")
-    .Description("Builds all the projects in the solution")
+Task("init")
+    .Description("Initialize task prerequisites")
     .Does(() =>
     {
         StartProcess("dotnet", new ProcessSettings {
             Arguments = "--info"
         });
 
-        DotNetCoreBuildSettings settings = new DotNetCoreBuildSettings();
-        settings.NoRestore = true;
-        settings.Configuration = configuration;
-
-        var projects = GetFiles("src/**/*.csproj");
-
-        Information($"Restoring projects");
-        foreach(var project in projects)
+        if(IsRunningOnUnix())
         {
-            DotNetCoreRestore(project.ToString());
-        }
-
-        Information($"Building projects");
-        foreach(var project in projects)
-        {
-            DotNetCoreBuild(project.ToString(), settings);
-        } 
-    });
-
-Task("Test")
-    .Description("Run Tests")
-    .IsDependentOn("Compile")
-    .Does(() =>
-    {
-        string appveyor = EnvironmentVariable("APPVEYOR");
-        bool isRunningOnUnix = IsRunningOnUnix();
-        string testProjectPath = "./src/Tests/Pekka.Core.Tests/Pekka.Core.Tests.csproj";
-
-        DotNetCoreTestSettings settings = new DotNetCoreTestSettings();
-        settings.Configuration = configuration;
-
-        if(!string.IsNullOrEmpty(appveyor) && appveyor == "True")
-        {
-            settings.ArgumentCustomization  = args => args.Append(" --test-adapter-path:. --logger:Appveyor");
-        }
-
-        Information($"Running {netCoreTarget20.ToUpper()} Tests");
-        settings.Framework = netCoreTarget20;
-        DotNetCoreTest(testProjectPath, settings);
-
-        Information($"Running {netCoreTarget21.ToUpper()} Tests");
-        settings.Framework = netCoreTarget21;
-        DotNetCoreTest(testProjectPath, settings);
-
-        Information($"Running {fullFrameworkTarget.ToUpper()} Tests");
-        if(!isRunningOnUnix) // Windows
-        {
-            settings.Framework = fullFrameworkTarget;
-            DotNetCoreTest(testProjectPath, settings);
-        }
-        else // Linux
-        {
-            NuGetInstallSettings nugetInstallSettings = new NuGetInstallSettings();
-            nugetInstallSettings.Version = "2.4.0";
-            nugetInstallSettings.OutputDirectory = "testrunner";            
-            nugetInstallSettings.WorkingDirectory = ".";
-
-            NuGetInstall("xunit.runner.console", nugetInstallSettings);
+            StartProcess("git", new ProcessSettings {
+                Arguments = "config --global core.autocrlf true"
+            });
 
             StartProcess("mono", new ProcessSettings {
-                Arguments = $"./testrunner/xunit.runner.console.2.4.0/tools/{fullFrameworkTarget}/xunit.console.exe ./src/Tests/Pekka.Core.Tests/bin/Release/{fullFrameworkTarget}/Pekka.Core.Tests.dll"
+                Arguments = "--info"
             });
+
+            InstallXUnitNugetPackage();
+        }      
+    });
+
+Task("compile")
+    .Description("Builds all the projects in the solution")
+    .Does(() =>
+    {
+        string slnPath = "./Pekka.sln";
+
+        DotNetCoreBuildSettings settings = new DotNetCoreBuildSettings();
+        settings.Configuration = configuration;
+        DotNetCoreBuild(slnPath, settings);
+    });
+
+Task("tests")
+    .Description("Run Tests")
+    .IsDependentOn("compile")
+    .Does(() =>
+    {      
+        DotNetCoreTestSettings settings = new DotNetCoreTestSettings();
+        settings.NoRestore = true;
+        settings.NoBuild = true;
+        settings.Configuration = configuration;
+
+        IList<TestProjMetadata> testProjMetadatas = GetProjMetadata();
+
+        foreach (var testProj in testProjMetadatas)
+        {
+           string testProjectPath = testProj.CsProjPath;
+
+           Warning($"Target Frameworks {string.Join(" ",testProj.TargetFrameworks)}");
+
+           foreach(string targetFramework in testProj.TargetFrameworks)
+           {
+                Warning($"Running {targetFramework.ToUpper()} tests for {testProj.AssemblyName}");
+                settings.Framework = targetFramework;
+
+                if(IsRunningOnUnix() && targetFramework == "net461")
+                {
+                    RunXunitUsingMono(targetFramework, $"{testProj.DirectoryPath}/bin/{configuration}/{targetFramework}/{testProj.AssemblyName}.dll");
+                }
+                else
+                {
+                    string testFilePrefix = targetFramework.Replace(".","-");
+                    settings.ArgumentCustomization  = args => args.Append($" --logger \"trx;LogFileName={testFilePrefix}_{testResults}\"");
+                    DotNetCoreTest(testProjectPath, settings);
+                }
+           }
         }
     });
 
-Task("Nuget-Pack")
-    .Description("Publish to nuget")
+
+Task("nuget-pack")
     .Does(() =>
     {
+        string outputDirectory = MakeAbsolute(Directory(royaleNugetOutput)).FullPath;
+        string projectFullPath = MakeAbsolute(File(royaleApiPath)).FullPath;
+
+        if(!System.IO.Directory.Exists(outputDirectory))
+        {
+            System.IO.Directory.CreateDirectory(outputDirectory);
+        }
+
         var settings = new DotNetCorePackSettings();
         settings.Configuration = configuration;
-
         settings.OutputDirectory = royaleNugetOutput;
-        settings.WorkingDirectory = royaleApiPath;
-        DotNetCorePack(royaleApiProj, settings);
+        settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
+        settings.MSBuildSettings.SetVersion(GetProjectVersion());
 
-        settings.OutputDirectory = clashRoyaleNugetOutput;
-        settings.WorkingDirectory = clashRoyaleApiPath;
-        DotNetCorePack(clashRoyaleApiProj, settings);
+        DotNetCorePack(projectFullPath, settings);
+    });
+
+Task("get-version")
+    .Description("Get version")
+    .Does(() =>
+    {
+        Warning(GetProjectVersion());
     });
 
 RunTarget(target);
+
+
+/*
+/ HELPER METHODS
+*/
+private void InstallXUnitNugetPackage()
+{
+    NuGetInstallSettings nugetInstallSettings = new NuGetInstallSettings();
+    nugetInstallSettings.Version = "2.4.1";
+    nugetInstallSettings.Verbosity = NuGetVerbosity.Normal;
+    nugetInstallSettings.OutputDirectory = "testrunner";            
+    nugetInstallSettings.WorkingDirectory = ".";
+
+    NuGetInstall("xunit.runner.console", nugetInstallSettings);
+}
+
+private void RunXunitUsingMono(string targetFramework, string assemblyPath)
+{
+    int exitCode = StartProcess("mono", new ProcessSettings {
+        Arguments = $"./testrunner/xunit.runner.console.2.4.1/tools/{targetFramework}/xunit.console.exe {assemblyPath}"
+    });
+
+    if(exitCode != 0)
+    {
+        throw new InvalidOperationException($"Exit code: {exitCode}");
+    }
+}
+
+private IList<TestProjMetadata> GetProjMetadata()
+{
+    var testsRoot = MakeAbsolute(Directory("./tests/"));
+    var csProjs = GetFiles($"{testsRoot}/**/*.csproj").Where(fp => fp.FullPath.EndsWith("Tests.csproj")).ToList();
+
+    IList<TestProjMetadata> testProjMetadatas = new List<TestProjMetadata>();
+
+    foreach (var csProj in csProjs)
+    {
+        string csProjPath = csProj.FullPath;
+
+        string[] targetFrameworks = GetProjectTargetFrameworks(csProjPath);
+        string directoryPath = csProj.GetDirectory().FullPath;
+        string assemblyName = GetAssemblyName(csProjPath);
+
+        var testProjMetadata = new TestProjMetadata(directoryPath, csProjPath, targetFrameworks, assemblyName);
+        testProjMetadatas.Add(testProjMetadata);
+    }
+
+    return testProjMetadatas;
+}
+
+private string[] GetProjectTargetFrameworks(string csprojPath)
+{
+    var file =  MakeAbsolute(File(csprojPath));
+    var project = System.IO.File.ReadAllText(file.FullPath, Encoding.UTF8);
+
+    bool multipleFrameworks = project.Contains("<TargetFrameworks>");
+    string startElement = multipleFrameworks ? "<TargetFrameworks>" : "<TargetFramework>";
+    string endElement = multipleFrameworks ? "</TargetFrameworks>" : "</TargetFramework>";
+
+    int startIndex = project.IndexOf(startElement) + startElement.Length;
+    int endIndex = project.IndexOf(endElement, startIndex);
+
+    string targetFrameworks = project.Substring(startIndex, endIndex - startIndex);
+    return targetFrameworks.Split(';');
+}
+
+private string GetAssemblyName(string csprojPath)
+{
+    var file =  MakeAbsolute(File(csprojPath));
+    var project = System.IO.File.ReadAllText(file.FullPath, Encoding.UTF8);
+    
+    bool assemblyNameElementExists = project.Contains("<AssemblyName>");
+
+    string assemblyName = string.Empty;
+
+    if(assemblyNameElementExists)
+    {
+        int startIndex = project.IndexOf("<AssemblyName>") + "<AssemblyName>".Length;
+        int endIndex = project.IndexOf("</AssemblyName>", startIndex);
+
+        assemblyName = project.Substring(startIndex, endIndex - startIndex);
+    }
+    else
+    {        
+        int startIndex = csprojPath.LastIndexOf("/") + 1;
+        int endIndex = csprojPath.IndexOf(".csproj", startIndex);
+
+        assemblyName = csprojPath.Substring(startIndex, endIndex - startIndex);
+    }
+
+    return assemblyName;
+}
+
+private void UpdateProjectVersion(string version)
+{
+    Information("Setting version to " + version);
+
+    if(string.IsNullOrWhiteSpace(version))
+    {
+        throw new CakeException("No version specified! You need to pass in --targetversion=\"x.y.z\"");
+    }
+
+    var file =  MakeAbsolute(File("./src/Directory.Build.props"));
+
+    Information(file.FullPath);
+
+    var project = System.IO.File.ReadAllText(file.FullPath, Encoding.UTF8);
+
+    var projectVersion = new Regex(@"<Version>.+<\/Version>");
+    project = projectVersion.Replace(project, string.Concat("<Version>", version, "</Version>"));
+
+    System.IO.File.WriteAllText(file.FullPath, project, Encoding.UTF8);
+}
+
+private string GetProjectVersion()
+{
+    var file =  MakeAbsolute(File("./src/Directory.Build.props"));
+
+    Information(file.FullPath);
+
+    var project = System.IO.File.ReadAllText(file.FullPath, Encoding.UTF8);
+    int startIndex = project.IndexOf("<Version>") + "<Version>".Length;
+    int endIndex = project.IndexOf("</Version>", startIndex);
+
+    string version = project.Substring(startIndex, endIndex - startIndex);
+    version = $"{version}.{buildNumber}";
+
+    return version;
+}
+
+/*
+/ MODELS
+*/
+public class TestProjMetadata
+{
+   public TestProjMetadata(string directoryPath, string csProjPath, string[] targetFrameworks, string assemblyName) 
+       => (DirectoryPath, CsProjPath, TargetFrameworks, AssemblyName) = (directoryPath, csProjPath, targetFrameworks, assemblyName);
+
+   public string DirectoryPath { get; }
+   public string CsProjPath { get; }
+   public string AssemblyName { get; set; }
+   public string[] TargetFrameworks { get; }
+}

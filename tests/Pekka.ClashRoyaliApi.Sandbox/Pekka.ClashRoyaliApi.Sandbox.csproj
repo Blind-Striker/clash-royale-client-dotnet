@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pekka.RoyaleApi.Sandbox.csproj.DotSettings" />
-    <None Remove="RoyaleApi.Sandbox.csproj.DotSettings" />
+    <None Remove="Pekka.ClashRoyaliApi.Sandbox.csproj.DotSettings" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Pekka.Core\Pekka.Core.csproj" />
-    <ProjectReference Include="..\..\Pekka.RoyaleApi.Client\Pekka.RoyaleApi.Client.csproj" />
+    <ProjectReference Include="..\..\src\Pekka.ClashRoyaleApi.Client\Pekka.ClashRoyaleApi.Client.csproj" />
+    <ProjectReference Include="..\..\src\Pekka.Core\Pekka.Core.csproj" />
   </ItemGroup>
 
 </Project>

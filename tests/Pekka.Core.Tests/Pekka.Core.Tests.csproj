@@ -48,7 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Pekka.Core\Pekka.Core.csproj" />
+    <ProjectReference Include="..\..\src\Pekka.Core\Pekka.Core.csproj" />
   </ItemGroup>
 
 </Project>
