@@ -1,5 +1,8 @@
 ﻿using Pekka.Core.Contracts;
+using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
+using Pekka.RoyaleApi.Client.Models;
+
 using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Clients
@@ -13,16 +16,14 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        //public async Task<IApiResponse> GetVersionResponse()
-        //{
-        //   return await _restApiClient.GetApiResponseAsync(UrlPathBuilder.Version);
-        //}
-
-        public async Task<string> GetVersion()
+        public Task<IApiResponse<Ver>> GetVersionResponseAsync()
         {
-            string content = await _restApiClient.GetStringContentAsync(UrlPathBuilder.Version);
+            return _restApiClient.GetApiResponseAsync<Ver>(UrlPathBuilder.VersionUrl);
+        }
 
-            return content;
+        public Task<string> GetVersionAsync()
+        {
+            return _restApiClient.GetStringContentAsync(UrlPathBuilder.VersionUrl);
         }
     }
 }

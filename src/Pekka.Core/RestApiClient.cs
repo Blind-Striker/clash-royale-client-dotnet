@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
 using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
+
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -22,25 +24,28 @@ namespace Pekka.Core
         {
             HttpClient = httpClient;
             HttpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
-            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
+
+            HttpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
 
             _jsonSerializerSettings = new JsonSerializerSettings()
             {
                 ContractResolver = new DefaultContractResolver
                 {
-                    NamingStrategy = new CamelCaseNamingStrategy()
+                    NamingStrategy = new SnakeCaseNamingStrategy()
                 }
             };
         }
 
         public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(string path,
-                                                                           IList<KeyValuePair<string, string>> queryParams = null,
-                                                                           IDictionary<string, string> headerParams = null)
+            IList<KeyValuePair<string, string>> queryParams = null,
+            IDictionary<string, string> headerParams = null)
             where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            using (HttpResponseMessage httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
+            using (HttpResponseMessage httpResponseMessage =
+                await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
                 return await httpResponseMessage.ConvertToApiResponse<TModel>(path, _jsonSerializerSettings);
             }
@@ -53,13 +58,14 @@ namespace Pekka.Core
 
             using (HttpResponseMessage httpResponseMessage = await CallAsync(httpRequestMessage))
             {
-                return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString(), _jsonSerializerSettings);
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString(),
+                    _jsonSerializerSettings);
             }
         }
 
         public async Task<TModel> GetAsync<TModel>(string path,
-                                                   IList<KeyValuePair<string, string>> queryParams = null,
-                                                   IDictionary<string, string> headerParams = null)
+            IList<KeyValuePair<string, string>> queryParams = null,
+            IDictionary<string, string> headerParams = null)
             where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
@@ -70,12 +76,13 @@ namespace Pekka.Core
         }
 
         public async Task<string> GetStringContentAsync(string path,
-                                                        IList<KeyValuePair<string, string>> queryParams = null,
-                                                        IDictionary<string, string> headerParams = null)
+            IList<KeyValuePair<string, string>> queryParams = null,
+            IDictionary<string, string> headerParams = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            using (HttpResponseMessage httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
+            using (HttpResponseMessage httpResponseMessage =
+                await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
                 string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
 

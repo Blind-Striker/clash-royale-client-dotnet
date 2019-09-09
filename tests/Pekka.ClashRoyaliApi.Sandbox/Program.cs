@@ -1,8 +1,11 @@
 ﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Standalone;
 using Pekka.Core;
+
 using System;
 using System.Threading.Tasks;
+
+using Pekka.ClashRoyaleApi.Client.Contracts;
 
 namespace Pekka.ClashRoyaliApi.Sandbox
 {
@@ -12,7 +15,9 @@ namespace Pekka.ClashRoyaliApi.Sandbox
         {
             Console.WriteLine("Hello World!");
 
-            ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+            string token = Environment.GetEnvironmentVariable("CLASH_API_TOKEN");
+
+            var apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
 
             //var services = new ServiceCollection();
             //services.AddSingleton(apiOptions);
@@ -31,9 +36,9 @@ namespace Pekka.ClashRoyaliApi.Sandbox
             //var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
             //var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
 
-            var clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions);
+            IClashRoyaleApiClientContext clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions);
 
-            var locationClient = clashRoyaleApiStandalone.LocationClient;
+            ILocationClient locationClient = clashRoyaleApiStandalone.LocationClient;
 
             // ApiResponse<PlayerDetail> apiResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
 
@@ -58,12 +63,19 @@ namespace Pekka.ClashRoyaliApi.Sandbox
             //var apiResponse = await cardClient.GetCardsResponseAsync();
 
             var apiResponse = await locationClient.GetLocationsResponseAsync();
-            var api10Response = await locationClient.GetLocationsResponseAsync(new LocationFilter() { Limit = 10 });
+            var api10Response = await locationClient.GetLocationsResponseAsync(new LocationFilter() {Limit = 10});
 
             var locationResponse = await locationClient.GetLocationResponseAsync(Locations._INT);
-            var clanRankingsResponse = await locationClient.GetClanRankingsResponseAsync(Locations._INT, new LocationFilter() { Limit = 10 });
-            var playerRankingsResponse = await locationClient.GetPlayerRankingsResponseAsync(Locations._INT, new LocationFilter() { Limit = 10 });
-            var clanWarsRankingsResponse = await locationClient.GetClanWarsRankingsResponseAsync(Locations._INT, new LocationFilter() { Limit = 10 });
+
+            var clanRankingsResponse =
+                await locationClient.GetClanRankingsResponseAsync(Locations._INT, new LocationFilter() {Limit = 10});
+
+            var playerRankingsResponse =
+                await locationClient.GetPlayerRankingsResponseAsync(Locations._INT, new LocationFilter() {Limit = 10});
+
+            var clanWarsRankingsResponse =
+                await locationClient.GetClanWarsRankingsResponseAsync(Locations._INT,
+                    new LocationFilter() {Limit = 10});
         }
     }
 }

@@ -5,6 +5,7 @@ using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models.TournamentModels;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -19,67 +20,93 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentSearchFilter tournamentSearchFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(
+            TournamentSearchFilter tournamentSearchFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.TournamentSearchUrl, tournamentSearchFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.TournamentSearchUrl,
+                    tournamentSearchFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetTournamentsResponseAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetTournamentsResponseAsync(string[] tournamentTags,
+            TournamentSearchFilter tournamentSearchFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyEnumerable(tournamentTags, nameof(tournamentTags));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.GetTournamentUrl(tournamentTags), tournamentSearchFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(
+                UrlPathBuilder.GetTournamentUrl(tournamentTags), tournamentSearchFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetOpenTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetOpenTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.OpenTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.OpenTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetKnownTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetKnownTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.KnownTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.KnownTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> Get1KTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> Get1KTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.OneKTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.OneKTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetInPrepTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetInPrepTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.InPrepTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.InPrepTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetFullTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetFullTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.FullTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.FullTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetJoinableTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetJoinableTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.JoinableTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.JoinableTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<Tournament>>> GetPopularTournamentsResponseAsync(TournamentFilter tournamentFilter = null)
+        public async Task<IApiResponse<List<Tournament>>> GetPopularTournamentsResponseAsync(
+            TournamentFilter tournamentFilter = null)
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.PopularTournamentUrl, tournamentFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.PopularTournamentUrl,
+                    tournamentFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -91,7 +118,8 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.Model;
         }
 
-        public async Task<List<Tournament>> GetTournamentsAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null)
+        public async Task<List<Tournament>> GetTournamentsAsync(string[] tournamentTags,
+            TournamentSearchFilter tournamentSearchFilter = null)
         {
             var apiResponse = await GetTournamentsResponseAsync(tournamentTags, tournamentSearchFilter);
 

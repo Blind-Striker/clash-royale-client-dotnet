@@ -25,10 +25,7 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes
 
         public void BeginSomethingDangerous()
         {
-            if (Interlocked.Increment(ref _unsafe) > _max)
-            {
-                _failureCallback();
-            }
+            if (Interlocked.Increment(ref _unsafe) > _max) _failureCallback();
         }
 
         public void EndSomethingDangerous()

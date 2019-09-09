@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+
 using System;
 
 namespace Pekka.Core.Tests.Mock
@@ -14,7 +15,7 @@ namespace Pekka.Core.Tests.Mock
 
         public static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
         {
-            ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() }
+            ContractResolver = new DefaultContractResolver {NamingStrategy = new SnakeCaseNamingStrategy()}
         };
     }
 

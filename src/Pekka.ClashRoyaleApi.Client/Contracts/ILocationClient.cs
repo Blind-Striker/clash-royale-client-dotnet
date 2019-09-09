@@ -2,6 +2,7 @@
 using Pekka.ClashRoyaleApi.Client.Models.LocationModels;
 using Pekka.Core;
 using Pekka.Core.Responses;
+
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
@@ -12,11 +13,14 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
         Task<IApiResponse<Location>> GetLocationResponseAsync(Locations location);
 
-        Task<IApiResponse<ClanRankingList>> GetClanRankingsResponseAsync(Locations location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<ClanRankingList>> GetClanRankingsResponseAsync(Locations location,
+            LocationFilter locationApiFilter = null);
 
-        Task<IApiResponse<PlayerRankingList>> GetPlayerRankingsResponseAsync(Locations location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<PlayerRankingList>> GetPlayerRankingsResponseAsync(Locations location,
+            LocationFilter locationApiFilter = null);
 
-        Task<IApiResponse<ClanWarsRankingList>> GetClanWarsRankingsResponseAsync(Locations location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<ClanWarsRankingList>> GetClanWarsRankingsResponseAsync(Locations location,
+            LocationFilter locationApiFilter = null);
 
         Task<LocationList> GetLocationsAsync(LocationFilter locationApiFilter = null);
 

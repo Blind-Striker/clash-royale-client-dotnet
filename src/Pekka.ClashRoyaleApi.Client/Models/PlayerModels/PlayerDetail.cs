@@ -1,4 +1,5 @@
 using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
+
 using System.Collections.Generic;
 
 namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels

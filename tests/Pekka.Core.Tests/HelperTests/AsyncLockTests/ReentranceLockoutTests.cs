@@ -1,9 +1,11 @@
 ﻿using Pekka.Core.Helpers;
 using Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes;
+
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Xunit;
 
 namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
@@ -18,7 +20,8 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
         private AsyncLock _lock;
         private LimitedResource _resource;
         private CountdownEvent _countdown;
-        private readonly Random _random = new Random((int)DateTime.UtcNow.Ticks);
+        private readonly Random _random = new Random((int) DateTime.UtcNow.Ticks);
+
         private int DelayInterval => _random.Next(5, 10) * 10;
 
         private void ResourceSimulation(Action action)
@@ -26,25 +29,17 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             _lock = new AsyncLock();
             //start n threads and have them obtain the lock and randomly wait, then verify
             var failure = new ManualResetEventSlim(false);
-            _resource = new LimitedResource(() =>
-            {
-                failure.Set();
-            });
+            _resource = new LimitedResource(() => { failure.Set(); });
 
             var testCount = 20;
             _countdown = new CountdownEvent(testCount);
 
-            for (int i = 0; i < testCount; ++i)
-            {
-                action();
-            }
+            for (var i = 0; i < testCount; ++i) action();
 
             //MSTest does not support async test methods (apparently, but I could be wrong)
             //await Task.WhenAll(tasks);
-            if (WaitHandle.WaitAny(new[] { _countdown.WaitHandle, failure.WaitHandle }) == 1)
-            {
+            if (WaitHandle.WaitAny(new[] {_countdown.WaitHandle, failure.WaitHandle}) == 1)
                 Assert.True(true, "More than one thread simultaneously accessed the underlying resource!");
-            }
         }
 
         private void ThreadEntryPoint()
@@ -55,6 +50,7 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
                 Thread.Sleep(DelayInterval);
                 _resource.EndSomethingDangerous();
             }
+
             _countdown.Signal();
         }
 
@@ -87,8 +83,10 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
                         Thread.Sleep(DelayInterval);
                         _resource.EndSomethingDangerous();
                     }
+
                     _countdown.Signal();
                 });
+
                 t.Start();
             });
         }
@@ -131,6 +129,7 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
                         Thread.Sleep(DelayInterval);
                         _resource.EndSomethingDangerous();
                     }
+
                     _countdown.Signal();
                 });
             });
@@ -149,6 +148,7 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
                         await Task.Delay(DelayInterval);
                         _resource.EndSomethingDangerous();
                     }
+
                     _countdown.Signal();
                 });
             });
@@ -159,11 +159,13 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
         {
             var taskStarted = new ManualResetEventSlim(false);
             var @lock = new AsyncLock();
+
             using (@lock.Lock())
             {
                 Task task = Task.Run(async () =>
                 {
                     taskStarted.Set();
+
                     using (await @lock.LockAsync())
                     {
                         Debug.WriteLine("Hello from within an async task!");

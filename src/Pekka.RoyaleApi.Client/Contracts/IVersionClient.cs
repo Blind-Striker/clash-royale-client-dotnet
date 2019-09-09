@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Pekka.Core.Responses;
+using Pekka.RoyaleApi.Client.Models;
+
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {
@@ -8,11 +11,11 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IVersionClientWithResponse
     {
-        //Task<IApiResponse> GetVersionResponse();
+        Task<IApiResponse<Ver>> GetVersionResponseAsync();
     }
 
     public interface IVersionClientWithModel
     {
-        Task<string> GetVersion();
+        Task<string> GetVersionAsync();
     }
 }

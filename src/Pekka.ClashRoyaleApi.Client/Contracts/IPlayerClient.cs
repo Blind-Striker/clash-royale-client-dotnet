@@ -1,5 +1,6 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
 using Pekka.Core.Responses;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

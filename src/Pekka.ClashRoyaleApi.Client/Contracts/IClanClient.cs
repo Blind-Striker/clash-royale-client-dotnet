@@ -1,6 +1,7 @@
 ﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
 using Pekka.Core.Responses;
+
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
@@ -11,7 +12,8 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
         Task<IApiResponse<Clan>> GetClanResponseAsync(string clanTag);
 
-        Task<IApiResponse<ClanMemberList>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null);
+        Task<IApiResponse<ClanMemberList>> GetMembersResponseAsync(string clanTag,
+            ClanMemberFilter clanMemberFilter = null);
 
         Task<IApiResponse<WarLog>> GetWarlogResponseAsync(string clanTag, ClanWarlogFilter clanWarlogFilter = null);
 

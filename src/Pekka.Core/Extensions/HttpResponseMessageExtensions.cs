@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+
 using Pekka.Core.Responses;
+
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,10 +10,12 @@ namespace Pekka.Core.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
-        public static async Task<IApiResponse<TModel>> ConvertToApiResponse<TModel>(this HttpResponseMessage httpResponseMessage, string urlPath = null, JsonSerializerSettings jsonSerializerSettings = null)
+        public static async Task<IApiResponse<TModel>> ConvertToApiResponse<TModel>(
+            this HttpResponseMessage httpResponseMessage, string urlPath = null,
+            JsonSerializerSettings jsonSerializerSettings = null)
             where TModel : class
         {
-            var stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
+            string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
 
             var apiResponse = new ApiResponse<TModel>
             {
@@ -22,11 +26,12 @@ namespace Pekka.Core.Extensions
 
             if (!httpResponseMessage.IsSuccessStatusCode)
             {
-                var converted = jsonSerializerSettings == null
+                bool converted = jsonSerializerSettings == null
                     ? stringContent.TryDeserializeObject(out ErrorResponse errorResponse)
                     : stringContent.TryDeserializeObject(out errorResponse, jsonSerializerSettings);
+
                 apiResponse.Error = true;
-                apiResponse.Message = converted ? $"{errorResponse.Error} - {errorResponse.ErrorDescription}" : stringContent;
+                apiResponse.Message = converted ? $"{errorResponse.Message}" : stringContent;
 
                 return apiResponse;
             }
@@ -34,6 +39,7 @@ namespace Pekka.Core.Extensions
             TModel model = jsonSerializerSettings == null
                 ? JsonConvert.DeserializeObject<TModel>(stringContent)
                 : JsonConvert.DeserializeObject<TModel>(stringContent, jsonSerializerSettings);
+
             apiResponse.Model = model;
 
             return apiResponse;

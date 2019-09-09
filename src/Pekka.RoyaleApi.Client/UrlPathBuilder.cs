@@ -5,7 +5,9 @@ namespace Pekka.RoyaleApi.Client
 {
     public static class UrlPathBuilder
     {
-        public const string Version = "version";
+        public const string VersionUrl = "version";
+
+        public const string ConstantsUrl = "constants";
 
         public const string PlayerUrl = "player";
         public const string BattlesUrl = "battles";

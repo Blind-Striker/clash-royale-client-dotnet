@@ -18,10 +18,7 @@ namespace Pekka.Core.Helpers
         /// <param name="name">The name of the argument</param>
         public static void ArgumentNotNull(object value, string name)
         {
-            if (value != null)
-            {
-                return;
-            }
+            if (value != null) return;
 
             throw new ArgumentNullException(name);
         }
@@ -35,10 +32,7 @@ namespace Pekka.Core.Helpers
         {
             ArgumentNotNull(value, name);
 
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                return;
-            }
+            if (!string.IsNullOrWhiteSpace(value)) return;
 
             throw new ArgumentException("String cannot be empty", name);
         }
@@ -53,10 +47,7 @@ namespace Pekka.Core.Helpers
         {
             ArgumentNotNull(value, name);
 
-            if (value.TotalMilliseconds > 0)
-            {
-                return;
-            }
+            if (value.TotalMilliseconds > 0) return;
 
             throw new ArgumentException("Timespan must be greater than zero", name);
         }
@@ -69,10 +60,7 @@ namespace Pekka.Core.Helpers
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public static void GreaterThanZero(int value, string name)
         {
-            if (value > 0)
-            {
-                return;
-            }
+            if (value > 0) return;
 
             throw new ArgumentException("int must be greater than zero", name);
         }
@@ -86,10 +74,7 @@ namespace Pekka.Core.Helpers
         {
             ArgumentNotNull(value, name);
 
-            if (value.Any())
-            {
-                return;
-            }
+            if (value.Any()) return;
 
             throw new ArgumentException("List cannot be empty", name);
         }
@@ -98,20 +83,18 @@ namespace Pekka.Core.Helpers
         {
             ArgumentNotNull(value, name);
 
-            PropertyInfo[] propertyInfos = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            var propertyInfos = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
             bool allNull = propertyInfos.All(info => info.GetValue(value) == null);
 
-            if (allNull)
-            {
-                throw new ArgumentException("At least one filtering criteria must be defined");
-            }
+            if (allNull) throw new ArgumentException("At least one filtering criteria must be defined");
         }
 
         public static T IsType<T>(object @object)
         {
             TypeIs(typeof(T), @object);
-            return (T)@object;
+
+            return (T) @object;
         }
 
         public static void TypeIs(Type expectedType, object @object)
@@ -121,13 +104,10 @@ namespace Pekka.Core.Helpers
 
             Type type = @object.GetType();
 
-            if (expectedType == type)
-            {
-                return;
-            }
+            if (expectedType == type) return;
 
-            var fullName1 = $"{expectedType.FullName} ({expectedType.GetTypeInfo().Assembly.GetName().FullName})";
-            var fullName2 = $"{type.FullName} ({type.GetTypeInfo().Assembly.GetName().FullName})";
+            string fullName1 = $"{expectedType.FullName} ({expectedType.GetTypeInfo().Assembly.GetName().FullName})";
+            string fullName2 = $"{type.FullName} ({type.GetTypeInfo().Assembly.GetName().FullName})";
 
             throw new ArgumentException($"expected: {fullName1}{Environment.NewLine}actual: {fullName2}");
         }

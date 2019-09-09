@@ -1,5 +1,6 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Models;
 using Pekka.Core.Responses;
+
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts

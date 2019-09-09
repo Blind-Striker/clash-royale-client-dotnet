@@ -1,4 +1,5 @@
 ﻿using Pekka.Core.Helpers;
+
 using System;
 
 namespace Pekka.Core.Tests.Helpers
@@ -18,6 +19,7 @@ namespace Pekka.Core.Tests.Helpers
         public MockTimeProvider SetUtcNow(DateTime dateTime)
         {
             _utcNow = dateTime;
+
             return this;
         }
     }

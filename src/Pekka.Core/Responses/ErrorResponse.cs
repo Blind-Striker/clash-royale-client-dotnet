@@ -2,8 +2,10 @@
 {
     public class ErrorResponse
     {
-        public string Error { get; set; }
+        public bool Error { get; set; }
 
-        public string ErrorDescription { get; set; }
+        public int Status { get; set; }
+
+        public string Message { get; set; }
     }
 }

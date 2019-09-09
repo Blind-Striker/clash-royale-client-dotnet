@@ -1,7 +1,9 @@
 ﻿using Pekka.Core.Helpers;
+
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
 using Xunit;
 
 namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
@@ -23,25 +25,19 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             var abort = new SemaphoreSlim(0, 1);
 
             for (var i = 0; i < testCount; ++i)
-            {
                 Task.Run(async () =>
                 {
                     lock (threadIds)
                     {
-                        if (!threadIds.Add(AsyncLock.ThreadId))
-                        {
-                            failure.Set();
-                        }
+                        if (!threadIds.Add(AsyncLock.ThreadId)) failure.Set();
                     }
+
                     countdown.Signal();
                     await abort.WaitAsync();
                 });
-            }
 
-            if (WaitHandle.WaitAny(new[] { countdown.WaitHandle, failure.WaitHandle }) == 1)
-            {
+            if (WaitHandle.WaitAny(new[] {countdown.WaitHandle, failure.WaitHandle}) == 1)
                 Assert.True(false, "A duplicate thread id was found!");
-            }
 
             abort.Release();
         }
@@ -55,26 +51,20 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             var threadIds = new SortedSet<long>();
             var abort = new SemaphoreSlim(0, 1);
 
-            for (int i = 0; i < testCount; ++i)
-            {
+            for (var i = 0; i < testCount; ++i)
                 Task.Run(async () =>
                 {
                     lock (threadIds)
                     {
-                        if (!threadIds.Add(AsyncLock.ThreadId))
-                        {
-                            failure.Set();
-                        }
+                        if (!threadIds.Add(AsyncLock.ThreadId)) failure.Set();
                     }
+
                     countdown.Signal();
                     await abort.WaitAsync();
                 });
-            }
 
-            if (WaitHandle.WaitAny(new[] { countdown.WaitHandle, failure.WaitHandle }) == 1)
-            {
+            if (WaitHandle.WaitAny(new[] {countdown.WaitHandle, failure.WaitHandle}) == 1)
                 Assert.True(false, "A duplicate thread id was found!");
-            }
 
             abort.Release();
         }
