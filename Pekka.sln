@@ -17,6 +17,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pekka.Core", "src\Pekka.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pekka.RoyaleApi.Client", "src\Pekka.RoyaleApi.Client\Pekka.RoyaleApi.Client.csproj", "{562475A4-D0B4-4CB4-8A6E-C0E0331BEBC3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E9C9D781-F1BD-4829-A73B-22255D5DA55F}"
+	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		appveyor.yml = appveyor.yml
+		build\azure-pipelines.clash.artifact.yml = build\azure-pipelines.clash.artifact.yml
+		build\azure-pipelines.clash.macos.yml = build\azure-pipelines.clash.macos.yml
+		build\azure-pipelines.clash.ubuntu.yml = build\azure-pipelines.clash.ubuntu.yml
+		build\azure-pipelines.clash.windows.yml = build\azure-pipelines.clash.windows.yml
+		build\azure-pipelines.royale.artifact.yml = build\azure-pipelines.royale.artifact.yml
+		build\azure-pipelines.royale.macos.yml = build\azure-pipelines.royale.macos.yml
+		build\azure-pipelines.royale.ubuntu.yml = build\azure-pipelines.royale.ubuntu.yml
+		build\azure-pipelines.royale.windows.yml = build\azure-pipelines.royale.windows.yml
+		build.cake = build.cake
+		build.ps1 = build.ps1
+		build.sh = build.sh
+		cake.config = cake.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{016F6E1A-F5C5-4FD7-89C8-500B1D9BCFE6}"
+	ProjectSection(SolutionItems) = preProject
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
