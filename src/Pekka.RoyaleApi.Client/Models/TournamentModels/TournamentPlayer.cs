@@ -6,7 +6,7 @@ namespace Pekka.RoyaleApi.Client.Models.TournamentModels
     {
         public string Tag { get; set; }
 
-        public PlayerClanInfo Clan { get; set; }
+        public PlayerClan Clan { get; set; }
 
         public string Name { get; set; }
 

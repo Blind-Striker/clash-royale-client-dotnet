@@ -1,4 +1,4 @@
-﻿namespace Pekka.RoyaleApi.Client.Models
+﻿namespace Pekka.RoyaleApi.Client.Models.VersionModels
 {
     public class Ver
     {

@@ -1,4 +1,6 @@
-﻿namespace Pekka.RoyaleApi.Client.Models.ClanModels
+﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class ClanSummary
     {
@@ -16,7 +18,7 @@
 
         public int Donations { get; set; }
 
-        public Badge Badge { get; set; }
+        public PlayerBadge Badge { get; set; }
 
         public ClanRegion Location { get; set; }
 

@@ -32,14 +32,14 @@ namespace Pekka.Core
             {
                 ContractResolver = new DefaultContractResolver
                 {
-                    NamingStrategy = new SnakeCaseNamingStrategy()
+                    NamingStrategy = new SnakeCaseNamingStrategy(),
                 }
             };
         }
 
         public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(string path,
             IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null)
+            IDictionary<string, string> headerParams = null, NamingStrategy namingStrategy = null)
             where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
@@ -47,11 +47,16 @@ namespace Pekka.Core
             using (HttpResponseMessage httpResponseMessage =
                 await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
-                return await httpResponseMessage.ConvertToApiResponse<TModel>(path, _jsonSerializerSettings);
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(path,
+                    namingStrategy == null
+                        ? _jsonSerializerSettings
+                        : new JsonSerializerSettings()
+                            {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
             }
         }
 
-        public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(HttpRequestMessage httpRequestMessage)
+        public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(HttpRequestMessage httpRequestMessage,
+            NamingStrategy namingStrategy = null)
             where TModel : class
         {
             Ensure.ArgumentNotNull(httpRequestMessage, nameof(httpRequestMessage));
@@ -59,20 +64,26 @@ namespace Pekka.Core
             using (HttpResponseMessage httpResponseMessage = await CallAsync(httpRequestMessage))
             {
                 return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString(),
-                    _jsonSerializerSettings);
+                    namingStrategy == null
+                        ? _jsonSerializerSettings
+                        : new JsonSerializerSettings()
+                            {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
             }
         }
 
         public async Task<TModel> GetAsync<TModel>(string path,
             IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null)
+            IDictionary<string, string> headerParams = null, NamingStrategy namingStrategy = null)
             where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
             string stringContent = await GetStringContentAsync(path, queryParams, headerParams);
 
-            return JsonConvert.DeserializeObject<TModel>(stringContent, _jsonSerializerSettings);
+            return JsonConvert.DeserializeObject<TModel>(stringContent, namingStrategy == null
+                ? _jsonSerializerSettings
+                : new JsonSerializerSettings()
+                    {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
         }
 
         public async Task<string> GetStringContentAsync(string path,

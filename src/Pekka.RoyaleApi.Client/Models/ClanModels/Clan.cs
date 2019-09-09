@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
+
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class Clan
@@ -22,7 +24,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public ClanChest ClanChest { get; set; }
 
-        public Badge Badge { get; set; }
+        public PlayerBadge Badge { get; set; }
 
         public ClanRegion Location { get; set; }
 

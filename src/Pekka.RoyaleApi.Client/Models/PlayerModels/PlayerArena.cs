@@ -1,12 +1,12 @@
-﻿namespace Pekka.RoyaleApi.Client.Models
+﻿namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
-    public class ArenaInfo
+    public class PlayerArena
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Arena { get; set; }
-
-        public int ArenaId { get; set; }
 
         public int TrophyLimit { get; set; }
 

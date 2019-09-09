@@ -2,7 +2,7 @@
 
 namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
-    public class PlayerInfo
+    public class PlayerTeam
     {
         public string Tag { get; set; }
 
@@ -12,15 +12,10 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public int StartTrophies { get; set; }
 
-        public PlayerClan Clan { get; set; }
+        public PlayerClanLight Clan { get; set; }
 
         public string DeckLink { get; set; }
 
         public List<PlayerCard> Deck { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Name}-{Tag}";
-        }
     }
 }

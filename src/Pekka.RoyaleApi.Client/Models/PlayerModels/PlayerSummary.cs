@@ -16,7 +16,7 @@
 
         public int? DonationsDelta { get; set; }
 
-        public PlayerClanInfo Clan { get; set; }
+        public PlayerClan Clan { get; set; }
 
         public string DeckLink { get; set; }
 

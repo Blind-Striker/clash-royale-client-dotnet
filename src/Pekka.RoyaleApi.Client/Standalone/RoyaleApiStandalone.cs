@@ -40,10 +40,7 @@ namespace Pekka.RoyaleApi.Client.Standalone
 
         public static IRoyaleApiClientContext Create(ApiOptions apiOptions, HttpClient httpClient = null)
         {
-            if (httpClient == null)
-            {
-                httpClient = new HttpClient();
-            }
+            if (httpClient == null) httpClient = new HttpClient();
 
             IRestApiClient restApiClient = new RestApiClient(httpClient, apiOptions);
 

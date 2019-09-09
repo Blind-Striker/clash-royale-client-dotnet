@@ -8,7 +8,7 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 
         public List<ConstantArena> Arenas { get; set; }
 
-        public List<Card> Cards { get; set; }
+        public List<ConstantCard> Cards { get; set; }
 
         public ConstantCardsStats CardsStats { get; set; }
 

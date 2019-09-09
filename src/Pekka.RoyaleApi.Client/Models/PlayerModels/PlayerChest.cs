@@ -6,7 +6,7 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
     {
         public List<string> Upcoming { get; set; }
 
-        public int SuperMagical { get; set; }
+        public int MegaLightning { get; set; }
 
         public int Magical { get; set; }
 

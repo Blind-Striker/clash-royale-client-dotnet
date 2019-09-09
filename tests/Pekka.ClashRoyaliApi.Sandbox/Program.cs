@@ -13,8 +13,6 @@ namespace Pekka.ClashRoyaliApi.Sandbox
     {
         private static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-
             string token = Environment.GetEnvironmentVariable("CLASH_API_TOKEN");
 
             var apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");

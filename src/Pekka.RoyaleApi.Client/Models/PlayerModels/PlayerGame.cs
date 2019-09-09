@@ -1,6 +1,6 @@
 ﻿namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
-    public class PlayerGames
+    public class PlayerGame
     {
         public int Total { get; set; }
 

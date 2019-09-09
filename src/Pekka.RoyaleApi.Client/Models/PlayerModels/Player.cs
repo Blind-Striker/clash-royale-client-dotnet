@@ -10,23 +10,21 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public int Trophies { get; set; }
 
-        public int? Rank { get; set; }
+        public PlayerArena Arena { get; set; }
 
-        public ArenaInfo Arena { get; set; }
-
-        public PlayerClanInfo Clan { get; set; }
+        public PlayerClan Clan { get; set; }
 
         public PlayerStats Stats { get; set; }
 
-        public PlayerGames Games { get; set; }
+        public PlayerGame Games { get; set; }
 
         public PlayerLeagueStatistics LeagueStatistics { get; set; }
 
         public string DeckLink { get; set; }
 
-        public List<Card> CurrentDeck { get; set; }
+        public List<PlayerCard> CurrentDeck { get; set; }
 
-        public List<Card> Cards { get; set; }
+        public List<PlayerCard> Cards { get; set; }
 
         public List<PlayerAchievement> Achievements { get; set; }
 

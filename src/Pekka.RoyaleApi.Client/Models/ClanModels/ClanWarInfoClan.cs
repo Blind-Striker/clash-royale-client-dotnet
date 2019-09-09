@@ -1,4 +1,6 @@
-﻿namespace Pekka.RoyaleApi.Client.Models.ClanModels
+﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class ClanWarInfoClan
     {
@@ -18,7 +20,7 @@
 
         public int WarTrophiesChange { get; set; }
 
-        public Badge Badge { get; set; }
+        public PlayerBadge Badge { get; set; }
 
         public override string ToString()
         {

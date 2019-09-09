@@ -1,18 +1,18 @@
-﻿namespace Pekka.RoyaleApi.Client.Models
+﻿namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
-    public class Badge
+    public class PlayerBadge
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Category { get; set; }
-
-        public int Id { get; set; }
 
         public string Image { get; set; }
 
         public override string ToString()
         {
-            return Name;
+            return $"{Id} - {Name}";
         }
     }
 }

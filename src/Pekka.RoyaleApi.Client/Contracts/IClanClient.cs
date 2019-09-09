@@ -1,11 +1,12 @@
 ﻿using Pekka.Core;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.FilterModels;
-using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.ClanModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {
@@ -21,7 +22,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         Task<IApiResponse<List<Clan>>> GetClansResponseAsync(string[] clanTags, ClanFilter clanFilter = null);
 
-        Task<IApiResponse<List<Battle>>> GetBattlesResponseAsync(string clanTag,
+        Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string clanTag,
             ClanBattleFilter clanBattleFilter = null);
 
         Task<IApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag,
@@ -55,7 +56,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         Task<List<Clan>> GetClansAsync(string[] clanTags, ClanFilter clanFilter = null);
 
-        Task<List<Battle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
+        Task<List<PlayerBattle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
 
         Task<List<ClanWarLog>> GetWarLogsAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
 

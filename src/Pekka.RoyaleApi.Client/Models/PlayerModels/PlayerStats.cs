@@ -12,7 +12,7 @@
 
         public int CardsFound { get; set; }
 
-        public Card FavoriteCard { get; set; }
+        public PlayerCard FavoriteCard { get; set; }
 
         public int TotalDonations { get; set; }
 

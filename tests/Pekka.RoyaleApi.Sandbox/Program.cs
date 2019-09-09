@@ -19,6 +19,7 @@ namespace Pekka.RoyaleApi.Sandbox
         {
             string token = Environment.GetEnvironmentVariable("ROYALE_API_TOKEN");
 
+            //var apiOptions = new ApiOptions(token, "https://api-v2.royaleapi.com/");
             var apiOptions = new ApiOptions(token, "https://api.royaleapi.com/");
 
             var services = new ServiceCollection();
@@ -39,23 +40,8 @@ namespace Pekka.RoyaleApi.Sandbox
             var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
             var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
 
-            //ContainerBuilder containerBuilder = new ContainerBuilder();
-            //containerBuilder.Populate(services);
-
-            //containerBuilder.RegisterInstance(apiOptions);
-            //containerBuilder.RegisterType<PlayerClient>().As<IPlayerClient>();
-            //containerBuilder.RegisterType<ClanClient>().As<IClanClient>();
-            //containerBuilder.RegisterType<VersionClient>().As<IVersionClient>();
-
-            //var container = containerBuilder.Build();
-
-            //var playerClient = container.Resolve<IPlayerClient>();
-            //var clanClient = container.Resolve<IClanClient>();
-            //var versionClient = container.Resolve<IVersionClient>();
-
 
             var version = await versionClient.GetVersionResponseAsync();
-
             var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
 
             string[] playerList =
@@ -63,12 +49,13 @@ namespace Pekka.RoyaleApi.Sandbox
 
             string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
 
-            var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
-            var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
+            var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
+            var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
+            var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
+            //var playersCurrentChest = await playerClient.GetChestsResponseAsync(playerList);
 
-            var players = await playerClient.GetPlayersResponseAsync(playerList);
-            var battles = await playerClient.GetBattlesResponseAsync(playerList);
-            var chests = await playerClient.GetChestsResponseAsync(playerList);
+            //var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
+            //var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
 
             var openTournamentResponse = await tournamentClient.GetOpenTournamentsResponseAsync();
             var one1KTournamentResponse = await tournamentClient.Get1KTournamentsResponseAsync();

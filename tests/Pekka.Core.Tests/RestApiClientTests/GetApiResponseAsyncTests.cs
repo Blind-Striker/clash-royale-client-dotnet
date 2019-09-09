@@ -29,7 +29,8 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object),
                     MockData.MockApiOptions);
 
-            await Assert.ThrowsAsync<ArgumentNullException>(() => restApiClient.GetApiResponseAsync<PullRequest>(null));
+            await Assert.ThrowsAsync<ArgumentNullException>(() =>
+                restApiClient.GetApiResponseAsync<PullRequest>(null, null));
 
             await Assert.ThrowsAsync<ArgumentException>(() =>
                 restApiClient.GetApiResponseAsync<PullRequest>(string.Empty));

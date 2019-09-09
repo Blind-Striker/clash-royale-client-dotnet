@@ -1,4 +1,6 @@
-﻿namespace Pekka.RoyaleApi.Client.Models.ClanModels
+﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class ClanMember
     {
@@ -20,7 +22,7 @@
 
         public int? DonationsDelta { get; set; }
 
-        public ArenaInfo Arena { get; set; }
+        public PlayerArena Arena { get; set; }
 
         public double? DonationsPercent { get; set; }
 
