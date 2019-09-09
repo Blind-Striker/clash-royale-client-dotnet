@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Pekka.RoyaleApi.Client.Models.PlayerModels;
+﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+using System.Collections.Generic;
 
 namespace Pekka.RoyaleApi.Client.Models
 {

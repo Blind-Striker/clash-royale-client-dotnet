@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Pekka.Core.Responses;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {

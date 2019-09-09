@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Pekka.ClashRoyaleApi.Client.Contracts;
+﻿using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
 using Pekka.Core.Contracts;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {

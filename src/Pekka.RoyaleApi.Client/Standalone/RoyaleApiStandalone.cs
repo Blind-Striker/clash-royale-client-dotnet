@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
-using Pekka.Core;
+﻿using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
+using System.Net.Http;
 
 namespace Pekka.RoyaleApi.Client.Standalone
 {
@@ -22,7 +22,7 @@ namespace Pekka.RoyaleApi.Client.Standalone
         public ITournamentClient TournamentClient { get; }
 
         public static IRoyaleApiClientContext Create(string baseUrl, string authToken, HttpClient httpClient = null)
-        {   
+        {
             return Create(new ApiOptions(authToken, baseUrl), httpClient);
         }
 
@@ -36,8 +36,8 @@ namespace Pekka.RoyaleApi.Client.Standalone
             IRestApiClient restApiClient = new Core.RestApiClient(httpClient, apiOptions);
             IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(
                 new VersionClient(restApiClient),
-                new PlayerClient(restApiClient), 
-                new ClanClient(restApiClient), 
+                new PlayerClient(restApiClient),
+                new ClanClient(restApiClient),
                 new TournamentClient(restApiClient));
 
             return apiClientContext;

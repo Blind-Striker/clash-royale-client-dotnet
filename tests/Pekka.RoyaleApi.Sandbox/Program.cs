@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models.PlayerModels;
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Sandbox
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -51,8 +51,8 @@ namespace Pekka.RoyaleApi.Sandbox
 
             //var version = await versionClient.GetVersion();
 
-            string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
-            string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
+            string[] playerList = { "C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
+            string[] clanList = { "Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL" };
 
             var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
             var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
@@ -71,17 +71,16 @@ namespace Pekka.RoyaleApi.Sandbox
             foreach (var playerTag in playerList)
             {
                 var player = await playerClient.GetPlayerResponseAsync(playerTag);
-                var playerClanless = await playerClient.GetPlayerResponseAsync(playerTag, new PlayerFilter(){Excludes = new Expression<Func<Player, object>>[]{p => p.Clan}});
+                var playerClanless = await playerClient.GetPlayerResponseAsync(playerTag, new PlayerFilter() { Excludes = new Expression<Func<Player, object>>[] { p => p.Clan } });
                 var playerBattle = await playerClient.GetBattlesResponseAsync(playerTag);
                 var playerChest = await playerClient.GetChestResponseAsync(playerTag);
             }
 
             var apiResponse = await clanClient.GetClanHistoryDailyResponseAsync("2U2GGQJ");
             var clanHistories = await clanClient.GetClanHistoryWeeklyResponseAsync("2U2GGQJ");
-            var topClans = await clanClient.GetTopClansResponseAsync(Locations._INT, new ClanSummaryFilter(){Max = 10});
-            var response = await clanClient.GetPopularPlayersResponseAsync(new ClanFilter(){Max = 10});
-            await clanClient.GetTopWarClanWarsResponseAsync(Locations._INT, new ClanSummaryFilter(){Max = 10});
-
+            var topClans = await clanClient.GetTopClansResponseAsync(Locations._INT, new ClanSummaryFilter() { Max = 10 });
+            var response = await clanClient.GetPopularPlayersResponseAsync(new ClanFilter() { Max = 10 });
+            await clanClient.GetTopWarClanWarsResponseAsync(Locations._INT, new ClanSummaryFilter() { Max = 10 });
 
             var clanSummaries = await clanClient.SearchClanAsync(new ClanSummaryFilter() { Name = "eyyam", LocationId = (int)Locations._INT, MinMembers = 0, MaxMembers = 50 });
 

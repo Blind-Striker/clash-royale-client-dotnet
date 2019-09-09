@@ -1,6 +1,5 @@
 ﻿using Pekka.Core;
 using Pekka.Core.Extensions;
-using Pekka.Core.Helpers;
 
 namespace Pekka.RoyaleApi.Client
 {
@@ -91,7 +90,7 @@ namespace Pekka.RoyaleApi.Client
         {
             return string.Format(ClanWarTemplate, clanTag);
         }
-        
+
         public static string GetClanTrackingUrl(string clanTag)
         {
             return string.Format(ClanTrackingTemplate, clanTag);

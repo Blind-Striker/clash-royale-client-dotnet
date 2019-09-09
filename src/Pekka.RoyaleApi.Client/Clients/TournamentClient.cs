@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Pekka.Core.Contracts;
+﻿using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models.TournamentModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {

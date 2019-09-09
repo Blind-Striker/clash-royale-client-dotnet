@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using Newtonsoft.Json;
+using Pekka.Core.Responses;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Pekka.Core.Responses;
 
 namespace Pekka.Core.Extensions
 {

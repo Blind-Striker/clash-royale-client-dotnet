@@ -1,5 +1,5 @@
-﻿using System;
-using Pekka.Core.Helpers;
+﻿using Pekka.Core.Helpers;
+using System;
 
 namespace Pekka.Core.Tests.Helpers
 {

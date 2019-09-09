@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Pekka.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Pekka.Core.Helpers;
 
 namespace Pekka.Core.Builders
 {

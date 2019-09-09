@@ -1,9 +1,8 @@
-﻿using System.Threading.Tasks;
-using Pekka.ClashRoyaleApi.Client.Contracts;
+﻿using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.Models;
 using Pekka.Core.Contracts;
-using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {

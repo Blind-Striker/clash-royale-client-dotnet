@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Pekka.Core.Helpers;
+using Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
-using Pekka.Core.Helpers;
-using Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes;
 using Xunit;
 
 namespace Pekka.Core.Tests.HelperTests.AsyncLockTests

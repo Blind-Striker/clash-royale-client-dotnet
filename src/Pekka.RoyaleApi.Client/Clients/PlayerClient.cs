@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Pekka.Core;
+﻿using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
@@ -9,6 +7,8 @@ using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.PlayerModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using Moq;
+using Moq.Protected;
+using Pekka.Core.Tests.Helpers;
+using Pekka.Core.Tests.Mock;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Moq;
-using Moq.Protected;
-using Pekka.Core.Tests.Helpers;
-using Pekka.Core.Tests.Mock;
 using Xunit;
 
 namespace Pekka.Core.Tests.RestApiClientTests

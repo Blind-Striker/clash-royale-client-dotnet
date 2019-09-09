@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using Pekka.Core.Builders;
 using Pekka.Core.Contracts;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Pekka.Core.Tests
@@ -24,7 +24,6 @@ namespace Pekka.Core.Tests
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
             propertyQueryStringBuilder.SetSuccessor(queryStringBuilder.Object);
 
-
             FilterWithoutQueryAttribute filterWithoutQueryAttribute = new FilterWithoutQueryAttribute();
             var queryParameters = new List<KeyValuePair<string, string>>();
 
@@ -33,7 +32,6 @@ namespace Pekka.Core.Tests
                     It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => Equals(queryParameters, stringBuilder)),
                     It.Is<FilterWithoutQueryAttribute>(dummyFilter => dummyFilter == filterWithoutQueryAttribute)));
 
-            
             propertyQueryStringBuilder.ProcessRequest(queryParameters, filterWithoutQueryAttribute);
 
             queryStringBuilder.Verify(builder => builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(), It.IsAny<FilterWithoutQueryAttribute>()), Times.Once);
@@ -58,7 +56,7 @@ namespace Pekka.Core.Tests
         {
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
 
-            var clanFilter = new PairPropertyFilter {Name = "Eyyam"};
+            var clanFilter = new PairPropertyFilter { Name = "Eyyam" };
             var queryParameters = new List<KeyValuePair<string, string>>();
 
             propertyQueryStringBuilder.ProcessRequest(queryParameters, clanFilter);
@@ -72,7 +70,7 @@ namespace Pekka.Core.Tests
         {
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
 
-            var clanFilter = new PairPropertyFilter { Name = "Eyyam", Tag = "ATSGEDS"};
+            var clanFilter = new PairPropertyFilter { Name = "Eyyam", Tag = "ATSGEDS" };
             var queryParameters = new List<KeyValuePair<string, string>>();
 
             propertyQueryStringBuilder.ProcessRequest(queryParameters, clanFilter);

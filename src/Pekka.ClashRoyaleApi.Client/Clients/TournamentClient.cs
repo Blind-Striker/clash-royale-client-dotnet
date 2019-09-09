@@ -1,12 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Pekka.ClashRoyaleApi.Client.Contracts;
+﻿using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
+using System;
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {

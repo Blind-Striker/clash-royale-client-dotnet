@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Pekka.Core.Responses;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Pekka.Core.Responses;
 
 namespace Pekka.Core.Contracts
 {

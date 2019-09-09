@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Pekka.ClashRoyaleApi.Client.FilterModels;
+﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Standalone;
 using Pekka.Core;
+using System;
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaliApi.Sandbox
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
@@ -58,7 +58,7 @@ namespace Pekka.ClashRoyaliApi.Sandbox
             //var apiResponse = await cardClient.GetCardsResponseAsync();
 
             var apiResponse = await locationClient.GetLocationsResponseAsync();
-            var api10Response = await locationClient.GetLocationsResponseAsync(new LocationFilter(){Limit = 10});
+            var api10Response = await locationClient.GetLocationsResponseAsync(new LocationFilter() { Limit = 10 });
 
             var locationResponse = await locationClient.GetLocationResponseAsync(Locations._INT);
             var clanRankingsResponse = await locationClient.GetClanRankingsResponseAsync(Locations._INT, new LocationFilter() { Limit = 10 });

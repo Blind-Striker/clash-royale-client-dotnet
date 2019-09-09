@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-using Pekka.Core;
+﻿using Pekka.Core;
 using Pekka.Core.Contracts;
+using System;
+using System.Linq.Expressions;
 
 namespace Pekka.RoyaleApi.Client.FilterModels
 {

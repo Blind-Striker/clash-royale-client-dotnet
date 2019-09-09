@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Pekka.Core.Helpers;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Pekka.Core.Helpers;
 using Xunit;
 
 namespace Pekka.Core.Tests.HelperTests.AsyncLockTests

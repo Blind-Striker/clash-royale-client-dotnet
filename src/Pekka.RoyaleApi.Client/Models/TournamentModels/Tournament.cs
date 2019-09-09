@@ -28,8 +28,8 @@
 
         public int UpdatedAt { get; set; }
 
-        TournamentPlayer Creator { get; set; }
+        private TournamentPlayer Creator { get; set; }
 
-        TournamentPlayer[] Members { get; set; }
+        private TournamentPlayer[] Members { get; set; }
     }
 }

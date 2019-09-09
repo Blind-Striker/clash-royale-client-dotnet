@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Pekka.Core.Builders;
+﻿using Pekka.Core.Builders;
 using Pekka.Core.Contracts;
+using System.Collections.Generic;
 
 namespace Pekka.Core.Extensions
 {
@@ -12,7 +12,6 @@ namespace Pekka.Core.Extensions
             var expressionQueryStringBuilder = new ExpressionQueryStringBuilder();
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
             propertyQueryStringBuilder.SetSuccessor(expressionQueryStringBuilder);
-
 
             var queryParameters = new List<KeyValuePair<string, string>>();
 

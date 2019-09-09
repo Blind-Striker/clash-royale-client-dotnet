@@ -3,7 +3,7 @@
     public sealed class ClanBattleType
     {
         private ClanBattleType()
-        {            
+        {
         }
 
         private ClanBattleType(string type)

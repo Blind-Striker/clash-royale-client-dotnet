@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Pekka.Core.Contracts;
+﻿using Pekka.Core.Contracts;
 using Pekka.Core.Helpers;
+using System.Collections.Generic;
 
 namespace Pekka.Core.Builders
 {

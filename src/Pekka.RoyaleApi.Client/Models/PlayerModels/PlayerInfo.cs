@@ -17,4 +17,4 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
             return $"{Name}-{Tag}";
         }
     }
-}   
+}
