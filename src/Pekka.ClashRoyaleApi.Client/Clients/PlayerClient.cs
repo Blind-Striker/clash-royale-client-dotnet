@@ -17,7 +17,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<PlayerDetail>> GetPlayerResponseAsync(string playerTag)
+        public async Task<IApiResponse<PlayerDetail>> GetPlayerResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
@@ -26,7 +26,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<BattleLog>>> GetBattlesResponseAsync(string playerTag)
+        public async Task<IApiResponse<List<BattleLog>>> GetBattlesResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
@@ -35,7 +35,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<UpcomingChestsList>> GetUpcomingChestsResponseAsync(string playerTag)
+        public async Task<IApiResponse<UpcomingChestsList>> GetUpcomingChestsResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
@@ -48,21 +48,21 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             var apiResponse = await GetPlayerResponseAsync(playerTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<List<BattleLog>> GetBattlesAsync(string playerTag)
         {
             var apiResponse = await GetBattlesResponseAsync(playerTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<UpcomingChestsList> GetUpcomingChests(string playerTag)
         {
             var apiResponse = await GetUpcomingChestsResponseAsync(playerTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
     }
 }

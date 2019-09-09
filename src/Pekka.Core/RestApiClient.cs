@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Pekka.Core.Contracts;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
@@ -15,14 +14,14 @@ namespace Pekka.Core
 {
     public class RestApiClient : IRestApiClient
     {
-        private readonly HttpClient _httpClient;
+        protected readonly HttpClient HttpClient;
         private readonly JsonSerializerSettings _jsonSerializerSettings;
 
         public RestApiClient(HttpClient httpClient, ApiOptions apiOptions)
         {
-            _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
+            HttpClient = httpClient;
+            HttpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
 
             _jsonSerializerSettings = new JsonSerializerSettings()
             {
@@ -33,68 +32,34 @@ namespace Pekka.Core
             };
         }
 
-        public async Task<ApiResponse<TModel>> GetApiResponseAsync<TModel>(
-            string path,
-            IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null)
+        public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(string path,
+                                                                           IList<KeyValuePair<string, string>> queryParams = null,
+                                                                           IDictionary<string, string> headerParams = null)
             where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
             using (HttpResponseMessage httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
-                string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
-
-                var apiResponse = new ApiResponse<TModel>()
-                {
-                    HttpStatusCode = httpResponseMessage.StatusCode,
-                    Headers = httpResponseMessage.Headers.ToDictionary(pair => pair.Key, pair => pair.Value.First()),
-                    UrlPath = path
-                };
-                
-                if (!httpResponseMessage.IsSuccessStatusCode)
-                {
-                    var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(stringContent, _jsonSerializerSettings);
-                    apiResponse.Error = true;
-                    apiResponse.Message = errorResponse.Message;
-
-                    return apiResponse;
-                }
-
-                var model = JsonConvert.DeserializeObject<TModel>(stringContent, _jsonSerializerSettings);
-                apiResponse.Model = model;
-
-                return apiResponse;
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(path, _jsonSerializerSettings);
             }
         }
 
-        public async Task<ApiResponse> GetApiResponseAsync(
-            string path,
-            IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null)
+        public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(HttpRequestMessage httpRequestMessage)
+            where TModel : class
         {
-            Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
+            Ensure.ArgumentNotNull(httpRequestMessage, nameof(httpRequestMessage));
 
-            using (HttpResponseMessage httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
+            using (HttpResponseMessage httpResponseMessage = await CallAsync(httpRequestMessage))
             {
-                string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
-
-                return new ApiResponse()
-                {
-                    HttpStatusCode = httpResponseMessage.StatusCode,
-                    Headers = httpResponseMessage.Headers.ToDictionary(pair => pair.Key, pair => pair.Value.First()),
-                    UrlPath = path,
-                    Message = !httpResponseMessage.IsSuccessStatusCode
-                        ? JsonConvert.DeserializeObject<ErrorResponse>(stringContent, _jsonSerializerSettings)?.Message
-                        : null,
-                    Error = !httpResponseMessage.IsSuccessStatusCode
-                };
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString(), _jsonSerializerSettings);
             }
         }
 
         public async Task<TModel> GetAsync<TModel>(string path,
-            IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null) where TModel : class, new()
+                                                   IList<KeyValuePair<string, string>> queryParams = null,
+                                                   IDictionary<string, string> headerParams = null)
+            where TModel : class, new()
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
@@ -103,14 +68,13 @@ namespace Pekka.Core
             return JsonConvert.DeserializeObject<TModel>(stringContent, _jsonSerializerSettings);
         }
 
-        public async Task<string> GetStringContentAsync(
-            string path,
-            IList<KeyValuePair<string, string>> queryParams = null,
-            IDictionary<string, string> headerParams = null)
+        public async Task<string> GetStringContentAsync(string path,
+                                                        IList<KeyValuePair<string, string>> queryParams = null,
+                                                        IDictionary<string, string> headerParams = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            using (var httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
+            using (HttpResponseMessage httpResponseMessage = await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
                 string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
 
@@ -124,47 +88,23 @@ namespace Pekka.Core
         {
             Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
 
-            using (var httpRequestMessage = PrepaRequestMessage(path, httpMethod, queryParams, headerParams))
+            using (HttpRequestMessage httpRequestMessage = new HttpRequestMessage(httpMethod, path)
+                .AddQueryParameters(queryParams)
+                .AddHeaders(headerParams))
             {
-                HttpResponseMessage httpResponse = await _httpClient.SendAsync(httpRequestMessage);
+                HttpResponseMessage httpResponse = await CallAsync(httpRequestMessage);
 
                 return httpResponse;
             }
         }
 
-        public HttpRequestMessage PrepaRequestMessage(
-            string path, 
-            HttpMethod httpMethod,
-            IList<KeyValuePair<string, string>> queryParams = null, 
-            IDictionary<string, string> headerParams = null)
+        public async Task<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage)
         {
-            Ensure.ArgumentNotNullOrEmptyString(path, nameof(path));
+            Ensure.ArgumentNotNull(httpRequestMessage, nameof(httpRequestMessage));
 
-            if (queryParams != null && queryParams.Any())
-            {
-                var query = HttpUtility.ParseQueryString(string.Empty);
+            HttpResponseMessage httpResponse = await HttpClient.SendAsync(httpRequestMessage);
 
-                foreach (var queryParam in queryParams)
-                {
-                    query[queryParam.Key] = queryParam.Value;
-                }
-
-                path = $"{path}?{query}";
-            }
-
-            var requestMessage = new HttpRequestMessage(httpMethod, path);
-
-            if (headerParams == null || !headerParams.Any())
-            {
-                return requestMessage;
-            }
-
-            foreach (var headerParam in headerParams)
-            {
-                requestMessage.Headers.Add(headerParam.Key, headerParam.Value);
-            }
-
-            return requestMessage;
+            return httpResponse;
         }
     }
 }

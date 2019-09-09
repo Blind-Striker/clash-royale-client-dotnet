@@ -4,6 +4,7 @@ using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 using Pekka.Core.Contracts;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
@@ -18,7 +19,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<TournamentSearchResult>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter)
+        public async Task<IApiResponse<TournamentSearchResult>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter)
         {
             Ensure.ArgumentNotNull(tournamentFilter, nameof(tournamentFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(tournamentFilter, nameof(tournamentFilter));
@@ -38,7 +39,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<Tournament>> GetTournamentResponseAsync(string tournamentTag)
+        public async Task<IApiResponse<Tournament>> GetTournamentResponseAsync(string tournamentTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(tournamentTag, nameof(tournamentTag));
 
@@ -51,14 +52,14 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             var apiResponse = await SearchTournamentResponseAsync(tournamentFilter);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<Tournament> GetTournamentAsync(string tournamentTag)
         {
             var apiResponse = await GetTournamentResponseAsync(tournamentTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
     }
 }

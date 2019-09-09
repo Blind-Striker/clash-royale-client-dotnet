@@ -15,14 +15,14 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IPlayerClientWithApiResponse
     {
-        Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null);
-        Task<ApiResponse<List<Player>>> GetPlayersResponseAsync(string[] playerTags, PlayerFilter playerFilter = null);
-        Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null);
-        Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null);
-        Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null);
-        Task<ApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null);
-        Task<ApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null);
-        Task<ApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null);
+        Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null);
+        Task<IApiResponse<List<Player>>> GetPlayersResponseAsync(string[] playerTags, PlayerFilter playerFilter = null);
+        Task<IApiResponse<List<Battle>>> GetBattlesResponseAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null);
+        Task<IApiResponse<List<Battle>>> GetBattlesResponseAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null);
+        Task<IApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null);
+        Task<IApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null);
+        Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null);
+        Task<IApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null);
     }
 
     public interface IPlayerClientWithModel

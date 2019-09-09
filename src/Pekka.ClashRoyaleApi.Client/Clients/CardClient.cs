@@ -16,7 +16,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<CardList>> GetCardsResponseAsync()
+        public async Task<IApiResponse<CardList>> GetCardsResponseAsync()
         {
             var apiResponse = await _restApiClient.GetApiResponseAsync<CardList>(UrlPathBuilder.CardUrl);
 
@@ -27,7 +27,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             var apiResponse = await GetCardsResponseAsync();
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
     }
 }

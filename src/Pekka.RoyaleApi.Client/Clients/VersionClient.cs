@@ -14,10 +14,10 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse> GetVersionResponse()
-        {
-           return await _restApiClient.GetApiResponseAsync(UrlPathBuilder.Version);
-        }
+        //public async Task<IApiResponse> GetVersionResponse()
+        //{
+        //   return await _restApiClient.GetApiResponseAsync(UrlPathBuilder.Version);
+        //}
 
         public async Task<string> GetVersion()
         {

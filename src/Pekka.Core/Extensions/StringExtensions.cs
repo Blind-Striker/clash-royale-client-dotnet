@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Pekka.Core.Helpers;
 
-namespace Pekka.Core.Helpers
+namespace Pekka.Core.Extensions
 {
     public static class StringExtensions
     {

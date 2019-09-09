@@ -9,6 +9,7 @@
         }
 
         public string BearerToken { get; }
+
         public string BaseUrl { get; }
     }
 }

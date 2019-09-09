@@ -4,6 +4,7 @@ using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
 using Pekka.Core.Contracts;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
@@ -18,7 +19,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<ClanSearchResult>> SearchClanResponseAsync(ClanFilter clanApiFilter)
+        public async Task<IApiResponse<ClanSearchResult>> SearchClanResponseAsync(ClanFilter clanApiFilter)
         {
             Ensure.ArgumentNotNull(clanApiFilter, nameof(clanApiFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(clanApiFilter, nameof(clanApiFilter));
@@ -38,7 +39,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<Clan>> GetClanResponseAsync(string clanTag)
+        public async Task<IApiResponse<Clan>> GetClanResponseAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -47,7 +48,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<ClanMemberList>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
+        public async Task<IApiResponse<ClanMemberList>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -61,7 +62,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<WarLog>> GetWarlogResponseAsync(string clanTag, ClanWarlogFilter clanWarlogFilter = null)
+        public async Task<IApiResponse<WarLog>> GetWarlogResponseAsync(string clanTag, ClanWarlogFilter clanWarlogFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -75,7 +76,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<ApiResponse<CurrentWar>> GetCurrentWarResponseAsync(string clanTag)
+        public async Task<IApiResponse<CurrentWar>> GetCurrentWarResponseAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -88,35 +89,35 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             var apiResponse = await SearchClanResponseAsync(clanApiFilter);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<Clan> GetClanAsync(string clanTag)
         {
             var apiResponse = await GetClanResponseAsync(clanTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<ClanMemberList> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
             var apiResponse = await GetMembersResponseAsync(clanTag, clanMemberFilter);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<WarLog> GetWarlogAsync(string clanTag, ClanWarlogFilter clanWarlogFilter = null)
         {
             var apiResponse = await GetWarlogResponseAsync(clanTag, clanWarlogFilter);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
 
         public async Task<CurrentWar> GetCurrentWar(string clanTag)
         {
             var apiResponse = await GetCurrentWarResponseAsync(clanTag);
 
-            return apiResponse.GetModel();
+            return apiResponse.Model;
         }
     }
 }

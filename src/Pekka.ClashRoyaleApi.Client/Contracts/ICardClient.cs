@@ -6,7 +6,7 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 {
     public interface ICardClient
     {
-        Task<ApiResponse<CardList>> GetCardsResponseAsync();
+        Task<IApiResponse<CardList>> GetCardsResponseAsync();
         Task<CardList> GetCardsAsync();
     }
 }

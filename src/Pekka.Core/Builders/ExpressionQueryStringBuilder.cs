@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 
 namespace Pekka.Core.Builders

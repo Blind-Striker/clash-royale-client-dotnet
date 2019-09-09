@@ -15,18 +15,18 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IClanClientWithApiResponse
     {
-        Task<ApiResponse<List<ClanSummary>>> SearchClanResponseAsync(ClanSummaryFilter clanSummaryFilter = null);
-        Task<ApiResponse<Clan>> GetClanResponseAsync(string clanTag, ClanFilter clanFilter = null);
-        Task<ApiResponse<List<Clan>>> GetClansResponseAsync(string[] clanTags, ClanFilter clanFilter = null);
-        Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
-        Task<ApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
-        Task<ApiResponse<ClanWar>> GetWarResponseAsync(string clanTag, ClanWarFilter clanWarFilter = null);
-        Task<ApiResponse<ClanTracking>> GetTrackingResponseAsync(string clanTag, ClanTrackingFilter clanTrackingFilter = null);
-        Task<ApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryDailyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
-        Task<ApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryWeeklyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
-        Task<ApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
-        Task<ApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null);
-        Task<ApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
+        Task<IApiResponse<List<ClanSummary>>> SearchClanResponseAsync(ClanSummaryFilter clanSummaryFilter = null);
+        Task<IApiResponse<Clan>> GetClanResponseAsync(string clanTag, ClanFilter clanFilter = null);
+        Task<IApiResponse<List<Clan>>> GetClansResponseAsync(string[] clanTags, ClanFilter clanFilter = null);
+        Task<IApiResponse<List<Battle>>> GetBattlesResponseAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
+        Task<IApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
+        Task<IApiResponse<ClanWar>> GetWarResponseAsync(string clanTag, ClanWarFilter clanWarFilter = null);
+        Task<IApiResponse<ClanTracking>> GetTrackingResponseAsync(string clanTag, ClanTrackingFilter clanTrackingFilter = null);
+        Task<IApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryDailyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
+        Task<IApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryWeeklyResponseAsync(string clanTag, ClanHistoryFilter clanHistoryFilter = null);
+        Task<IApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
+        Task<IApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null);
+        Task<IApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null);
     }
 
     public interface IClanClientWithModel

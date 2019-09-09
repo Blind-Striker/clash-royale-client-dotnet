@@ -1,4 +1,5 @@
 ﻿using Pekka.Core;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 
 namespace Pekka.RoyaleApi.Client

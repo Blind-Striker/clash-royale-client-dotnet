@@ -2,7 +2,7 @@
 using Pekka.Core.Builders;
 using Pekka.Core.Contracts;
 
-namespace Pekka.Core.Helpers
+namespace Pekka.Core.Extensions
 {
     public static class FilterExtensions
     {

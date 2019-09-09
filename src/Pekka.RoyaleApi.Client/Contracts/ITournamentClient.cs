@@ -13,15 +13,15 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface ITournamentClientWithApiResponse
     {
-        Task<ApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentSearchFilter tournamentSearchFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetTournamentsResponseAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetOpenTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetKnownTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> Get1KTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetInPrepTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetFullTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetJoinableTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
-        Task<ApiResponse<List<Tournament>>> GetPopularTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentSearchFilter tournamentSearchFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetTournamentsResponseAsync(string[] tournamentTags, TournamentSearchFilter tournamentSearchFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetOpenTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetKnownTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> Get1KTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetInPrepTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetFullTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetJoinableTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
+        Task<IApiResponse<List<Tournament>>> GetPopularTournamentsResponseAsync(TournamentFilter tournamentFilter = null);
     }
 
     public interface ITournamentClientWithModel

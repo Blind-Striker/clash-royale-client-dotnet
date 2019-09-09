@@ -9,7 +9,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
     public interface IVersionClientWithResponse
     {
-        Task<ApiResponse> GetVersionResponse();
+        //Task<IApiResponse> GetVersionResponse();
     }
 
     public interface IVersionClientWithModel
