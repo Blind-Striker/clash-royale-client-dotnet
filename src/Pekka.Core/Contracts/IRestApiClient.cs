@@ -1,6 +1,7 @@
 ﻿using Pekka.Core.Responses;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Pekka.Core.Contracts
@@ -24,10 +25,10 @@ namespace Pekka.Core.Contracts
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null);
 
-        Task<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
+        ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null);
 
-        Task<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage);
+        ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage);
     }
 }

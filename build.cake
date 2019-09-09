@@ -5,6 +5,7 @@ using System.Diagnostics;
 var target = Argument("target", "default");
 var configuration = Argument("config", "Release");
 var buildNumber = Argument<int>("buildnumber", 1);
+var packProject = Argument<string>("packProject", "all");
 
 // Variables
 var royaleNugetOutput = "./artifacts/Pekka.RoyaleApi.Client";
@@ -93,21 +94,19 @@ Task("tests")
 Task("nuget-pack")
     .Does(() =>
     {
-        string outputDirectory = MakeAbsolute(Directory(royaleNugetOutput)).FullPath;
-        string projectFullPath = MakeAbsolute(File(royaleApiPath)).FullPath;
-
-        if(!System.IO.Directory.Exists(outputDirectory))
+        if(packProject == "royale")
         {
-            System.IO.Directory.CreateDirectory(outputDirectory);
+            NugetPack(royaleApiPath, royaleNugetOutput);
         }
-
-        var settings = new DotNetCorePackSettings();
-        settings.Configuration = configuration;
-        settings.OutputDirectory = royaleNugetOutput;
-        settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
-        settings.MSBuildSettings.SetVersion(GetProjectVersion());
-
-        DotNetCorePack(projectFullPath, settings);
+        else if (packProject == "clash")
+        {
+            NugetPack(clashRoyaleApiPath, clashRoyaleNugetOutput);
+        }
+        else
+        {
+            NugetPack(royaleApiPath, royaleNugetOutput);
+            NugetPack(clashRoyaleApiPath, clashRoyaleNugetOutput);
+        }
     });
 
 Task("get-version")
@@ -119,6 +118,24 @@ Task("get-version")
 
 RunTarget(target);
 
+private void NugetPack(string projectPath, string outputPath)
+{
+    string outputDirectory = MakeAbsolute(Directory(outputPath)).FullPath;
+    string projectFullPath = MakeAbsolute(File(projectPath)).FullPath;
+
+    if(!System.IO.Directory.Exists(outputDirectory))
+    {
+        System.IO.Directory.CreateDirectory(outputDirectory);
+    }
+
+    var settings = new DotNetCorePackSettings();
+    settings.Configuration = configuration;
+    settings.OutputDirectory = royaleNugetOutput;
+    settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
+    settings.MSBuildSettings.SetVersion(GetProjectVersion());
+
+    DotNetCorePack(projectFullPath, settings);
+}
 
 /*
 / HELPER METHODS

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Pekka.Core
@@ -82,7 +83,7 @@ namespace Pekka.Core
             }
         }
 
-        public async Task<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
+        public ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null)
         {
@@ -92,19 +93,15 @@ namespace Pekka.Core
                 .AddQueryParameters(queryParams)
                 .AddHeaders(headerParams))
             {
-                HttpResponseMessage httpResponse = await CallAsync(httpRequestMessage);
-
-                return httpResponse;
+                return CallAsync(httpRequestMessage);
             }
         }
 
-        public async Task<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage)
+        public ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage)
         {
             Ensure.ArgumentNotNull(httpRequestMessage, nameof(httpRequestMessage));
 
-            HttpResponseMessage httpResponse = await HttpClient.SendAsync(httpRequestMessage);
-
-            return httpResponse;
+            return HttpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
         }
     }
 }

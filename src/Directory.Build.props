@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <Authors>Deniz İrgin</Authors>
+    <Company>Deniz İrgin</Company>
+    <Owners>Deniz İrgin</Owners>
+    <PackageProjectUrl>https://github.com/Blind-Striker/clash-royale-client-dotnet</PackageProjectUrl>
+  </PropertyGroup>
+
+    <Target Name="PreBuild" AfterTargets="PreBuildEvent">
+    <ItemGroup>
+      <LicenseFile Include="../../LICENSE" />
+    </ItemGroup>
+    <Copy SourceFiles="@(LicenseFile)" DestinationFiles="@(LicenseFile->'./LICENSE.txt')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

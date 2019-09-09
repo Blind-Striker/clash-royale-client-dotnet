@@ -20,8 +20,8 @@ namespace Pekka.Core.Tests.RestApiClientTests
         {
             var restApiClient = new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object), MockData.MockApiOptions);
 
-            await Assert.ThrowsAsync<ArgumentNullException>(() => restApiClient.CallAsync(HttpMethod.Get, null));
-            await Assert.ThrowsAsync<ArgumentException>(() => restApiClient.CallAsync(HttpMethod.Get, string.Empty));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await restApiClient.CallAsync(HttpMethod.Get, null));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await restApiClient.CallAsync(HttpMethod.Get, string.Empty));
         }
 
         [Theory]
