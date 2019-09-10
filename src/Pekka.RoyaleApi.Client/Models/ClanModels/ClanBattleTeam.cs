@@ -3,10 +3,13 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Pekka.RoyaleApi.Client.Models.PlayerModels
+using Pekka.Core.JsonConverters;
+using Pekka.RoyaleApi.Client.Contracts.Models;
+
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class PlayerInfo
+    public class ClanBattleTeam: ITeam
     {
         public string Tag { get; set; }
 
@@ -16,15 +19,12 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public int StartTrophies { get; set; }
 
-        public PlayerClan Clan { get; set; }
+        [JsonConverter(typeof(CustomConverter<ClanBattleClanLight>))]
+        public IClanLight Clan { get; set; }
 
         public string DeckLink { get; set; }
 
-        public List<PlayerCard> Deck { get; set; }
-
-        public override string ToString()
-        {
-            return $"{Name}-{Tag}";
-        }
+        [JsonConverter(typeof(CustomConverter<List<ClanBattleDeck>>))]
+        public List<ICard> Deck { get; set; }
     }
 }

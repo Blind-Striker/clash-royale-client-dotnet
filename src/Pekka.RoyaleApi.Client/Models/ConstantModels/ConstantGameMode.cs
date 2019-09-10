@@ -1,5 +1,9 @@
-﻿namespace Pekka.RoyaleApi.Client.Models.ConstantModels
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 {
+    [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class ConstantGameMode
     {
         public int Id { get; set; }

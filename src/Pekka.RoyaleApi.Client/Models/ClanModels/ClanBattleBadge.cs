@@ -3,10 +3,10 @@ using Newtonsoft.Json.Serialization;
 
 using Pekka.RoyaleApi.Client.Contracts.Models;
 
-namespace Pekka.RoyaleApi.Client.Models.PlayerModels
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class PlayerBadge : IBadge
+    public class ClanBattleBadge : IBadge
     {
         public int Id { get; set; }
 

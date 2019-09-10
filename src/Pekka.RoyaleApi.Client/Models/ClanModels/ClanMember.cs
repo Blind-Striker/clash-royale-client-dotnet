@@ -1,7 +1,11 @@
 ﻿using System;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
+    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class ClanMember
     {
         public string Name { get; set; }

@@ -56,13 +56,13 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string clanTag,
+        public async Task<IApiResponse<List<ClanBattle>>> GetBattlesResponseAsync(string clanTag,
             ClanBattleFilter clanBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
             var apiResponse =
-                await _restApiClient.GetApiResponseAsync<List<PlayerBattle>>(UrlPathBuilder.GetClanBattleUrl(clanTag),
+                await _restApiClient.GetApiResponseAsync<List<ClanBattle>>(UrlPathBuilder.GetClanBattleUrl(clanTag),
                     clanBattleFilter?.ToQueryParams());
 
             return apiResponse;
@@ -180,7 +180,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.Model;
         }
 
-        public async Task<List<PlayerBattle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null)
+        public async Task<List<ClanBattle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 

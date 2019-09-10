@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
+    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class Player
     {
         public string Tag { get; set; }

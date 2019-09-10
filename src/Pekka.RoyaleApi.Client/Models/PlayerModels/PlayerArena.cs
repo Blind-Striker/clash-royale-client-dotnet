@@ -1,7 +1,11 @@
-﻿using Pekka.RoyaleApi.Client.Contracts.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+using Pekka.RoyaleApi.Client.Contracts.Models;
 
 namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
+    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class PlayerArena : IArena
     {
         public int Id { get; set; }

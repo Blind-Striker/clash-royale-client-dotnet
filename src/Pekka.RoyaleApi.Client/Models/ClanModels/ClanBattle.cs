@@ -7,10 +7,10 @@ using Newtonsoft.Json.Serialization;
 using Pekka.Core.JsonConverters;
 using Pekka.RoyaleApi.Client.Contracts.Models;
 
-namespace Pekka.RoyaleApi.Client.Models.PlayerModels
+namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class PlayerBattle : IBattle
+    public class ClanBattle : IBattle
     {
         public string Type { get; set; }
 
@@ -28,16 +28,16 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public int OpponentCrowns { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<PlayerArena>))]
+        [JsonConverter(typeof(CustomConverter<ClanBattleArena>))]
         public IArena Arena { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<PlayerMode>))]
+        [JsonConverter(typeof(CustomConverter<ClanBattleMode>))]
         public IMode Mode { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<PlayerTeam>>))]
+        [JsonConverter(typeof(CustomConverter<List<ClanBattleTeam>>))]
         public List<ITeam> Team { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<PlayerTeam>>))]
+        [JsonConverter(typeof(CustomConverter<List<ClanBattleTeam>>))]
         public List<ITeam> Opponent { get; set; }
     }
 }

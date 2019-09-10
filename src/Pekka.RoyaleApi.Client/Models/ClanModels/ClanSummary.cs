@@ -1,7 +1,11 @@
-﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
+    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class ClanSummary
     {
         public string Tag { get; set; }

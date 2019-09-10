@@ -22,7 +22,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         Task<IApiResponse<List<Clan>>> GetClansResponseAsync(string[] clanTags, ClanFilter clanFilter = null);
 
-        Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string clanTag,
+        Task<IApiResponse<List<ClanBattle>>> GetBattlesResponseAsync(string clanTag,
             ClanBattleFilter clanBattleFilter = null);
 
         Task<IApiResponse<List<ClanWarLog>>> GetWarLogsResponseAsync(string clanTag,
@@ -56,7 +56,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         Task<List<Clan>> GetClansAsync(string[] clanTags, ClanFilter clanFilter = null);
 
-        Task<List<PlayerBattle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
+        Task<List<ClanBattle>> GetBattlesAsync(string clanTag, ClanBattleFilter clanBattleFilter = null);
 
         Task<List<ClanWarLog>> GetWarLogsAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
 

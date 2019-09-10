@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 {
+    [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class ConstantChestOrder
     {
         public List<string> MainCycle { get; set; }

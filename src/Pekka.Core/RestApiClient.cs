@@ -16,19 +16,10 @@ namespace Pekka.Core
     public class RestApiClient : IRestApiClient
     {
         protected readonly HttpClient HttpClient;
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
 
         public RestApiClient(HttpClient httpClient)
         {
             HttpClient = httpClient;
-
-            _jsonSerializerSettings = new JsonSerializerSettings()
-            {
-                ContractResolver = new DefaultContractResolver
-                {
-                    NamingStrategy = new SnakeCaseNamingStrategy(),
-                }
-            };
         }
 
         public async Task<IApiResponse<TModel>> GetApiResponseAsync<TModel>(string path,
@@ -41,11 +32,7 @@ namespace Pekka.Core
             using (HttpResponseMessage httpResponseMessage =
                 await CallAsync(HttpMethod.Get, path, queryParams, headerParams))
             {
-                return await httpResponseMessage.ConvertToApiResponse<TModel>(path,
-                    namingStrategy == null
-                        ? _jsonSerializerSettings
-                        : new JsonSerializerSettings()
-                            {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(path);
             }
         }
 
@@ -57,11 +44,7 @@ namespace Pekka.Core
 
             using (HttpResponseMessage httpResponseMessage = await CallAsync(httpRequestMessage))
             {
-                return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString(),
-                    namingStrategy == null
-                        ? _jsonSerializerSettings
-                        : new JsonSerializerSettings()
-                            {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
+                return await httpResponseMessage.ConvertToApiResponse<TModel>(httpRequestMessage.RequestUri.ToString());
             }
         }
 
@@ -74,10 +57,7 @@ namespace Pekka.Core
 
             string stringContent = await GetStringContentAsync(path, queryParams, headerParams);
 
-            return JsonConvert.DeserializeObject<TModel>(stringContent, namingStrategy == null
-                ? _jsonSerializerSettings
-                : new JsonSerializerSettings()
-                    {ContractResolver = new DefaultContractResolver() {NamingStrategy = namingStrategy}});
+            return JsonConvert.DeserializeObject<TModel>(stringContent);
         }
 
         public async Task<string> GetStringContentAsync(string path,
