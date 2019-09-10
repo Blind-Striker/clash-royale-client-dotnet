@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-using Pekka.RoyaleApi.Client.Models.PlayerModels;
-
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     public class Clan
@@ -16,19 +14,19 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public int Score { get; set; }
 
+        public int WarTrophies { get; set; }
+
         public int MemberCount { get; set; }
 
         public int RequiredScore { get; set; }
 
         public int Donations { get; set; }
 
-        public ClanChest ClanChest { get; set; }
+        public ClanBadge Badge { get; set; }
 
-        public PlayerBadge Badge { get; set; }
+        public ClanLocation Location { get; set; }
 
-        public ClanRegion Location { get; set; }
-
-        public IList<ClanMember> Members { get; set; }
+        public List<ClanMember> Members { get; set; }
 
         public ClanTracking Tracking { get; set; }
 

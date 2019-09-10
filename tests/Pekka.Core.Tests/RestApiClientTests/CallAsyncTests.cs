@@ -21,9 +21,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
         [Fact]
         public async Task CallAsync_Should_Throw_ArgumentException_If_Path_Is_Null_Or_Empty()
         {
-            var restApiClient =
-                new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object),
-                    MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object));
 
             await Assert.ThrowsAsync<ArgumentNullException>(async () =>
                 await restApiClient.CallAsync(HttpMethod.Get, null));
@@ -64,7 +62,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 .Verifiable();
 
             var httpClient = new HttpClient(httpMessageHandler.Object);
-            var restApiClient = new RestApiClient(httpClient, MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(httpClient);
 
             await restApiClient.CallAsync(httpMethod, path, queryStingParameters, headerParameters);
 

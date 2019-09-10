@@ -1,9 +1,12 @@
-﻿using Pekka.ClashRoyaleApi.Client.Clients;
+﻿using System;
+
+using Pekka.ClashRoyaleApi.Client.Clients;
 using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.Core;
 using Pekka.Core.Contracts;
 
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Pekka.ClashRoyaleApi.Client.Standalone
 {
@@ -29,8 +32,7 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
 
         public ICardClient CardClient { get; }
 
-        public static IClashRoyaleApiClientContext Create(string baseUrl, string authToken,
-            HttpClient httpClient = null)
+        public static IClashRoyaleApiClientContext Create(string baseUrl, string authToken, HttpClient httpClient = null)
         {
             return Create(new ApiOptions(authToken, baseUrl), httpClient);
         }
@@ -38,8 +40,10 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
         public static IClashRoyaleApiClientContext Create(ApiOptions apiOptions, HttpClient httpClient = null)
         {
             if (httpClient == null) httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
 
-            IRestApiClient restApiClient = new RestApiClient(httpClient, apiOptions);
+            IRestApiClient restApiClient = new RestApiClient(httpClient);
 
             IClashRoyaleApiClientContext apiClientContext = new ClashRoyaleApiStandalone(
                 new PlayerClient(restApiClient),

@@ -10,6 +10,8 @@ using Pekka.RoyaleApi.Client.Models.ClanModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json.Serialization;
+
 using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Client.Clients
@@ -27,7 +29,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             ClanSummaryFilter clanSummaryFilter = null)
         {
             var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(UrlPathBuilder.ClanSearchUrl,
-                clanSummaryFilter?.ToQueryParams());
+                clanSummaryFilter?.ToQueryParams(),null, new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
@@ -38,7 +40,7 @@ namespace Pekka.RoyaleApi.Client.Clients
 
             var apiResponse =
                 await _restApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag),
-                    clanFilter?.ToQueryParams());
+                    clanFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
@@ -49,7 +51,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             Ensure.ArgumentNotNullOrEmptyEnumerable(clanTags, nameof(clanTags));
 
             var apiResponse = await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.GetClanUrl(clanTags),
-                clanFilter?.ToQueryParams());
+                clanFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
 
             return apiResponse;
         }

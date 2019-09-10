@@ -6,10 +6,8 @@ using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -20,13 +18,9 @@ namespace Pekka.Core
         protected readonly HttpClient HttpClient;
         private readonly JsonSerializerSettings _jsonSerializerSettings;
 
-        public RestApiClient(HttpClient httpClient, ApiOptions apiOptions)
+        public RestApiClient(HttpClient httpClient)
         {
             HttpClient = httpClient;
-            HttpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
-
-            HttpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
 
             _jsonSerializerSettings = new JsonSerializerSettings()
             {

@@ -1,4 +1,4 @@
-﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
+﻿using System;
 
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
@@ -10,23 +10,25 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public int Rank { get; set; }
 
+        public int PreviousRank { get; set; }
+
         public string Role { get; set; }
 
         public int ExpLevel { get; set; }
 
         public int Trophies { get; set; }
 
-        public int? Donations { get; set; }
+        public DateTime LastSeen { get; set; }
 
-        public int? DonationsReceived { get; set; }
+        public int Donations { get; set; }
 
-        public int? DonationsDelta { get; set; }
+        public int DonationsReceived { get; set; }
 
-        public PlayerArena Arena { get; set; }
+        public int DonationsDelta { get; set; }
 
-        public double? DonationsPercent { get; set; }
+        public ClanArena Arena { get; set; }
 
-        public int? PreviousRank { get; set; }
+        public double DonationsPercent { get; set; }
 
         public override string ToString()
         {

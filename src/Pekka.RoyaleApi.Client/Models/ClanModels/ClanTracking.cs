@@ -2,9 +2,9 @@
 {
     public class ClanTracking
     {
-        public string Tag { get; set; }
-
         public bool Active { get; set; }
+
+        public bool Legible { get; set; }
 
         public bool Available { get; set; }
 

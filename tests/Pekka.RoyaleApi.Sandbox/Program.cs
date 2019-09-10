@@ -9,7 +9,10 @@ using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 using System;
 using System.Linq.Expressions;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 namespace Pekka.RoyaleApi.Sandbox
 {
@@ -23,8 +26,15 @@ namespace Pekka.RoyaleApi.Sandbox
             var apiOptions = new ApiOptions(token, "https://api.royaleapi.com/");
 
             var services = new ServiceCollection();
+
             services.AddSingleton(apiOptions);
-            services.AddHttpClient<IRestApiClient, RestApiClient>();
+
+            services.AddHttpClient<IRestApiClient, RestApiClient>((provider, client) =>
+            {
+                var options = provider.GetRequiredService<ApiOptions>();
+                client.BaseAddress = new Uri(options.BaseUrl);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+            });
             services.AddTransient<IPlayerClient, PlayerClient>();
             services.AddTransient<IClanClient, ClanClient>();
             services.AddTransient<IVersionClient, VersionClient>();
@@ -41,17 +51,18 @@ namespace Pekka.RoyaleApi.Sandbox
             var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
 
 
-            var version = await versionClient.GetVersionResponseAsync();
-            var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
+            //var version = await versionClient.GetVersionResponseAsync();
+            //var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
 
             string[] playerList =
                 {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8"};
 
             string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
 
-            var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
-            var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
-            var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
+            //var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
+            //var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
+            //var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
+            var clanResponseAsync = await clanClient.GetClanResponseAsync(clanList[0]);
             //var playersCurrentChest = await playerClient.GetChestsResponseAsync(playerList);
 
             //var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();

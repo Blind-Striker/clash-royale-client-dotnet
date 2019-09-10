@@ -1,9 +1,12 @@
-﻿using Pekka.Core;
+﻿using System;
+
+using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Pekka.RoyaleApi.Client.Standalone
 {
@@ -42,7 +45,10 @@ namespace Pekka.RoyaleApi.Client.Standalone
         {
             if (httpClient == null) httpClient = new HttpClient();
 
-            IRestApiClient restApiClient = new RestApiClient(httpClient, apiOptions);
+            httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
+
+            IRestApiClient restApiClient = new RestApiClient(httpClient);
 
             IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(
                 new VersionClient(restApiClient),

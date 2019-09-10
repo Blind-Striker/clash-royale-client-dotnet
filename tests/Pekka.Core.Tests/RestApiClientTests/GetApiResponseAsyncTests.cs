@@ -25,9 +25,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
         [Fact]
         public async Task GetApiResponseAsync_Should_Throw_ArgumentException_If_Path_Is_Null_Or_Empty()
         {
-            var restApiClient =
-                new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object),
-                    MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object));
 
             await Assert.ThrowsAsync<ArgumentNullException>(() =>
                 restApiClient.GetApiResponseAsync<PullRequest>(null, null));
@@ -66,7 +64,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 .Verifiable();
 
             var httpClient = new HttpClient(httpMessageHandler.Object);
-            var restApiClient = new RestApiClient(httpClient, MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(httpClient);
 
             var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>(path, null, headerParameters);
 
@@ -111,7 +109,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 .Verifiable();
 
             var httpClient = new HttpClient(httpMessageHandler.Object);
-            var restApiClient = new RestApiClient(httpClient, MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(httpClient);
 
             var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>("pull_request");
 
@@ -151,7 +149,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 .Verifiable();
 
             var httpClient = new HttpClient(httpMessageHandler.Object);
-            var restApiClient = new RestApiClient(httpClient, MockData.MockApiOptions);
+            var restApiClient = new RestApiClient(httpClient);
 
             var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>("pull_request");
 
