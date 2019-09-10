@@ -25,8 +25,8 @@ namespace Pekka.RoyaleApi.Client.Contracts.Models
 
         IMode Mode { get; set; }
 
-        List<ITeam> Team { get; set; }
+        ITeam[] Team { get; set; }
 
-        List<ITeam> Opponent { get; set; }
+        ITeam[] Opponent { get; set; }
     }
 }

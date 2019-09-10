@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Pekka.RoyaleApi.Client.Models.PlayerModels
@@ -26,11 +24,11 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public string DeckLink { get; set; }
 
-        public List<PlayerCard> CurrentDeck { get; set; }
+        public PlayerCard[] CurrentDeck { get; set; }
 
-        public List<PlayerCard> Cards { get; set; }
+        public PlayerCard[] Cards { get; set; }
 
-        public List<PlayerAchievement> Achievements { get; set; }
+        public PlayerAchievement[] Achievements { get; set; }
 
         public override string ToString()
         {

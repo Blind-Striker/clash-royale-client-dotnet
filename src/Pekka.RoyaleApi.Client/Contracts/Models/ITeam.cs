@@ -15,7 +15,6 @@ namespace Pekka.RoyaleApi.Client.Contracts.Models
         IClanLight Clan { get; set; }
 
         string DeckLink { get; set; }
-
-        List<ICard> Deck { get; set; }
+        ICard[] Deck { get; set; }
     }
 }

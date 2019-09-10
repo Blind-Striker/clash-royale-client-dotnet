@@ -34,10 +34,10 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
         [JsonConverter(typeof(CustomConverter<PlayerMode>))]
         public IMode Mode { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<PlayerTeam>>))]
-        public List<ITeam> Team { get; set; }
+        [JsonConverter(typeof(CustomConverter<PlayerTeam[]>))]
+        public ITeam[] Team { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<PlayerTeam>>))]
-        public List<ITeam> Opponent { get; set; }
+        [JsonConverter(typeof(CustomConverter<PlayerTeam[]>))]
+        public ITeam[] Opponent { get; set; }
     }
 }

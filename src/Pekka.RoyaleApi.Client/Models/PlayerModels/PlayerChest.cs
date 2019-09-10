@@ -8,7 +8,7 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class PlayerChest
     {
-        public List<string> Upcoming { get; set; }
+        public string[] Upcoming { get; set; }
 
         public int MegaLightning { get; set; }
 

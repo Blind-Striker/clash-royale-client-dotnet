@@ -71,6 +71,6 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 
         public int MaxGold { get; set; }
 
-        public List<ConstantArenaReward> Arenas { get; set; }
+        public ConstantArenaReward[] Arenas { get; set; }
     }
 }

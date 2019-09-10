@@ -20,7 +20,7 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public string DeckLink { get; set; }
 
-        public List<PlayerCard> Deck { get; set; }
+        public PlayerCard[] Deck { get; set; }
 
         public override string ToString()
         {

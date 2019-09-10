@@ -32,13 +32,13 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 
         public int BalanceMultiplier { get; set; }
 
-        public List<int> UpgradeExp { get; set; }
+        public int[] UpgradeExp { get; set; }
 
-        public List<int> UpgradeMaterialCount { get; set; }
+        public int[] UpgradeMaterialCount { get; set; }
 
-        public List<int> UpgradeCost { get; set; }
+        public int[] UpgradeCost { get; set; }
 
-        public List<int> PowerLevelMultiplier { get; set; }
+        public int[] PowerLevelMultiplier { get; set; }
 
         public int RefundGems { get; set; }
     }

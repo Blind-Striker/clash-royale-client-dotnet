@@ -22,9 +22,9 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 
         public int MaxLoss { get; set; }
 
-        public List<int> RewardGold { get; set; }
+        public int[] RewardGold { get; set; }
 
-        public List<int> RewardCards { get; set; }
+        public int[] RewardCards { get; set; }
 
         public string Key { get; set; }
 

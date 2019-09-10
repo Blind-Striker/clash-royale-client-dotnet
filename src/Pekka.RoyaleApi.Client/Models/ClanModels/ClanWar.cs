@@ -12,7 +12,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public ClanWarInfoClan Clan { get; set; }
 
-        public List<ClanWarParticipant> Participants { get; set; }
+        public ClanWarParticipant[] Participants { get; set; }
 
         public int SeasonNumber { get; set; }
 

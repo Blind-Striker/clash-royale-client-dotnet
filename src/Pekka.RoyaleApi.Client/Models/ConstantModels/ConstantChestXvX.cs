@@ -8,10 +8,10 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class ConstantChestXvX
     {
-        public List<int> Thresholds { get; set; }
+        public int[] Thresholds { get; set; }
 
-        public List<int> Gold { get; set; }
+        public int[] Gold { get; set; }
 
-        public List<int> Cards { get; set; }
+        public int[] Cards { get; set; }
     }
 }

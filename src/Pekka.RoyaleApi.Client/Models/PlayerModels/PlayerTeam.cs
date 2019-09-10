@@ -24,7 +24,7 @@ namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 
         public string DeckLink { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<PlayerCard>>))]
-        public List<ICard> Deck { get; set; }
+        [JsonConverter(typeof(CustomConverter<PlayerCard[]>))]
+        public ICard[] Deck { get; set; }
     }
 }

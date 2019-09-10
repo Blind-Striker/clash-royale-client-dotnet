@@ -24,7 +24,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public string DeckLink { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<List<ClanBattleDeck>>))]
-        public List<ICard> Deck { get; set; }
+        [JsonConverter(typeof(CustomConverter<ClanBattleDeck[]>))]
+        public ICard[] Deck { get; set; }
     }
 }

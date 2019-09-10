@@ -34,6 +34,6 @@ namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
 
         public int? ClanChestPoints { get; set; }
 
-        public List<ClanMember> MemberList { get; set; }
+        public ClanMember[] MemberList { get; set; }
     }
 }

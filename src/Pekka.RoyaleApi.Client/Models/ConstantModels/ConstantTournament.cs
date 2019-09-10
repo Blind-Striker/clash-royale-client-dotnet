@@ -14,8 +14,8 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
 
         public string Key { get; set; }
 
-        public List<ConstantPrize> Prizes { get; set; }
+        public ConstantPrize[] Prizes { get; set; }
 
-        public List<int> Cards { get; set; }
+        public int[] Cards { get; set; }
     }
 }

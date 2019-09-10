@@ -30,7 +30,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public ClanLocation Location { get; set; }
 
-        public List<ClanMember> Members { get; set; }
+        public ClanMember[] Members { get; set; }
 
         public ClanTracking Tracking { get; set; }
 

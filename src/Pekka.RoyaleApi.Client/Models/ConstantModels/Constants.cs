@@ -8,27 +8,27 @@ namespace Pekka.RoyaleApi.Client.Models.ConstantModels
     [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class Constants
     {
-        public List<ConstantAllianceBadge> AllianceBadges { get; set; }
+        public ConstantAllianceBadge[] AllianceBadges { get; set; }
 
-        public List<ConstantArena> Arenas { get; set; }
+        public ConstantArena[] Arenas { get; set; }
 
-        public List<ConstantCard> Cards { get; set; }
+        public ConstantCard[] Cards { get; set; }
 
         public ConstantCardsStats CardsStats { get; set; }
 
-        public List<ConstantChallenge> Challenges { get; set; }
+        public ConstantChallenge[] Challenges { get; set; }
 
         public ConstantChestOrder ChestOrder { get; set; }
 
         public ConstantClanChest ClanChest { get; set; }
 
-        public List<ConstantGameMode> GameModes { get; set; }
+        public ConstantGameMode[] GameModes { get; set; }
 
-        public List<ConstantRarity> Rarities { get; set; }
+        public ConstantRarity[] Rarities { get; set; }
 
-        public List<ConstantRegion> Regions { get; set; }
+        public ConstantRegion[] Regions { get; set; }
 
-        public List<ConstantTournament> Tournaments { get; set; }
+        public ConstantTournament[] Tournaments { get; set; }
 
         public ConstantTreasureChests TreasureChests { get; set; }
     }
