@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -61,7 +62,8 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 })
                 .Verifiable();
 
-            var httpClient = new HttpClient(httpMessageHandler.Object);
+            HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
+
             var restApiClient = new RestApiClient(httpClient);
 
             await restApiClient.CallAsync(httpMethod, path, queryStingParameters, headerParameters);

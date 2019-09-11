@@ -23,17 +23,17 @@ namespace Pekka.Core.Tests.RestApiClientTests
         {
             var restApiClient = new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object));
 
-            await Assert.ThrowsAsync<ArgumentNullException>(() => restApiClient.GetAsync<PullRequest>(null));
-            await Assert.ThrowsAsync<ArgumentException>(() => restApiClient.GetAsync<PullRequest>(string.Empty));
+            await Assert.ThrowsAsync<ArgumentNullException>(() => restApiClient.GetAsync<SampleData>(null));
+            await Assert.ThrowsAsync<ArgumentException>(() => restApiClient.GetAsync<SampleData>(string.Empty));
         }
 
         [Fact]
         public async Task GetAsync_Should_Return_DeserializedObject()
         {
-            var podcast = new PullRequest()
-                {Owner = "Fatma", CommentCount = 5, CreateDate = TimeProvider.Current.UtcNow};
+            var sampleData = new SampleData()
+                {Owner = "Fatma", SampleCount = 5, CreateDate = TimeProvider.Current.UtcNow};
 
-            string stringContent = JsonConvert.SerializeObject(podcast, MockData.JsonSerializerSettings);
+            string stringContent = JsonConvert.SerializeObject(sampleData);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 
@@ -48,10 +48,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 })
                 .Verifiable();
 
-            var httpClient = new HttpClient(httpMessageHandler.Object);
+            HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
             var restApiClient = new RestApiClient(httpClient);
 
-            PullRequest statisticResult = await restApiClient.GetAsync<PullRequest>("statistic");
+            SampleData statisticResult = await restApiClient.GetAsync<SampleData>("statistic");
 
             httpMessageHandler.Protected()
                 .Verify("SendAsync", Times.Once(),
@@ -60,9 +60,9 @@ namespace Pekka.Core.Tests.RestApiClientTests
                     ItExpr.IsAny<CancellationToken>());
 
             Assert.NotNull(statisticResult);
-            Assert.Equal(podcast.CommentCount, statisticResult.CommentCount);
-            Assert.Equal(podcast.CreateDate, statisticResult.CreateDate);
-            Assert.Equal(podcast.Owner, statisticResult.Owner);
+            Assert.Equal(sampleData.SampleCount, statisticResult.SampleCount);
+            Assert.Equal(sampleData.CreateDate, statisticResult.CreateDate);
+            Assert.Equal(sampleData.Owner, statisticResult.Owner);
         }
     }
 }

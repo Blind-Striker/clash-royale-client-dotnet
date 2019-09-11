@@ -28,10 +28,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
             var restApiClient = new RestApiClient(new HttpClient(new Mock<HttpMessageHandler>(MockBehavior.Strict).Object));
 
             await Assert.ThrowsAsync<ArgumentNullException>(() =>
-                restApiClient.GetApiResponseAsync<PullRequest>(null, null));
+                restApiClient.GetApiResponseAsync<SampleData>(null, null));
 
             await Assert.ThrowsAsync<ArgumentException>(() =>
-                restApiClient.GetApiResponseAsync<PullRequest>(string.Empty));
+                restApiClient.GetApiResponseAsync<SampleData>(string.Empty));
         }
 
         [Theory]
@@ -43,12 +43,12 @@ namespace Pekka.Core.Tests.RestApiClientTests
             GetApiResponseAsync_Should_Return_ApiResponse_With_StatusCode_And_Headers_And_UrlPath_Regardless_Of_StatusCode_Success_Or_Not(
                 HttpStatusCode httpStatusCode, string headerParams, string path)
         {
-            var podcast = new PullRequest()
-                {Owner = "Yiğit", CommentCount = 5, CreateDate = TimeProvider.Current.UtcNow};
+            var podcast = new SampleData()
+                {Owner = "Yiğit", SampleCount = 5, CreateDate = TimeProvider.Current.UtcNow};
 
             var headerParameters = headerParams.ToHeaderParameters();
 
-            string stringContent = JsonConvert.SerializeObject(podcast, MockData.JsonSerializerSettings);
+            string stringContent = JsonConvert.SerializeObject(podcast);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 
@@ -63,10 +63,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 })
                 .Verifiable();
 
-            var httpClient = new HttpClient(httpMessageHandler.Object);
+            HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
             var restApiClient = new RestApiClient(httpClient);
 
-            var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>(path, null, headerParameters);
+            var apiResponse = await restApiClient.GetApiResponseAsync<SampleData>(path, null, headerParameters);
 
             httpMessageHandler.Protected()
                 .Verify("SendAsync", Times.Once(),
@@ -87,10 +87,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
         public async Task
             GetApiResponseAsync_Should_Return_ApiResponse_With_Success_And_DeserializedObject_If_HttpResponseMessage_IsSuccessStatusCode_True()
         {
-            var podcast = new PullRequest()
-                {Owner = "Fatma", CommentCount = 5, CreateDate = TimeProvider.Current.UtcNow};
+            var podcast = new SampleData()
+                {Owner = "Fatma", SampleCount = 5, CreateDate = TimeProvider.Current.UtcNow};
 
-            string stringContent = JsonConvert.SerializeObject(podcast, MockData.JsonSerializerSettings);
+            string stringContent = JsonConvert.SerializeObject(podcast);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 
@@ -108,10 +108,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 })
                 .Verifiable();
 
-            var httpClient = new HttpClient(httpMessageHandler.Object);
+            HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
             var restApiClient = new RestApiClient(httpClient);
 
-            var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>("pull_request");
+            var apiResponse = await restApiClient.GetApiResponseAsync<SampleData>("pull_request");
 
             httpMessageHandler.Protected()
                 .Verify("SendAsync", Times.Once(),
@@ -124,7 +124,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
             Assert.NotNull(apiResponse.Model);
             Assert.Null(apiResponse.Message);
             Assert.Equal(podcast.Owner, apiResponse.Model.Owner);
-            Assert.Equal(podcast.CommentCount, apiResponse.Model.CommentCount);
+            Assert.Equal(podcast.SampleCount, apiResponse.Model.SampleCount);
             Assert.Equal(podcast.CreateDate, apiResponse.Model.CreateDate);
         }
 
@@ -133,7 +133,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
             GetApiResponseAsync_Should_Return_ApiResponse_With_Error_True_And_With_Error_Message_If_HttpResponseMessage_IsSuccessStatusCode_True()
         {
             var errorResponse = new ErrorResponse() {Error = true, Message = "You need do something", Status = 500};
-            string stringContent = JsonConvert.SerializeObject(errorResponse, MockData.JsonSerializerSettings);
+            string stringContent = JsonConvert.SerializeObject(errorResponse);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 
@@ -148,10 +148,10 @@ namespace Pekka.Core.Tests.RestApiClientTests
                 })
                 .Verifiable();
 
-            var httpClient = new HttpClient(httpMessageHandler.Object);
+            HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
             var restApiClient = new RestApiClient(httpClient);
 
-            var apiResponse = await restApiClient.GetApiResponseAsync<PullRequest>("pull_request");
+            var apiResponse = await restApiClient.GetApiResponseAsync<SampleData>("pull_request");
 
             httpMessageHandler.Protected()
                 .Verify("SendAsync", Times.Once(),
