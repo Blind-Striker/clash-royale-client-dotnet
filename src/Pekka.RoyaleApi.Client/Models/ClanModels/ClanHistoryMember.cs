@@ -4,7 +4,7 @@ using Newtonsoft.Json.Serialization;
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class ClanHistoryPlayer
+    public class ClanHistoryMember
     {
         public int ClanRank { get; set; }
 

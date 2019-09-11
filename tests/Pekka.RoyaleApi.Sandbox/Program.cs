@@ -37,7 +37,7 @@ namespace Pekka.RoyaleApi.Sandbox
             services.AddTransient<IClanClient, ClanClient>();
             services.AddTransient<IVersionClient, VersionClient>();
             services.AddTransient<IConstantClient, ConstantClient>();
-            services.AddTransient<ITournamentClient, TournamentClient>();
+            //services.AddTransient<ITournamentClient, TournamentClient>();
 
             ServiceProvider buildServiceProvider = services.BuildServiceProvider();
 
@@ -46,11 +46,11 @@ namespace Pekka.RoyaleApi.Sandbox
             var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
             var constantClient = buildServiceProvider.GetRequiredService<IConstantClient>();
             var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
-            var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
+            //var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
 
 
-            var version = await versionClient.GetVersionResponseAsync();
-            var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
+            //var version = await versionClient.GetVersionResponseAsync();
+            //var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
 
             string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8"};
             string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
@@ -59,20 +59,23 @@ namespace Pekka.RoyaleApi.Sandbox
             //var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
             //var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
             //var clanResponseAsync = await clanClient.GetClanResponseAsync(clanList[0]);
+            //var battlesResponseAsync = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
+            //var searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanSummaryFilter() {Name = "Eyy", Max= 10});
 
-            var battlesResponseAsync = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
+            //var eyyamWars = await clanClient.GetWarResponseAsync("Y2JPYJ");
+            //var warrs = await clanClient.GetWarResponseAsync("9PJ82CRC");
 
-            //var playersCurrentChest = await playerClient.GetChestsResponseAsync(playerList);
+            var eyyamWarLogs = await clanClient.GetWarLogsResponseAsync("Y2JPYJ");
+            var warrsLogs = await clanClient.GetWarLogsResponseAsync("9PJ82CRC");
 
-            //var popularPlayersResponse = await playerClient.GetPopularPlayersResponseAsync();
-            //var topPlayers = await playerClient.GetTopPlayersResponseAsync(Locations.TR);
 
-            var openTournamentResponse = await tournamentClient.GetOpenTournamentsResponseAsync();
-            var one1KTournamentResponse = await tournamentClient.Get1KTournamentsResponseAsync();
-            var fullTournamentResponse = await tournamentClient.GetFullTournamentsResponseAsync();
-            var inPrepTournamentResponse = await tournamentClient.GetInPrepTournamentsResponseAsync();
-            var joinableTournamentResponse = await tournamentClient.GetJoinableTournamentsResponseAsync();
-            var knowTournamentResponse = await tournamentClient.GetKnownTournamentsResponseAsync();
+
+            //var openTournamentResponse = await tournamentClient.GetOpenTournamentsResponseAsync();
+            //var one1KTournamentResponse = await tournamentClient.Get1KTournamentsResponseAsync();
+            //var fullTournamentResponse = await tournamentClient.GetFullTournamentsResponseAsync();
+            //var inPrepTournamentResponse = await tournamentClient.GetInPrepTournamentsResponseAsync();
+            //var joinableTournamentResponse = await tournamentClient.GetJoinableTournamentsResponseAsync();
+            //var knowTournamentResponse = await tournamentClient.GetKnownTournamentsResponseAsync();
 
             foreach (string playerTag in playerList)
             {
@@ -88,11 +91,6 @@ namespace Pekka.RoyaleApi.Sandbox
             var apiResponse = await clanClient.GetClanHistoryDailyResponseAsync("2U2GGQJ");
             var clanHistories = await clanClient.GetClanHistoryWeeklyResponseAsync("2U2GGQJ");
 
-            var topClans =
-                await clanClient.GetTopClansResponseAsync(Locations._INT, new ClanSummaryFilter() {Max = 10});
-
-            var response = await clanClient.GetPopularPlayersResponseAsync(new ClanFilter() {Max = 10});
-            await clanClient.GetTopWarClanWarsResponseAsync(Locations._INT, new ClanSummaryFilter() {Max = 10});
 
             var clanSummaries = await clanClient.SearchClanAsync(new ClanSummaryFilter()
                 {Name = "eyyam", LocationId = (int) Locations._INT, MinMembers = 0, MaxMembers = 50});
@@ -104,9 +102,6 @@ namespace Pekka.RoyaleApi.Sandbox
                 var clanResult = await clanClient.GetClanResponseAsync(clanTag);
 
                 var clan = await clanClient.GetBattlesResponseAsync(clanTag);
-                //var clanAll = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.All);
-                //var clanMate = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.ClanMate);
-                //var clanWar = await clanClient.GetBattlesResponseAsync(clanTag, ClanBattleType.War);
 
                 var warResponse = await clanClient.GetWarResponseAsync(clanTag);
                 var warlogs = await clanClient.GetWarLogsResponseAsync(clanTag);

@@ -39,13 +39,13 @@ namespace Pekka.RoyaleApi.Client.Contracts
         Task<IApiResponse<Dictionary<string, ClanHistory>>> GetClanHistoryWeeklyResponseAsync(string clanTag,
             ClanHistoryFilter clanHistoryFilter = null);
 
-        Task<IApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null);
+        //Task<IApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null);
 
-        Task<IApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null);
+        //Task<IApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null);
 
-        Task<IApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null);
+        //Task<IApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null);
     }
 
     public interface IClanClientWithModel
@@ -70,12 +70,12 @@ namespace Pekka.RoyaleApi.Client.Contracts
         Task<Dictionary<string, ClanHistory>> GetClanHistoryWeeklyAsync(string clanTag,
             ClanHistoryFilter clanHistoryFilter = null);
 
-        Task<List<ClanSummary>> GetTopClanAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null);
+        //Task<List<ClanSummary>> GetTopClanAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null);
 
-        Task<List<ClanSummary>> GetTopWarClanWarsAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null);
+        //Task<List<ClanSummary>> GetTopWarClanWarsAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null);
 
-        Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null);
+        //Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null);
     }
 }

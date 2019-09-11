@@ -10,6 +10,6 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public int MemberCount { get; set; }
 
-        public ClanHistoryPlayer[] Members { get; set; }
+        public ClanHistoryMember[] Members { get; set; }
     }
 }

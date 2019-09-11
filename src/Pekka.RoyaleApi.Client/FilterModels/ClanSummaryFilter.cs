@@ -15,7 +15,5 @@ namespace Pekka.RoyaleApi.Client.FilterModels
         [Query("maxMembers")] public int? MaxMembers { get; set; }
 
         [Query("score")] public int? Score { get; set; }
-
-        [Query("limit")] public int? Limit { get; set; }
     }
 }

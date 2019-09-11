@@ -8,6 +8,6 @@
 
         IClanClient ClanClient { get; }
 
-        ITournamentClient TournamentClient { get; }
+        //ITournamentClient TournamentClient { get; }
     }
 }

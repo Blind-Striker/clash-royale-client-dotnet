@@ -1,5 +1,4 @@
-﻿using Pekka.Core;
-using Pekka.Core.Contracts;
+﻿using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
@@ -12,8 +11,6 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json.Serialization;
 
-using Pekka.RoyaleApi.Client.Models.PlayerModels;
-
 namespace Pekka.RoyaleApi.Client.Clients
 {
     public class ClanClient : IClanClient
@@ -25,8 +22,7 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<List<ClanSummary>>> SearchClanResponseAsync(
-            ClanSummaryFilter clanSummaryFilter = null)
+        public async Task<IApiResponse<List<ClanSummary>>> SearchClanResponseAsync(ClanSummaryFilter clanSummaryFilter = null)
         {
             var apiResponse = await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(UrlPathBuilder.ClanSearchUrl,
                 clanSummaryFilter?.ToQueryParams(),null, new CamelCaseNamingStrategy());
@@ -126,34 +122,34 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null)
-        {
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(UrlPathBuilder.GetTopClansUrl(location),
-                    clanSummaryFilter?.ToQueryParams());
+        //public async Task<IApiResponse<List<ClanSummary>>> GetTopClansResponseAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null)
+        //{
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(UrlPathBuilder.GetTopClansUrl(location),
+        //            clanSummaryFilter?.ToQueryParams());
 
-            return apiResponse;
-        }
+        //    return apiResponse;
+        //}
 
-        public async Task<IApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null)
-        {
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.PopularClansUrl,
-                    clanFilter?.ToQueryParams());
+        //public async Task<IApiResponse<List<Clan>>> GetPopularPlayersResponseAsync(ClanFilter clanFilter = null)
+        //{
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<Clan>>(UrlPathBuilder.PopularClansUrl,
+        //            clanFilter?.ToQueryParams());
 
-            return apiResponse;
-        }
+        //    return apiResponse;
+        //}
 
-        public async Task<IApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(
-            Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null)
-        {
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(
-                    UrlPathBuilder.GetTopWarClanWarsUrl(location), clanSummaryFilter?.ToQueryParams());
+        //public async Task<IApiResponse<List<ClanSummary>>> GetTopWarClanWarsResponseAsync(
+        //    Locations location = Locations.None, ClanSummaryFilter clanSummaryFilter = null)
+        //{
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<ClanSummary>>(
+        //            UrlPathBuilder.GetTopWarClanWarsUrl(location), clanSummaryFilter?.ToQueryParams());
 
-            return apiResponse;
-        }
+        //    return apiResponse;
+        //}
 
         public async Task<List<ClanSummary>> SearchClanAsync(ClanSummaryFilter clanSummaryFilter = null)
         {
@@ -232,27 +228,27 @@ namespace Pekka.RoyaleApi.Client.Clients
             return apiResponse.Model;
         }
 
-        public async Task<List<ClanSummary>> GetTopClanAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null)
-        {
-            var apiResponse = await GetTopClansResponseAsync(location, clanSummaryFilter);
+        //public async Task<List<ClanSummary>> GetTopClanAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null)
+        //{
+        //    var apiResponse = await GetTopClansResponseAsync(location, clanSummaryFilter);
 
-            return apiResponse.Model;
-        }
+        //    return apiResponse.Model;
+        //}
 
-        public async Task<List<ClanSummary>> GetTopWarClanWarsAsync(Locations location = Locations.None,
-            ClanSummaryFilter clanSummaryFilter = null)
-        {
-            var apiResponse = await GetTopWarClanWarsResponseAsync(location, clanSummaryFilter);
+        //public async Task<List<ClanSummary>> GetTopWarClanWarsAsync(Locations location = Locations.None,
+        //    ClanSummaryFilter clanSummaryFilter = null)
+        //{
+        //    var apiResponse = await GetTopWarClanWarsResponseAsync(location, clanSummaryFilter);
 
-            return apiResponse.Model;
-        }
+        //    return apiResponse.Model;
+        //}
 
-        public async Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null)
-        {
-            var apiResponse = await GetPopularPlayersResponseAsync(clanFilter);
+        //public async Task<List<Clan>> GetPopularClanAsync(ClanFilter clanFilter = null)
+        //{
+        //    var apiResponse = await GetPopularPlayersResponseAsync(clanFilter);
 
-            return apiResponse.Model;
-        }
+        //    return apiResponse.Model;
+        //}
     }
 }

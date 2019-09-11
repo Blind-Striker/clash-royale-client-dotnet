@@ -16,14 +16,13 @@ namespace Pekka.RoyaleApi.Client.Standalone
             IVersionClient versionClient,
             IConstantClient constantClient,
             IPlayerClient playerClient,
-            IClanClient clanClient,
-            ITournamentClient tournamentClient)
+            IClanClient clanClient)
         {
             VersionClient = versionClient;
             ConstantClient = constantClient;
             PlayerClient = playerClient;
             ClanClient = clanClient;
-            TournamentClient = tournamentClient;
+            //TournamentClient = tournamentClient;
         }
 
         public IVersionClient VersionClient { get; }
@@ -34,7 +33,7 @@ namespace Pekka.RoyaleApi.Client.Standalone
 
         public IClanClient ClanClient { get; }
 
-        public ITournamentClient TournamentClient { get; }
+        //public ITournamentClient TournamentClient { get; }
 
         public static IRoyaleApiClientContext Create(string baseUrl, string authToken, HttpClient httpClient = null)
         {
@@ -54,8 +53,7 @@ namespace Pekka.RoyaleApi.Client.Standalone
                 new VersionClient(restApiClient),
                 new ConstantClient(restApiClient),
                 new PlayerClient(restApiClient),
-                new ClanClient(restApiClient),
-                new TournamentClient(restApiClient));
+                new ClanClient(restApiClient));
 
             return apiClientContext;
         }

@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-using Pekka.RoyaleApi.Client.Models.PlayerModels;
-
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class ClanWarInfoClan
+    public class ClanWarClan
     {
         public string Tag { get; set; }
 
@@ -24,7 +22,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
 
         public int WarTrophiesChange { get; set; }
 
-        public PlayerBadge Badge { get; set; }
+        public ClanBadge Badge { get; set; }
 
         public override string ToString()
         {

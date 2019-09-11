@@ -29,8 +29,8 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new ArgumentException("Name needs to be at least three characters long.",
                     nameof(ClanFilter.Name));
 
-            if (clanApiFilter.After.HasValue && clanApiFilter.Before.HasValue)
-                throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            //if (clanApiFilter.After.HasValue && clanApiFilter.Before.HasValue)
+            //    throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
 
             var apiResponse =
                 await _restApiClient.GetApiResponseAsync<ClanSearchResult>(UrlPathBuilder.ClanUrl,
