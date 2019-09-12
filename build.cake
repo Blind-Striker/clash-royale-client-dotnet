@@ -16,6 +16,9 @@ var testResults = "results.trx";
 string royaleApiPath = "src/Pekka.RoyaleApi.Client";
 string clashRoyaleApiPath = "src/Pekka.ClashRoyaleApi.Client";
 
+string royaleApiCsProjPath = $"{royaleApiPath}/Pekka.RoyaleApi.Client.csproj";
+string clashRoyaleApiCsProjPath = $"{clashRoyaleApiPath}/Pekka.ClashRoyaleApi.Client.csproj";
+
 Task("Default")
     .IsDependentOn("init")
     .IsDependentOn("tests");
@@ -96,16 +99,16 @@ Task("nuget-pack")
     {
         if(packProject == "royale")
         {
-            NugetPack(royaleApiPath, royaleNugetOutput);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput);
         }
         else if (packProject == "clash")
         {
-            NugetPack(clashRoyaleApiPath, clashRoyaleNugetOutput);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput);
         }
         else
         {
-            NugetPack(royaleApiPath, royaleNugetOutput);
-            NugetPack(clashRoyaleApiPath, clashRoyaleNugetOutput);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput);
         }
     });
 
@@ -125,7 +128,7 @@ Task("get-version")
 
 RunTarget(target);
 
-private void NugetPack(string projectPath, string outputPath)
+private void NugetPack(string projectPath, string csProjPath, string outputPath)
 {
     string outputDirectory = MakeAbsolute(Directory(outputPath)).FullPath;
     string projectFullPath = MakeAbsolute(File(projectPath)).FullPath;
@@ -139,7 +142,7 @@ private void NugetPack(string projectPath, string outputPath)
     settings.Configuration = configuration;
     settings.OutputDirectory = royaleNugetOutput;
     settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
-    settings.MSBuildSettings.SetVersion(GetProjectVersion());
+    settings.MSBuildSettings.SetVersion(GetProjectVersion(csProjPath));
 
     DotNetCorePack(projectFullPath, settings);
 }
