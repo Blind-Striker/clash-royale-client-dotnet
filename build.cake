@@ -113,7 +113,14 @@ Task("get-version")
     .Description("Get version")
     .Does(() =>
     {
-        Warning(GetProjectVersion());
+        if(packProject == "royale")
+        {
+            Warning(GetProjectVersion($"{royaleApiPath}/Pekka.RoyaleApi.Client.csproj"));
+        }
+        else if (packProject == "clash")
+        {
+            Warning(GetProjectVersion($"{clashRoyaleApiPath}/Pekka.ClashRoyaleApi.Client.csproj"));
+        }
     });
 
 RunTarget(target);
@@ -249,9 +256,9 @@ private void UpdateProjectVersion(string version)
     System.IO.File.WriteAllText(file.FullPath, project, Encoding.UTF8);
 }
 
-private string GetProjectVersion()
+private string GetProjectVersion(string projectPath)
 {
-    var file =  MakeAbsolute(File("./src/Directory.Build.props"));
+    var file =  MakeAbsolute(File(projectPath));
 
     Information(file.FullPath);
 
