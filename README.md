@@ -6,8 +6,9 @@ All API requests must be accompanied by a developer key. You need to register th
 
 |  	| Stable 	| Nightly 	|
 |-------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/v/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
-| Clash Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/v/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
+| Clash Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/vpre/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
+| Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/vpre/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
+
 
 ## Supported Platforms
 
@@ -33,9 +34,10 @@ All API requests must be accompanied by a developer key. You need to register th
 1. [Installation](https://github.com/Blind-Striker/clash-royale-client-dotnet#installation)
 2. [Usage](https://github.com/Blind-Striker/clash-royale-client-dotnet#usage)
     - [Standalone Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#standalone-initialization)
-      - [RoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapistandalone)
-      - [ClashRoyaleApiStandalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#clashroyaleapistandalone)
+      - [Royale Api Standalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapistandalone)
+      - [Clash Royale Api Standalone](https://github.com/Blind-Striker/clash-royale-client-dotnet#clashroyaleapistandalone)
     - [Microsoft.Extensions.DependencyInjection Initialization](https://github.com/Blind-Striker/clash-royale-client-dotnet#microsoftextensionsdependencyinjection-initialization)
+        - [Royale Api](https://github.com/Blind-Striker/clash-royale-client-dotnet#royaleapi)
     - [Call Endpoints](https://github.com/Blind-Striker/clash-royale-client-dotnet#call-endpoints)
     - [Synchronous Wrapper](https://github.com/Blind-Striker/clash-royale-client-dotnet#synchronous-wrapper)
 3. [License](https://github.com/Blind-Striker/clash-royale-client-dotnet#license)
@@ -44,8 +46,8 @@ All API requests must be accompanied by a developer key. You need to register th
 
 |  	| Logo 	| Stable 	| Nightly 	|
 |-------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| P.E.K.K.A Clash Royale API (official) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo"> 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/v/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
-| P.E.K.K.A Royale API (unofficial) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">  	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/v/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
+| P.E.K.K.A Clash Royale API (official) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo"> 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/vpre/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
+| P.E.K.K.A Royale API (unofficial) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">  	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/vpre/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
 
 
 Following commands can be used to install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console
@@ -104,24 +106,36 @@ By installing `Microsoft.Extensions.Http` you will be able to use [`HttpClientFa
 
 If you don't want to use `HttpClientFactory`, you must register `HttpClient` yourself with the container.
 
+#### Royale Api
 Register necessary dependencies to `ServiceCollection` as follows
 
 ```csharp
 ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.royaleapi.com/");
 
 var services = new ServiceCollection();
+
 services.AddSingleton(apiOptions);
-services.AddHttpClient<IRoyaleApiClient, RoyaleApiClient>();
+services.AddHttpClient<IRestApiClient, RestApiClient>((provider, client) =>
+{
+    var options = provider.GetRequiredService<ApiOptions>();
+    client.BaseAddress = new Uri(options.BaseUrl);
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+});
 services.AddTransient<IPlayerClient, PlayerClient>();
 services.AddTransient<IClanClient, ClanClient>();
 services.AddTransient<IVersionClient, VersionClient>();
+services.AddTransient<IConstantClient, ConstantClient>();
 
 var buildServiceProvider = services.BuildServiceProvider();
 
 var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
 var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
 var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
+var constantClient = buildServiceProvider.GetRequiredService<IConstantClient>();
+var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
 ```
+
+See [sandbox project](https://github.com/Blind-Striker/clash-royale-client-dotnet/blob/master/tests/Pekka.RoyaleApi.Sandbox/Program.cs) for more examples.
 
 ### Call Endpoints
 
@@ -132,11 +146,11 @@ ApiResponse<Player> playerResponse = await playerClient.GetPlayerResponseAsync(p
 
 if(playerResponse.Error)
 {
-HttpStatusCode statusCode = playerResponse.HttpStatusCode;
-string errorMessage = playerResponse.Message;
-IDictionary<string, string> headers = playerResponse.Headers;
-string urlPath = playerResponse.UrlPath;
-  // Handle http error
+  HttpStatusCode statusCode = playerResponse.HttpStatusCode;
+  string errorMessage = playerResponse.Message;
+  IDictionary<string, string> headers = playerResponse.Headers;
+  string urlPath = playerResponse.UrlPath;
+    // Handle http error
 }
 
 Player player = playerResponse.Model;
