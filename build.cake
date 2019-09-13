@@ -276,7 +276,7 @@ private string GetProjectVersion(string projectPath, bool withoutBuildNumber)
 
     string version = project.Substring(startIndex, endIndex - startIndex);
     
-    version = withoutBuildNumber ? $"{version}" : $"{version}.nightly.{buildNumber}";
+    version = withoutBuildNumber ? $"{version}" : $"{version}.pre.{buildNumber}";
 
     return version;
 }
