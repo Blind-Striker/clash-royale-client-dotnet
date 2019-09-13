@@ -1,11 +1,10 @@
 language: csharp  
 sudo: required  
-dist: trusty  
+dist: xenial  
 env:  
   - CLI_VERSION=latest
-mono:  
-  - 5.10.0
-dotnet:  2.1.400
+mono: latest
+dotnet:  2.2.401
 os:  
   - linux
 branches:  

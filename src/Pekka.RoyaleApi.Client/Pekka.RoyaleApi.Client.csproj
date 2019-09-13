@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <AssemblyName>Pekka.RoyaleApi.Client</AssemblyName>
+    <RootNamespace>Pekka.RoyaleApi.Client</RootNamespace>
+    <LangVersion>latest</LangVersion>
 
     <Title>P.E.K.K.A Royale API .NET Client Library</Title>
-    <Authors>Deniz İrgin</Authors>
     <Description>
       P.E.K.K.A is a client library targeting .NET Standard 2.0 and .NET 4.6.1 that provides an easy way to interact with the unofficial public API for Clash Royale (https://royaleapi.com/)
     </Description>
-    <PackageProjectUrl>https://github.com/Blind-Striker/clash-royale-client-dotnet</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Blind-Striker/clash-royale-client-dotnet/blob/master/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>https://www.codefiction.tech/assets/pekka-royale-api-logo.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-royale-api-logo.png</PackageIconUrl>
     <PackageTags>clashroyale, clash-royale-api, clash-royale, client-library, dotnet-core, dotnet, unofficial</PackageTags>
-    <Version>1.0.2</Version>
-    
-    <AssemblyName>Pekka.RoyaleApi.Client</AssemblyName>
-    <RootNamespace>Pekka.RoyaleApi.Client</RootNamespace>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+
+    <Version>3.0.0</Version>
 
     <!-- When compiling .NET SDK 2.0 projects targeting .NET 4.x on Mono using 'dotnet build' you -->
     <!-- have to teach MSBuild where the Mono copy of the reference asssemblies is -->
@@ -27,14 +27,7 @@
     <BaseFrameworkPathOverrideForMono Condition="'$(BaseFrameworkPathOverrideForMono)' == '' AND '$(TargetIsMono)' == 'true' AND EXISTS('/usr/local/lib/mono')">/usr/local/lib/mono</BaseFrameworkPathOverrideForMono>
 
     <!-- If we found Mono reference assemblies, then use them -->
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net45'">$(BaseFrameworkPathOverrideForMono)/4.5-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net451'">$(BaseFrameworkPathOverrideForMono)/4.5.1-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net452'">$(BaseFrameworkPathOverrideForMono)/4.5.2-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net46'">$(BaseFrameworkPathOverrideForMono)/4.6-api</FrameworkPathOverride>
     <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net461'">$(BaseFrameworkPathOverrideForMono)/4.6.1-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net462'">$(BaseFrameworkPathOverrideForMono)/4.6.2-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net47'">$(BaseFrameworkPathOverrideForMono)/4.7-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net471'">$(BaseFrameworkPathOverrideForMono)/4.7.1-api</FrameworkPathOverride>
 
     <EnableFrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != ''">true</EnableFrameworkPathOverride>
 
@@ -51,9 +44,13 @@
     <Reference Include="System.Web" Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND $(TargetFramework.StartsWith('net4'))" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="[11.0.1,13.0.0)" />
   </ItemGroup>
 
   <ItemGroup>

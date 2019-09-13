@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <AssemblyName>Pekka.Core</AssemblyName>
     <RootNamespace>Pekka.Core</RootNamespace>
+    <LangVersion>latest</LangVersion>
 
     <!-- When compiling .NET SDK 2.0 projects targeting .NET 4.x on Mono using 'dotnet build' you -->
     <!-- have to teach MSBuild where the Mono copy of the reference asssemblies is -->
@@ -16,14 +17,7 @@
     <BaseFrameworkPathOverrideForMono Condition="'$(BaseFrameworkPathOverrideForMono)' == '' AND '$(TargetIsMono)' == 'true' AND EXISTS('/usr/local/lib/mono')">/usr/local/lib/mono</BaseFrameworkPathOverrideForMono>
 
     <!-- If we found Mono reference assemblies, then use them -->
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net45'">$(BaseFrameworkPathOverrideForMono)/4.5-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net451'">$(BaseFrameworkPathOverrideForMono)/4.5.1-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net452'">$(BaseFrameworkPathOverrideForMono)/4.5.2-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net46'">$(BaseFrameworkPathOverrideForMono)/4.6-api</FrameworkPathOverride>
     <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net461'">$(BaseFrameworkPathOverrideForMono)/4.6.1-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net462'">$(BaseFrameworkPathOverrideForMono)/4.6.2-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net47'">$(BaseFrameworkPathOverrideForMono)/4.7-api</FrameworkPathOverride>
-    <FrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != '' AND '$(TargetFramework)' == 'net471'">$(BaseFrameworkPathOverrideForMono)/4.7.1-api</FrameworkPathOverride>
 
     <EnableFrameworkPathOverride Condition="'$(BaseFrameworkPathOverrideForMono)' != ''">true</EnableFrameworkPathOverride>
 
@@ -42,11 +36,11 @@
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="System.Net.Http" Version="4.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="[11.0.1,13.0.0)" />
   </ItemGroup>
 
 </Project>

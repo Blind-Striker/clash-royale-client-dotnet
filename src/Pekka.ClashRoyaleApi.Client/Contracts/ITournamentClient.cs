@@ -1,15 +1,19 @@
-﻿using System.Threading.Tasks;
-using Pekka.ClashRoyaleApi.Client.FilterModels;
+﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 using Pekka.Core.Responses;
+
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
 {
     public interface ITournamentClient
     {
-        Task<ApiResponse<TournamentSearchResult>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter);
-        Task<ApiResponse<Tournament>> GetTournamentResponseAsync(string tournamentTag);
+        Task<IApiResponse<TournamentSearchResult>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter);
+
+        Task<IApiResponse<Tournament>> GetTournamentResponseAsync(string tournamentTag);
+
         Task<TournamentSearchResult> SearchTournamentAsync(TournamentFilter tournamentFilter);
+
         Task<Tournament> GetTournamentAsync(string tournamentTag);
     }
 }

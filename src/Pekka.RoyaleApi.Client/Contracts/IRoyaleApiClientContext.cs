@@ -3,8 +3,13 @@
     public interface IRoyaleApiClientContext
     {
         IVersionClient VersionClient { get; }
+
         IPlayerClient PlayerClient { get; }
+
         IClanClient ClanClient { get; }
-        ITournamentClient TournamentClient { get; }
+
+        IConstantClient ConstantClient { get; }
+
+        //ITournamentClient TournamentClient { get; }
     }
 }

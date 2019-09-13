@@ -1,8 +1,8 @@
-﻿using Pekka.RoyaleApi.Client.Models;
+﻿using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 namespace Pekka.RoyaleApi.Client.FilterModels
 {
-    public class PlayerBattleFilter : BaseFilter<Battle>
+    public class PlayerBattleFilter : BaseFilter<PlayerBattle>
     {
     }
 }

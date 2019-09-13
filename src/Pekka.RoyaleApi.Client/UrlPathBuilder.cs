@@ -1,11 +1,13 @@
 ﻿using Pekka.Core;
-using Pekka.Core.Helpers;
+using Pekka.Core.Extensions;
 
 namespace Pekka.RoyaleApi.Client
 {
     public static class UrlPathBuilder
     {
-        public const string Version = "version";
+        public const string VersionUrl = "version";
+
+        public const string ConstantsUrl = "constants";
 
         public const string PlayerUrl = "player";
         public const string BattlesUrl = "battles";
@@ -90,7 +92,7 @@ namespace Pekka.RoyaleApi.Client
         {
             return string.Format(ClanWarTemplate, clanTag);
         }
-        
+
         public static string GetClanTrackingUrl(string clanTag)
         {
             return string.Format(ClanTrackingTemplate, clanTag);

@@ -1,22 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Pekka.RoyaleApi.Client.Models.PlayerModels
 {
+    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class Player
     {
         public string Tag { get; set; }
+
         public string Name { get; set; }
+
         public int Trophies { get; set; }
-        public int? Rank { get; set; }
-        public ArenaInfo Arena { get; set; }
-        public PlayerClanInfo Clan { get; set; }
+
+        public PlayerArena Arena { get; set; }
+
+        public PlayerClan Clan { get; set; }
+
         public PlayerStats Stats { get; set; }
-        public PlayerGames Games { get; set; }
+
+        public PlayerGame Games { get; set; }
+
         public PlayerLeagueStatistics LeagueStatistics { get; set; }
+
         public string DeckLink { get; set; }
-        public List<Card> CurrentDeck { get; set; }
-        public List<Card> Cards { get; set; }
-        public List<PlayerAchievement> Achievements { get; set; }
+
+        public PlayerCard[] CurrentDeck { get; set; }
+
+        public PlayerCard[] Cards { get; set; }
+
+        public PlayerAchievement[] Achievements { get; set; }
 
         public override string ToString()
         {

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Pekka.Core;
-using Pekka.Core.Contracts;
+﻿using Pekka.Core.Contracts;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
-using Pekka.RoyaleApi.Client.Models;
 using Pekka.RoyaleApi.Client.Models.PlayerModels;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json.Serialization;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {
@@ -20,73 +22,92 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<ApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null)
+        public async Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag,
+            PlayerFilter playerFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag), playerFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag),
+                playerFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Player>>> GetPlayersResponseAsync(string[] playerTags, PlayerFilter playerFilter = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+        //public async Task<IApiResponse<List<Player>>> GetPlayersResponseAsync(string[] playerTags,
+        //    PlayerFilter playerFilter = null)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.GetPlayerUrl(playerTags), playerFilter?.ToQueryParams());
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.GetPlayerUrl(playerTags),
+        //            playerFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
 
-            return apiResponse;
-        }
+        //    return apiResponse;
+        //}
 
-        public async Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
-
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetPlayerBattlesUrl(playerTag), playerBattleFilter?.ToQueryParams());
-
-            return apiResponse;
-        }
-
-        public async Task<ApiResponse<List<Battle>>> GetBattlesResponseAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
-
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(UrlPathBuilder.GetPlayerBattlesUrl(playerTags), playerBattleFilter?.ToQueryParams());
-
-            return apiResponse;
-        }
-
-        public async Task<ApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null)
+        public async Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string playerTag,
+            PlayerBattleFilter playerBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag), playerChestFilter?.ToQueryParams());
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerBattle>>(
+                UrlPathBuilder.GetPlayerBattlesUrl(playerTag), playerBattleFilter?.ToQueryParams(), null,
+                new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null)
+        //public async Task<IApiResponse<List<Battle>>> GetBattlesResponseAsync(string[] playerTags,
+        //    PlayerBattleFilter playerBattleFilter = null)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+
+        //    var apiResponse = await _restApiClient.GetApiResponseAsync<List<Battle>>(
+        //        UrlPathBuilder.GetPlayerBattlesUrl(playerTags), playerBattleFilter?.ToQueryParams());
+
+        //    return apiResponse;
+        //}
+
+        public async Task<IApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag,
+            PlayerChestFilter playerChestFilter = null)
         {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+            Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerChest>>(UrlPathBuilder.GetPlayerChestsUrl(playerTags), playerChestFilter?.ToQueryParams());
-
-            return apiResponse;
-        }
-
-        public async Task<ApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null)
-        {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(location), playerSummaryFilter?.ToQueryParams());
+            var apiResponse =
+                await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag),
+                    playerChestFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<ApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null)
-        {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.PopularPlayersUrl, playerFilter?.ToQueryParams());
+        //public async Task<IApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            return apiResponse;
-        }
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<PlayerChest>>(
+        //            UrlPathBuilder.GetPlayerChestsUrl(playerTags), playerChestFilter?.ToQueryParams());
+
+        //    return apiResponse;
+        //}
+
+        //public async Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(
+        //    Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null)
+        //{
+        //    var apiResponse =
+        //        await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(location),
+        //            playerSummaryFilter?.ToQueryParams());
+
+        //    return apiResponse;
+        //}
+
+        //public async Task<IApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null)
+        //{
+        //    var apiResponse = await _restApiClient.GetApiResponseAsync<List<Player>>(UrlPathBuilder.PopularPlayersUrl,
+        //        playerFilter?.ToQueryParams());
+
+        //    return apiResponse;
+        //}
 
         public async Task<Player> GetPlayerAsync(string playerTag, PlayerFilter playerFilter = null)
         {
@@ -94,35 +115,37 @@ namespace Pekka.RoyaleApi.Client.Clients
 
             var response = await GetPlayerResponseAsync(playerTag, playerFilter);
 
-            return response.GetModel();
+            return response.Model;
         }
 
-        public async Task<List<Player>> GetPlayersAsync(string[] playerTags, PlayerFilter playerFilter = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+        //public async Task<List<Player>> GetPlayersAsync(string[] playerTags, PlayerFilter playerFilter = null)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var response = await GetPlayersResponseAsync(playerTags, playerFilter);
+        //    var response = await GetPlayersResponseAsync(playerTags, playerFilter);
 
-            return response.GetModel();
-        }
+        //    return response.Model;
+        //}
 
-        public async Task<List<Battle>> GetBattlesAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null)
+        public async Task<List<PlayerBattle>> GetBattlesAsync(string playerTag,
+            PlayerBattleFilter playerBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
             var response = await GetBattlesResponseAsync(playerTag, playerBattleFilter);
 
-            return response.GetModel();
+            return response.Model;
         }
 
-        public async Task<List<Battle>> GetBattlesAsync(string[] playerTags, PlayerBattleFilter playerBattleFilter = null)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+        //public async Task<List<Battle>> GetBattlesAsync(string[] playerTags,
+        //    PlayerBattleFilter playerBattleFilter = null)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var response = await GetBattlesResponseAsync(playerTags, playerBattleFilter);
+        //    var response = await GetBattlesResponseAsync(playerTags, playerBattleFilter);
 
-            return response.GetModel();
-        }
+        //    return response.Model;
+        //}
 
         public async Task<PlayerChest> GetChestAsync(string playerTag, PlayerChestFilter playerChestFilter = null)
         {
@@ -130,30 +153,31 @@ namespace Pekka.RoyaleApi.Client.Clients
 
             var response = await GetChestResponseAsync(playerTag, playerChestFilter);
 
-            return response.GetModel();
+            return response.Model;
         }
 
-        public async Task<List<PlayerChest>> GetChestsAsync(string[] playerTags, PlayerChestFilter playerChestFilter)
-        {
-            Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
+        //public async Task<List<PlayerChest>> GetChestsAsync(string[] playerTags, PlayerChestFilter playerChestFilter)
+        //{
+        //    Ensure.ArgumentNotNullOrEmptyEnumerable(playerTags, nameof(playerTags));
 
-            var response = await GetChestsResponseAsync(playerTags, playerChestFilter);
+        //    var response = await GetChestsResponseAsync(playerTags, playerChestFilter);
 
-            return response.GetModel();
-        }
+        //    return response.Model;
+        //}
 
-        public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null)
-        {
-            var response = await GetTopPlayersResponseAsync(location, playerSummaryFilter);
+        //public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None,
+        //    PlayerSummaryFilter playerSummaryFilter = null)
+        //{
+        //    var response = await GetTopPlayersResponseAsync(location, playerSummaryFilter);
 
-            return response.GetModel();
-        }
+        //    return response.Model;
+        //}
 
-        public async Task<List<Player>> GetPopularPlayersAsync(PlayerFilter playerFilter = null)
-        {
-            var response = await GetPopularPlayersResponseAsync(playerFilter);
+        //public async Task<List<Player>> GetPopularPlayersAsync(PlayerFilter playerFilter = null)
+        //{
+        //    var response = await GetPopularPlayersResponseAsync(playerFilter);
 
-            return response.GetModel();
-        }
+        //    return response.Model;
+        //}
     }
 }

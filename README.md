@@ -4,6 +4,11 @@ P.E.K.K.A is a client library (C# wrapper) targeting .NET Standard 2.0 and .NET 
 
 All API requests must be accompanied by a developer key. You need to register then create a key for Clash Royale API (official) on [Clash Royale API Website](https://developer.clashroyale.com). You can learn how to obtain and manage your developer key for Royale API (unofficial) on [Royale API Website](https://docs.royaleapi.com/#/authentication?id=key-management).
 
+|  	| Stable 	| Nightly 	|
+|-------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/v/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
+| Clash Royale API Client 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/v/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
+
 ## Supported Platforms
 
 * .NET 4.6.1 (Desktop / Server)
@@ -15,13 +20,13 @@ All API requests must be accompanied by a developer key. You need to register th
 
 ## Continuous integration
 
-| Build server                | Platform      | Build status                                                                                                                                                        | Integration tests                                                                                                                                                   |
-|-----------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Azure Pipelines             | Windows       | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20Windows)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=1) | |
-| Azure Pipelines             | Ubuntu        | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20Ubuntu16)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=3) | |
-| Azure Pipelines             | MacOS         | [![Build status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Azure%20Pipelines%20-%20Build%20P.E.K.K.A%20MacOs)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=2) | |
-| AppVeyor                    | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true)](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)            | |
-| Travis                      | Linux / MacOS | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master)](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)  | |
+| Client Library 	| Platform 	| Build Server 	| Build Status 	| Integration Tests 	|
+|-------------------	|----------	|-----------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-------------------	|
+| Royale API Client 	| Windows 	| Azure Pipelines 	| [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/Windows?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=9&branchName=master) 	|  	|
+| Royale API Client 	| Ubuntu 	| Azure Pipelines 	| [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/Ubuntu?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=8&branchName=master) 	|  	|
+| Royale API Client 	| MacOS 	| Azure Pipelines 	| [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/macOS?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=10&branchName=master) 	|  	|
+| Royale API Client 	| Linux 	| Travis 	| [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master) ](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet ) 	|  	|
+| Royale API Client 	| Windows 	| AppVeyor 	| [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true) ](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet ) 	|  	|
 
 ## Table of Contents
 
@@ -37,10 +42,10 @@ All API requests must be accompanied by a developer key. You need to register th
 
 ## Installation
 
-|       | Logo | Package |
-|-------|-------|----------|
-| P.E.K.K.A Clash Royale API (official) | <img src="https://s3.eu-central-1.amazonaws.com/www.codefiction.tech/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo">    | [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client)     |
-| P.E.K.K.A Royale API (unofficial) | <img src="https://s3.eu-central-1.amazonaws.com/www.codefiction.tech/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">     | [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client)    |
+|  	| Logo 	| Stable 	| Nightly 	|
+|-------------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| P.E.K.K.A Clash Royale API (official) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-clash-royale-api-logo.png" width="150" height="150" title="Github Logo"> 	| [![NuGet](https://img.shields.io/nuget/v/Pekka.ClashRoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.ClashRoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-clashroyaleapi-client/v/Pekka.ClashRoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-clashroyaleapi-client/package/nuget/Pekka.ClashRoyaleApi.Client) 	|
+| P.E.K.K.A Royale API (unofficial) 	| <img src="https://raw.githubusercontent.com/Blind-Striker/clash-royale-client-dotnet/master/assets/pekka-royale-api-logo.png" width="150" height="150" title="Github Logo">  	| [![NuGet](https://img.shields.io/nuget/v/Pekka.RoyaleApi.Client.svg)](https://www.nuget.org/packages/Pekka.RoyaleApi.Client/) 	| [![MyGet](https://img.shields.io/myget/pekka-royaleapi-client/v/Pekka.RoyaleApi.Client.svg?label=myget)](https://www.myget.org/feed/pekka-royaleapi-client/package/nuget/Pekka.RoyaleApi.Client) 	|
 
 
 Following commands can be used to install both Pekka.ClashRoyaleApi.Client and Pekka.RoyaleApi.Client, run the following command in the Package Manager Console

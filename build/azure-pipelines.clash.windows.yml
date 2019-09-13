@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+      - "*"
+  paths:
+    include:
+      - src/Pekka.ClashRoyaleApi.Client/*
+      - src/Pekka.Core/*
+pr:
+  branches:
+    include:
+      - "*"
+pool:
+  name: Hosted VS2017
+steps:
+  - task: PowerShell@2
+    displayName: "Compile & Tests"
+    inputs:
+      targetType: filePath
+      filePath: ./build.ps1
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: "VSTest"
+      testResultsFiles: "**/*.trx"
+      testRunTitle: "Pekka.Tests"

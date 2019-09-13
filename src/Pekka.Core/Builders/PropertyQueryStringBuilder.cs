@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Pekka.Core.Helpers;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Pekka.Core.Helpers;
+
+using Pekka.Core.Attributes;
 
 namespace Pekka.Core.Builders
 {
     public class PropertyQueryStringBuilder : QueryStringBuilder
     {
-        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams, TFilterModel filter)
+        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams,
+            TFilterModel filter)
         {
             Ensure.ArgumentNotNull(filter, nameof(filter));
 
@@ -19,6 +23,7 @@ namespace Pekka.Core.Builders
             if (!propertyInfos.Any())
             {
                 Successor?.ProcessRequest(queryStringParams, filter);
+
                 return;
             }
 
@@ -27,13 +32,11 @@ namespace Pekka.Core.Builders
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
                 object value = propertyInfo.GetValue(filter);
-                if (value == null)
-                {
-                    continue;
-                }
+
+                if (value == null) continue;
 
                 var customAttribute = propertyInfo.GetCustomAttribute<QueryAttribute>();
-                var queryStringKey = customAttribute.QueryStringKey;
+                string queryStringKey = customAttribute.QueryStringKey;
 
                 queryStringParams.Add(new KeyValuePair<string, string>(queryStringKey, value.ToString()));
             }

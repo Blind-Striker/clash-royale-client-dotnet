@@ -20,7 +20,6 @@
         public const string RankingsPlayerUrl = "rankings/players";
         public const string RankingsClanWarUrl = "rankings/clanwars";
 
-
         private static readonly string PlayerTemplate = $"{PlayerUrl}/{{0}}";
         private static readonly string BattleLogTemplate = $"{PlayerUrl}/{{0}}/{BattleLogUrl}";
         private static readonly string UpcomingChestsTemplate = $"{PlayerUrl}/{{0}}/{UpcomingChestUrl}";
@@ -98,4 +97,3 @@
         }
     }
 }
-  
