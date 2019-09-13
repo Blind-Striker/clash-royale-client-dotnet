@@ -99,16 +99,21 @@ Task("nuget-pack")
     {
         if(packProject == "royale")
         {
-            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, false);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, true);
         }
         else if (packProject == "clash")
         {
-            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, false);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, true);
         }
         else
         {
-            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput);
-            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, false);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, true);
+
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, false);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, true);
         }
     });
 
@@ -118,17 +123,17 @@ Task("get-version")
     {
         if(packProject == "royale")
         {
-            Warning(GetProjectVersion($"{royaleApiPath}/Pekka.RoyaleApi.Client.csproj"));
+            Warning(GetProjectVersion($"{royaleApiPath}/Pekka.RoyaleApi.Client.csproj", false));
         }
         else if (packProject == "clash")
         {
-            Warning(GetProjectVersion($"{clashRoyaleApiPath}/Pekka.ClashRoyaleApi.Client.csproj"));
+            Warning(GetProjectVersion($"{clashRoyaleApiPath}/Pekka.ClashRoyaleApi.Client.csproj", false));
         }
     });
 
 RunTarget(target);
 
-private void NugetPack(string projectPath, string csProjPath, string outputPath)
+private void NugetPack(string projectPath, string csProjPath, string outputPath, bool packBeta)
 {
     string outputDirectory = MakeAbsolute(Directory(outputPath)).FullPath;
     string projectFullPath = MakeAbsolute(File(projectPath)).FullPath;
@@ -142,7 +147,7 @@ private void NugetPack(string projectPath, string csProjPath, string outputPath)
     settings.Configuration = configuration;
     settings.OutputDirectory = royaleNugetOutput;
     settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
-    settings.MSBuildSettings.SetVersion(GetProjectVersion(csProjPath));
+    settings.MSBuildSettings.SetVersion(GetProjectVersion(csProjPath, !packBeta));
 
     DotNetCorePack(projectFullPath, settings);
 }
@@ -259,7 +264,7 @@ private void UpdateProjectVersion(string version)
     System.IO.File.WriteAllText(file.FullPath, project, Encoding.UTF8);
 }
 
-private string GetProjectVersion(string projectPath)
+private string GetProjectVersion(string projectPath, bool withoutBuildNumber)
 {
     var file =  MakeAbsolute(File(projectPath));
 
@@ -270,7 +275,8 @@ private string GetProjectVersion(string projectPath)
     int endIndex = project.IndexOf("</Version>", startIndex);
 
     string version = project.Substring(startIndex, endIndex - startIndex);
-    version = $"{version}.{buildNumber}";
+    
+    version = withoutBuildNumber ? $"{version}" : $"{version}.nightly.{buildNumber}";
 
     return version;
 }

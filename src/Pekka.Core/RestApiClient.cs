@@ -75,7 +75,7 @@ namespace Pekka.Core
             }
         }
 
-        public ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
+        public async Task<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null)
         {
@@ -85,15 +85,15 @@ namespace Pekka.Core
                 .AddQueryParameters(queryParams)
                 .AddHeaders(headerParams))
             {
-                return CallAsync(httpRequestMessage);
+                return await CallAsync(httpRequestMessage);
             }
         }
 
-        public ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage)
+        public async Task<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage)
         {
             Ensure.ArgumentNotNull(httpRequestMessage, nameof(httpRequestMessage));
 
-            return HttpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
+            return await HttpClient.SendAsync(httpRequestMessage).ConfigureAwait(false);
         }
     }
 }

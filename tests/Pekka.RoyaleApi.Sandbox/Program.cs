@@ -6,7 +6,7 @@ using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 using Pekka.RoyaleApi.Client.Models.PlayerModels;
-
+using Pekka.RoyaleApi.Client.Standalone;
 using System;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
@@ -18,6 +18,7 @@ namespace Pekka.RoyaleApi.Sandbox
     {
         private static async Task Main(string[] args)
         {
+
             string token = Environment.GetEnvironmentVariable("ROYALE_API_TOKEN");
 
             //var apiOptions = new ApiOptions(token, "https://api-v2.royaleapi.com/");
@@ -41,29 +42,34 @@ namespace Pekka.RoyaleApi.Sandbox
 
             ServiceProvider buildServiceProvider = services.BuildServiceProvider();
 
-            var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
-            var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
-            var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
-            var constantClient = buildServiceProvider.GetRequiredService<IConstantClient>();
-            var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
+            IRoyaleApiClientContext royaleApiClientContext = RoyaleApiStandalone.Create(apiOptions);
+            IVersionClient versionClient = royaleApiClientContext.VersionClient;
+            IClanClient clanClient = royaleApiClientContext.ClanClient;
+            IPlayerClient playerClient = royaleApiClientContext.PlayerClient;
+
+            //var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+            //var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+            //var versionClient = buildServiceProvider.GetRequiredService<IVersionClient>();
+            //var constantClient = buildServiceProvider.GetRequiredService<IConstantClient>();
+            //var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
             //var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
 
+            string[] playerList = { "C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
+            string[] clanList = { "Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL" };
 
-            //var version = await versionClient.GetVersionResponseAsync();
+
+            var version = await versionClient.GetVersionResponseAsync();
             //var constantsResponseAsync = await constantClient.GetConstantsResponseAsync();
 
-            string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8"};
-            string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
+            var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
+            var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
+            var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
+            var clanResponseAsync = await clanClient.GetClanResponseAsync(clanList[0]);
+            var battlesResponseAsync = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
+            var searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanSummaryFilter() { Name = "Eyy", Max = 10 });
 
-            //var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
-            //var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
-            //var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
-            //var clanResponseAsync = await clanClient.GetClanResponseAsync(clanList[0]);
-            //var battlesResponseAsync = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
-            //var searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanSummaryFilter() {Name = "Eyy", Max= 10});
-
-            //var eyyamWars = await clanClient.GetWarResponseAsync("Y2JPYJ");
-            //var warrs = await clanClient.GetWarResponseAsync("9PJ82CRC");
+            var eyyamWars = await clanClient.GetWarResponseAsync("Y2JPYJ");
+            var warrs = await clanClient.GetWarResponseAsync("9PJ82CRC");
 
             var eyyamWarLogs = await clanClient.GetWarLogsResponseAsync("Y2JPYJ");
             var warrsLogs = await clanClient.GetWarLogsResponseAsync("9PJ82CRC");

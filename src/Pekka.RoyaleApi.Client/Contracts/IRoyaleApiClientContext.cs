@@ -8,6 +8,8 @@
 
         IClanClient ClanClient { get; }
 
+        IConstantClient ConstantClient { get; }
+
         //ITournamentClient TournamentClient { get; }
     }
 }

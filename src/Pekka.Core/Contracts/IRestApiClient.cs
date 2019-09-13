@@ -29,10 +29,10 @@ namespace Pekka.Core.Contracts
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null);
 
-        ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
+        Task<HttpResponseMessage> CallAsync(HttpMethod httpMethod, string path,
             IList<KeyValuePair<string, string>> queryParams = null,
             IDictionary<string, string> headerParams = null);
 
-        ConfiguredTaskAwaitable<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage);
+        Task<HttpResponseMessage> CallAsync(HttpRequestMessage httpRequestMessage);
     }
 }
