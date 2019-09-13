@@ -1,13 +1,19 @@
-﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
-using Pekka.ClashRoyaleApi.Client.Standalone;
-using Pekka.Core;
-
-using System;
+﻿using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using Pekka.ClashRoyaleApi.Client.Contracts;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Pekka.ClashRoyaliApi.Sandbox
+using Pekka.ClashRoyaleApi.Client.Clients;
+using Pekka.ClashRoyaleApi.Client.Contracts;
+using Pekka.ClashRoyaleApi.Client.FilterModels;
+using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
+using Pekka.ClashRoyaleApi.Client.Standalone;
+using Pekka.Core;
+using Pekka.Core.Contracts;
+using Pekka.Core.Responses;
+
+namespace Pekka.ClashRoyaleApi.Sandbox
 {
     internal class Program
     {
@@ -15,30 +21,34 @@ namespace Pekka.ClashRoyaliApi.Sandbox
         {
             string token = Environment.GetEnvironmentVariable("CLASH_API_TOKEN");
 
-            var apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+            var apiOptions = new ApiOptions(token, "https://api.clashroyale.com/v1/");
 
-            //var services = new ServiceCollection();
-            //services.AddSingleton(apiOptions);
-            //services.AddHttpClient<IRestApiClient, RestApiClient>();
-            //services.AddTransient<IPlayerClient, PlayerClient>();
-            //services.AddTransient<IClanClient, ClanClient>();
-            //services.AddTransient<ITournamentClient, TournamentClient>();
-            //services.AddTransient<ICardClient, CardClient>();
-            //services.AddTransient<ILocationClient, LocationClient>();
+            var services = new ServiceCollection();
+            services.AddSingleton(apiOptions);
+            services.AddHttpClient<IRestApiClient, RestApiClient>((provider, client) =>
+            {
+                var options = provider.GetRequiredService<ApiOptions>();
+                client.BaseAddress = new Uri(options.BaseUrl);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+            });
+            services.AddTransient<IPlayerClient, PlayerClient>();
+            services.AddTransient<IClanClient, ClanClient>();
+            services.AddTransient<ITournamentClient, TournamentClient>();
+            services.AddTransient<ICardClient, CardClient>();
+            services.AddTransient<ILocationClient, LocationClient>();
 
-            //var buildServiceProvider = services.BuildServiceProvider();
+            var buildServiceProvider = services.BuildServiceProvider();
 
-            //var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
-            //var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
-            //var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
-            //var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
-            //var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+            var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+            var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+            var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
+            var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
+            var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
 
-            IClashRoyaleApiClientContext clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions);
+            //IClashRoyaleApiClientContext clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions)
+            //ILocationClient locationClient = clashRoyaleApiStandalone.LocationClient;
 
-            ILocationClient locationClient = clashRoyaleApiStandalone.LocationClient;
-
-            // ApiResponse<PlayerDetail> apiResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
+            var playerResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
 
             // var response = await playerClient.GetUpcomingChestsResponseAsync("#C280JCG");
 

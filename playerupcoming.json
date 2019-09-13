@@ -1,0 +1,18 @@
+{
+  "items": [
+    { "index": 0, "name": "Silver Chest" },
+    { "index": 1, "name": "Silver Chest" },
+    { "index": 2, "name": "Golden Chest" },
+    { "index": 3, "name": "Silver Chest" },
+    { "index": 4, "name": "Silver Chest" },
+    { "index": 5, "name": "Silver Chest" },
+    { "index": 6, "name": "Golden Chest" },
+    { "index": 7, "name": "Silver Chest" },
+    { "index": 8, "name": "Silver Chest" },
+    { "index": 31, "name": "Legendary Chest" },
+    { "index": 39, "name": "Giant Chest" },
+    { "index": 71, "name": "Magical Chest" },
+    { "index": 173, "name": "Mega Lightning Chest" },
+    { "index": 325, "name": "Epic Chest" }
+  ]
+}

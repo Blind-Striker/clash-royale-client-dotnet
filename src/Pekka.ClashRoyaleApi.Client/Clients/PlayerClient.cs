@@ -18,52 +18,48 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<PlayerDetail>> GetPlayerResponseAsync(string playerTag)
+        public async Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<PlayerDetail>(UrlPathBuilder.GetPlayerUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<List<BattleLog>>> GetBattlesResponseAsync(string playerTag)
+        public async Task<IApiResponse<List<PlayerBattleLog>>> GetBattlesResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<List<BattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<UpcomingChestsList>> GetUpcomingChestsResponseAsync(string playerTag)
+        public async Task<IApiResponse<PlayerUpcomingChests>> GetUpcomingChestsResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<UpcomingChestsList>(
-                    UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
+            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
 
             return apiResponse;
         }
 
-        public async Task<PlayerDetail> GetPlayerAsync(string playerTag)
+        public async Task<Player> GetPlayerAsync(string playerTag)
         {
             var apiResponse = await GetPlayerResponseAsync(playerTag);
 
             return apiResponse.Model;
         }
 
-        public async Task<List<BattleLog>> GetBattlesAsync(string playerTag)
+        public async Task<List<PlayerBattleLog>> GetBattlesAsync(string playerTag)
         {
             var apiResponse = await GetBattlesResponseAsync(playerTag);
 
             return apiResponse.Model;
         }
 
-        public async Task<UpcomingChestsList> GetUpcomingChests(string playerTag)
+        public async Task<PlayerUpcomingChests> GetUpcomingChests(string playerTag)
         {
             var apiResponse = await GetUpcomingChestsResponseAsync(playerTag);
 

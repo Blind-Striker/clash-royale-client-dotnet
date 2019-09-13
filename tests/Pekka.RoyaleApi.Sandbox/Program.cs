@@ -47,7 +47,6 @@ namespace Pekka.RoyaleApi.Sandbox
             string[] playerList = { "C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
             string[] clanList = { "Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL" };
 
-
             var versionResponse = await versionClient.GetVersionResponseAsync();
             var constantsResponse = await constantClient.GetConstantsResponseAsync();
 
