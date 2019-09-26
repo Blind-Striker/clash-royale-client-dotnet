@@ -9,18 +9,18 @@ using Pekka.Core.Responses;
 using System;
 using System.Threading.Tasks;
 
+using Pekka.Core;
+
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
-    public class ClanClient : IClanClient
+    public class ClanClient : BaseClient, IClanClient
     {
-        private readonly IRestApiClient _restApiClient;
-
-        public ClanClient(IRestApiClient restApiClient)
+        public ClanClient(IRestApiClient restApiClient) 
+            : base(restApiClient)
         {
-            _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<ClanSearchResult>> SearchClanResponseAsync(ClanFilter clanApiFilter)
+        public async Task<IApiResponse<Clan>> SearchClanResponseAsync(ClanFilter clanApiFilter)
         {
             Ensure.ArgumentNotNull(clanApiFilter, nameof(clanApiFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(clanApiFilter, nameof(clanApiFilter));
@@ -33,7 +33,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             //    throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
 
             var apiResponse =
-                await _restApiClient.GetApiResponseAsync<ClanSearchResult>(UrlPathBuilder.ClanUrl,
+                await RestApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.ClanUrl,
                     clanApiFilter.ToQueryParams());
 
             return apiResponse;
@@ -43,13 +43,12 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<Clan>(UrlPathBuilder.GetClanUrl(clanTag));
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<ClanMemberList>> GetMembersResponseAsync(string clanTag,
-            ClanMemberFilter clanMemberFilter = null)
+        public async Task<IApiResponse<ClanMembers>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -57,37 +56,35 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
 
             var apiResponse =
-                await _restApiClient.GetApiResponseAsync<ClanMemberList>(UrlPathBuilder.GetMemberUrl(clanTag),
+                await RestApiClient.GetApiResponseAsync<ClanMembers>(UrlPathBuilder.GetMemberUrl(clanTag),
                     clanMemberFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<WarLog>> GetWarlogResponseAsync(string clanTag,
-            ClanWarlogFilter clanWarlogFilter = null)
+        public async Task<IApiResponse<ClanWarLogs>> GetWarLogResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            if (clanWarlogFilter?.After != null && clanWarlogFilter.Before != null)
+            if (clanWarLogFilter?.After != null && clanWarLogFilter.Before != null)
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<WarLog>(UrlPathBuilder.GetWarlogUrl(clanTag),
-                clanWarlogFilter?.ToQueryParams());
+            var apiResponse = await RestApiClient.GetApiResponseAsync<ClanWarLogs>(UrlPathBuilder.GetWarlogUrl(clanTag),
+                clanWarLogFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<CurrentWar>> GetCurrentWarResponseAsync(string clanTag)
+        public async Task<IApiResponse<ClanCurrentWar>> GetCurrentWarResponseAsync(string clanTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<CurrentWar>(UrlPathBuilder.GetCurrentWarUrl(clanTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<ClanCurrentWar>(UrlPathBuilder.GetCurrentWarUrl(clanTag));
 
             return apiResponse;
         }
 
-        public async Task<ClanSearchResult> SearchClanAsync(ClanFilter clanApiFilter)
+        public async Task<Clan> SearchClanAsync(ClanFilter clanApiFilter)
         {
             var apiResponse = await SearchClanResponseAsync(clanApiFilter);
 
@@ -101,21 +98,21 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse.Model;
         }
 
-        public async Task<ClanMemberList> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
+        public async Task<ClanMembers> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
             var apiResponse = await GetMembersResponseAsync(clanTag, clanMemberFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<WarLog> GetWarlogAsync(string clanTag, ClanWarlogFilter clanWarlogFilter = null)
+        public async Task<ClanWarLogs> GetWarLogAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
         {
-            var apiResponse = await GetWarlogResponseAsync(clanTag, clanWarlogFilter);
+            var apiResponse = await GetWarLogResponseAsync(clanTag, clanWarLogFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<CurrentWar> GetCurrentWar(string clanTag)
+        public async Task<ClanCurrentWar> GetCurrentWar(string clanTag)
         {
             var apiResponse = await GetCurrentWarResponseAsync(clanTag);
 

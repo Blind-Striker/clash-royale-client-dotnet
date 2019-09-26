@@ -15,8 +15,10 @@ namespace Pekka.ClashRoyaleApi.Client.FilterModels
 
         [Query("minScore")] public int? MinScore { get; set; }
 
-        [Query("max")] public int? Limit { get; set; }
+        [Query("limit")] public int? Limit { get; set; }
 
-        [Query("page")] public int? After { get; set; }
+        [Query("after")] public int? After { get; set; }
+
+        [Query("before")] public int? Before { get; set; }
     }
 }

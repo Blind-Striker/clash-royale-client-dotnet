@@ -1,5 +1,4 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Contracts;
-using Pekka.Core;
 using Pekka.Core.Attributes;
 
 namespace Pekka.ClashRoyaleApi.Client.FilterModels

@@ -4,7 +4,7 @@ using Pekka.Core.Attributes;
 
 namespace Pekka.ClashRoyaleApi.Client.FilterModels
 {
-    public class ClanWarlogFilter : IApiFilter
+    public class ClanWarLogFilter : IApiFilter
     {
         [Query("limit")] public int? Limit { get; set; }
 

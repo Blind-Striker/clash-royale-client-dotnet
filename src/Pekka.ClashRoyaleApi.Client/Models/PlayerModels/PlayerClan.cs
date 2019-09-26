@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.Contracts.Models;
 
 namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels

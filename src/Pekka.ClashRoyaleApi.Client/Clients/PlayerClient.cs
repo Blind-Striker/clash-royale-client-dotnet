@@ -7,22 +7,21 @@ using Pekka.Core.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Pekka.Core;
+
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
-    public class PlayerClient : IPlayerClient
+    public class PlayerClient : BaseClient, IPlayerClient
     {
-        private readonly IRestApiClient _restApiClient;
-
-        public PlayerClient(IRestApiClient restApiClient)
+        public PlayerClient(IRestApiClient restApiClient) : base(restApiClient)
         {
-            _restApiClient = restApiClient;
         }
 
         public async Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
@@ -31,7 +30,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
 
             return apiResponse;
         }
@@ -40,7 +39,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
 
             return apiResponse;
         }

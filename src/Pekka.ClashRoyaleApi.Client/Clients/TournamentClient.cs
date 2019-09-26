@@ -7,21 +7,20 @@ using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
-    public class TournamentClient : ITournamentClient
+    public class TournamentClient : BaseClient, ITournamentClient
     {
-        private readonly IRestApiClient _restApiClient;
-
-        public TournamentClient(IRestApiClient restApiClient)
+        public TournamentClient(IRestApiClient restApiClient) : base(restApiClient)
         {
-            _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<TournamentSearchResult>> SearchTournamentResponseAsync(
-            TournamentFilter tournamentFilter)
+        public async Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter)
         {
             Ensure.ArgumentNotNull(tournamentFilter, nameof(tournamentFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(tournamentFilter, nameof(tournamentFilter));
@@ -34,8 +33,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
 
             var apiResponse =
-                await _restApiClient.GetApiResponseAsync<TournamentSearchResult>(UrlPathBuilder.TournamentUrl,
-                    tournamentFilter.ToQueryParams());
+                await RestApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.TournamentUrl, tournamentFilter.ToQueryParams());
 
             return apiResponse;
         }
@@ -44,13 +42,12 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(tournamentTag, nameof(tournamentTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<Tournament>(UrlPathBuilder.GetTournamentUrl(tournamentTag));
+            var apiResponse = await RestApiClient.GetApiResponseAsync<Tournament>(UrlPathBuilder.GetTournamentUrl(tournamentTag));
 
             return apiResponse;
         }
 
-        public async Task<TournamentSearchResult> SearchTournamentAsync(TournamentFilter tournamentFilter)
+        public async Task<List<Tournament>> SearchTournamentAsync(TournamentFilter tournamentFilter)
         {
             var apiResponse = await SearchTournamentResponseAsync(tournamentFilter);
 

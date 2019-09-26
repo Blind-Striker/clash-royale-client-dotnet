@@ -11,5 +11,7 @@
         ITournamentClient TournamentClient { get; }
 
         ICardClient CardClient { get; }
+
+        IGlobalTournamentClient GlobalTournamentClient { get; }
     }
 }

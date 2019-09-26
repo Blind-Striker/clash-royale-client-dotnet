@@ -12,14 +12,20 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
 {
     public class ClashRoyaleApiStandalone : IClashRoyaleApiClientContext
     {
-        private ClashRoyaleApiStandalone(IPlayerClient playerClient, IClanClient clanClient,
-            ILocationClient locationClient, ITournamentClient tournamentClient, ICardClient cardClient)
+        private ClashRoyaleApiStandalone(
+            IPlayerClient playerClient,
+            IClanClient clanClient,
+            ILocationClient locationClient,
+            ITournamentClient tournamentClient,
+            ICardClient cardClient,
+            IGlobalTournamentClient globalTournamentClient)
         {
             PlayerClient = playerClient;
             ClanClient = clanClient;
             LocationClient = locationClient;
             TournamentClient = tournamentClient;
             CardClient = cardClient;
+            GlobalTournamentClient = globalTournamentClient;
         }
 
         public IPlayerClient PlayerClient { get; }
@@ -31,6 +37,8 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
         public ITournamentClient TournamentClient { get; }
 
         public ICardClient CardClient { get; }
+
+        public IGlobalTournamentClient GlobalTournamentClient { get; }
 
         public static IClashRoyaleApiClientContext Create(string baseUrl, string authToken, HttpClient httpClient = null)
         {
@@ -50,7 +58,8 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
                 new ClanClient(restApiClient),
                 new LocationClient(restApiClient),
                 new TournamentClient(restApiClient),
-                new CardClient(restApiClient));
+                new CardClient(restApiClient),
+                new GlobalTournamentClient(restApiClient));
 
             return apiClientContext;
         }

@@ -58,6 +58,6 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public PlayerCard[] CurrentDeck { get; set; }
 
-        public PlayerCurrentFavouriteCard CurrentFavouriteCard { get; set; }
+        public PlayerCurrentFavoriteCard CurrentFavouriteCard { get; set; }
     }
 }
