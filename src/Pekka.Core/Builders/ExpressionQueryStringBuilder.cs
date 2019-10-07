@@ -24,13 +24,19 @@ namespace Pekka.Core.Builders
                                                                     info.PropertyType.GetElementType()?.BaseType == typeof(LambdaExpression))
                                                      .ToList();
 
-            if (!propertyInfos.Any()) Successor?.ProcessRequest(queryStringParams, filter);
+            if (!propertyInfos.Any())
+            {
+                Successor?.ProcessRequest(queryStringParams, filter);
+            }
 
             queryStringParams = queryStringParams ?? new List<KeyValuePair<string, string>>();
 
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
-                if (!(propertyInfo.GetValue(filter) is Array value) || value.Length == 0) continue;
+                if (!(propertyInfo.GetValue(filter) is Array value) || value.Length == 0)
+                {
+                    continue;
+                }
 
                 var customAttribute = propertyInfo.GetCustomAttribute<ExpressionQueryAttribute>();
                 string queryStringKey = customAttribute.KeyName;
@@ -38,7 +44,10 @@ namespace Pekka.Core.Builders
 
                 for (var i = 0; i < value.Length; i++)
                 {
-                    if (!(value.GetValue(i) is LambdaExpression lambdaExpression)) continue;
+                    if (!(value.GetValue(i) is LambdaExpression lambdaExpression))
+                    {
+                        continue;
+                    }
 
                     PropertyInfo extractedPropertyInfo = ExtractPropertyInfo(lambdaExpression);
 
@@ -58,12 +67,16 @@ namespace Pekka.Core.Builders
             MemberExpression member = GetMemberExpression(propertyLambda);
 
             if (member == null)
+            {
                 throw new ArgumentException($"Expression '{propertyLambda}' refers to a method, not a property.");
+            }
 
             var propInfo = member.Member as PropertyInfo;
 
             if (propInfo == null)
+            {
                 throw new ArgumentException($"Expression '{propertyLambda}' refers to a field, not a property.");
+            }
 
             return propInfo;
         }

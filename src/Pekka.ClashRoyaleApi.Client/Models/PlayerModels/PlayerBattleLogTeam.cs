@@ -22,6 +22,6 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public PlayerBattleLogClan Clan { get; set; }
 
-        public PlayerBattleLogCard Cards { get; set; }
+        public PlayerBattleLogCard[] Cards { get; set; }
     }
 }

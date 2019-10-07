@@ -25,19 +25,26 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             var abort = new SemaphoreSlim(0, 1);
 
             for (var i = 0; i < testCount; ++i)
+            {
                 Task.Run(async () =>
                 {
                     lock (threadIds)
                     {
-                        if (!threadIds.Add(AsyncLock.ThreadId)) failure.Set();
+                        if (!threadIds.Add(AsyncLock.ThreadId))
+                        {
+                            failure.Set();
+                        }
                     }
 
                     countdown.Signal();
                     await abort.WaitAsync();
                 });
+            }
 
             if (WaitHandle.WaitAny(new[] {countdown.WaitHandle, failure.WaitHandle}) == 1)
+            {
                 Assert.True(false, "A duplicate thread id was found!");
+            }
 
             abort.Release();
         }
@@ -52,19 +59,26 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             var abort = new SemaphoreSlim(0, 1);
 
             for (var i = 0; i < testCount; ++i)
+            {
                 Task.Run(async () =>
                 {
                     lock (threadIds)
                     {
-                        if (!threadIds.Add(AsyncLock.ThreadId)) failure.Set();
+                        if (!threadIds.Add(AsyncLock.ThreadId))
+                        {
+                            failure.Set();
+                        }
                     }
 
                     countdown.Signal();
                     await abort.WaitAsync();
                 });
+            }
 
             if (WaitHandle.WaitAny(new[] {countdown.WaitHandle, failure.WaitHandle}) == 1)
+            {
                 Assert.True(false, "A duplicate thread id was found!");
+            }
 
             abort.Release();
         }

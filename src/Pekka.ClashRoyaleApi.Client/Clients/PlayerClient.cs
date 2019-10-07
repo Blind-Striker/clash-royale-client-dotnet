@@ -38,8 +38,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            IApiResponse<PlayerUpcomingChests> apiResponse =
-                await RestApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
+            IApiResponse<PlayerUpcomingChests> apiResponse = await RestApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
 
             return apiResponse;
         }

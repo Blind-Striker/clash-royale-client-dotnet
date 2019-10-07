@@ -82,7 +82,10 @@ namespace Pekka.Core.Helpers
                         //the owning thread is always the same so long as we are in a nested stack call
                         //we reset the owning id to null only when the lock is fully unlocked
                         _parent._owningId = UnlockedThreadId;
-                        if (_parent._retry.CurrentCount == 0) _parent._retry.Release();
+                        if (_parent._retry.CurrentCount == 0)
+                        {
+                            _parent._retry.Release();
+                        }
                     }
                 }
             }
@@ -92,7 +95,9 @@ namespace Pekka.Core.Helpers
                 while (!TryEnter())
 
                     //we need to wait for someone to leave the lock before trying again
+                {
                     await _parent._retry.WaitAsync();
+                }
             }
 
             internal async Task ObtainLockAsync(CancellationToken ct)
@@ -100,7 +105,9 @@ namespace Pekka.Core.Helpers
                 while (!TryEnter())
 
                     //we need to wait for someone to leave the lock before trying again
+                {
                     await _parent._retry.WaitAsync(ct);
+                }
             }
 
             internal void ObtainLock()
@@ -108,7 +115,9 @@ namespace Pekka.Core.Helpers
                 while (!TryEnter())
 
                     //we need to wait for someone to leave the lock before trying again
+                {
                     _parent._retry.Wait();
+                }
             }
 
             private bool TryEnter()
@@ -120,7 +129,9 @@ namespace Pekka.Core.Helpers
                     if (_parent._owningId != UnlockedThreadId && _parent._owningId != ThreadId)
 
                         //another thread currently owns the lock
+                    {
                         return false;
+                    }
 
                     //we can go in
                     Interlocked.Increment(ref _parent._reentrances);

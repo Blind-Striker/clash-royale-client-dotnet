@@ -7,7 +7,10 @@ namespace Pekka.Core.Tests.Helpers
     {
         public static IList<KeyValuePair<string, string>> ToQueryStingParameters(this string value)
         {
-            if (string.IsNullOrEmpty(value)) return null;
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
 
             string[] @params = value.Split(';');
 
@@ -21,7 +24,10 @@ namespace Pekka.Core.Tests.Helpers
 
         public static IDictionary<string, string> ToHeaderParameters(this string value)
         {
-            if (string.IsNullOrEmpty(value)) return null;
+            if (string.IsNullOrEmpty(value))
+            {
+                return null;
+            }
 
             IDictionary<string, string> headerParameters = new Dictionary<string, string>();
 

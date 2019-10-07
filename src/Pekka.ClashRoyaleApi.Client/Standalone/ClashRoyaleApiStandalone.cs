@@ -41,7 +41,11 @@ namespace Pekka.ClashRoyaleApi.Client.Standalone
 
         public static IClashRoyaleApiClientContext Create(ApiOptions apiOptions, HttpClient httpClient = null)
         {
-            if (httpClient == null) httpClient = new HttpClient();
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
+
             httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
 
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);

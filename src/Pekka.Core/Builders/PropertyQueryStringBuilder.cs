@@ -32,7 +32,10 @@ namespace Pekka.Core.Builders
             {
                 object value = propertyInfo.GetValue(filter);
 
-                if (value == null) continue;
+                if (value == null)
+                {
+                    continue;
+                }
 
                 var customAttribute = propertyInfo.GetCustomAttribute<QueryAttribute>();
                 string queryStringKey = customAttribute.QueryStringKey;

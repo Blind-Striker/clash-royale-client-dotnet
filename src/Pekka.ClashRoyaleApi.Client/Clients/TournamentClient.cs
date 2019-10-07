@@ -25,10 +25,14 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             Ensure.AtleastOneCriteriaMustBeDefined(tournamentFilter, nameof(tournamentFilter));
 
             if (tournamentFilter?.Name != null && tournamentFilter.Name.Length < 3)
+            {
                 throw new ArgumentException("Name needs to be at least three characters long.", nameof(TournamentFilter.Name));
+            }
 
             if (tournamentFilter?.After != null && tournamentFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
             IApiResponse<List<Tournament>> apiResponse =
                 await RestApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.TournamentUrl, tournamentFilter.ToQueryParams());

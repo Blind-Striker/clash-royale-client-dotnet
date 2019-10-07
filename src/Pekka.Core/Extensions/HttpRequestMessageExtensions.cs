@@ -38,7 +38,10 @@ namespace Pekka.Core.Extensions
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
 
-            if (queryParams == null || queryParams.Count == 0) return requestMessage;
+            if (queryParams == null || queryParams.Count == 0)
+            {
+                return requestMessage;
+            }
 
             string url = requestMessage.RequestUri.ToString();
 
@@ -47,7 +50,10 @@ namespace Pekka.Core.Extensions
 
             NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(query);
 
-            foreach (KeyValuePair<string, string> queryParam in queryParams) queryStringCollection[queryParam.Key] = queryParam.Value;
+            foreach (KeyValuePair<string, string> queryParam in queryParams)
+            {
+                queryStringCollection[queryParam.Key] = queryParam.Value;
+            }
 
             string queryStrings = queryStringCollection.AllKeys.Select(key => $"{key}={queryStringCollection[key]}").JoinToString("&");
 
@@ -75,9 +81,15 @@ namespace Pekka.Core.Extensions
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
 
-            if (headerParams == null || headerParams.Count == 0) return requestMessage;
+            if (headerParams == null || headerParams.Count == 0)
+            {
+                return requestMessage;
+            }
 
-            foreach (KeyValuePair<string, string> headerParam in headerParams) requestMessage.Headers.Add(headerParam.Key, headerParam.Value);
+            foreach (KeyValuePair<string, string> headerParam in headerParams)
+            {
+                requestMessage.Headers.Add(headerParam.Key, headerParam.Value);
+            }
 
             return requestMessage;
         }

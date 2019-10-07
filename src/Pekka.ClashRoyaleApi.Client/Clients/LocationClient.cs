@@ -23,7 +23,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         public async Task<IApiResponse<List<Location>>> GetLocationsResponseAsync(LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
             IApiResponse<List<Location>> apiResponse =
                 await RestApiClient.GetApiResponseAsync<List<Location>>(UrlPathBuilder.LocationUrl, locationFilter?.ToQueryParams());
@@ -41,7 +43,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         public async Task<IApiResponse<LocationRankingClans>> GetClanRankingsResponseAsync(LocationEnum location, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
             IApiResponse<LocationRankingClans> apiResponse =
                 await RestApiClient.GetApiResponseAsync<LocationRankingClans>(UrlPathBuilder.GetRankingsClanUrl((int) location), locationFilter?.ToQueryParams());
@@ -52,7 +56,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         public async Task<IApiResponse<LocationRankingPlayers>> GetPlayerRankingsResponseAsync(LocationEnum location, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
             IApiResponse<LocationRankingPlayers> apiResponse = await RestApiClient.GetApiResponseAsync<LocationRankingPlayers>(
                                                                    UrlPathBuilder.GetRankingsPlayerUrl((int) location), locationFilter?.ToQueryParams());
@@ -63,7 +69,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         public async Task<IApiResponse<LocationRankingClanWars>> GetClanWarsRankingsResponseAsync(LocationEnum location, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
             IApiResponse<LocationRankingClanWars> apiResponse = await RestApiClient.GetApiResponseAsync<LocationRankingClanWars>(
                                                                     UrlPathBuilder.GetRankingsClanWarUrl((int) location), locationFilter?.ToQueryParams());

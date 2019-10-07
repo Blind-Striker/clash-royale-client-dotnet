@@ -38,7 +38,10 @@ namespace Pekka.RoyaleApi.Client.Standalone
 
         public static IRoyaleApiClientContext Create(ApiOptions apiOptions, HttpClient httpClient = null)
         {
-            if (httpClient == null) httpClient = new HttpClient();
+            if (httpClient == null)
+            {
+                httpClient = new HttpClient();
+            }
 
             httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
 

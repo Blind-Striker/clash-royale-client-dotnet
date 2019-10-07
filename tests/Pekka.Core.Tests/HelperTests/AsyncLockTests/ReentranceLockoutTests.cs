@@ -35,12 +35,17 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
             var testCount = 20;
             _countdown = new CountdownEvent(testCount);
 
-            for (var i = 0; i < testCount; ++i) action();
+            for (var i = 0; i < testCount; ++i)
+            {
+                action();
+            }
 
             //MSTest does not support async test methods (apparently, but I could be wrong)
             //await Task.WhenAll(tasks);
             if (WaitHandle.WaitAny(new[] {_countdown.WaitHandle, failure.WaitHandle}) == 1)
+            {
                 Assert.True(true, "More than one thread simultaneously accessed the underlying resource!");
+            }
         }
 
         private void ThreadEntryPoint()

@@ -1,4 +1,6 @@
-﻿namespace Pekka.ClashRoyaleApi.Client
+﻿using System.Web;
+
+namespace Pekka.ClashRoyaleApi.Client
 {
     public static class UrlPathBuilder
     {
@@ -38,42 +40,42 @@
 
         public static string GetPlayerUrl(string playerTag)
         {
-            return string.Format(PlayerTemplate, playerTag);
+            return string.Format(PlayerTemplate, HttpUtility.UrlEncode(playerTag));
         }
 
         public static string GetBattlelogUrl(string playerTag)
         {
-            return string.Format(BattleLogTemplate, playerTag);
+            return string.Format(BattleLogTemplate, HttpUtility.UrlEncode(playerTag));
         }
 
         public static string GetUpcomingChestsUrl(string playerTag)
         {
-            return string.Format(UpcomingChestsTemplate, playerTag);
+            return string.Format(UpcomingChestsTemplate, HttpUtility.UrlEncode(playerTag));
         }
 
         public static string GetClanUrl(string clanTag)
         {
-            return string.Format(ClanTemplate, clanTag);
+            return string.Format(ClanTemplate, HttpUtility.UrlEncode(clanTag));
         }
 
         public static string GetMemberUrl(string clanTag)
         {
-            return string.Format(MemberTemplate, clanTag);
+            return string.Format(MemberTemplate, HttpUtility.UrlEncode(clanTag));
         }
 
         public static string GetWarlogUrl(string clanTag)
         {
-            return string.Format(WarlogTemplate, clanTag);
+            return string.Format(WarlogTemplate, HttpUtility.UrlEncode(clanTag));
         }
 
         public static string GetCurrentWarUrl(string clanTag)
         {
-            return string.Format(CurrentWarTemplate, clanTag);
+            return string.Format(CurrentWarTemplate, HttpUtility.UrlEncode(clanTag));
         }
 
         public static string GetTournamentUrl(string tournamentTag)
         {
-            return string.Format(TournamentTemplate, tournamentTag);
+            return string.Format(TournamentTemplate, HttpUtility.UrlEncode(tournamentTag));
         }
 
         public static string GetLocationUrl(int locationId)

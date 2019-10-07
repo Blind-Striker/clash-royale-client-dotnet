@@ -17,7 +17,10 @@ namespace Pekka.Core.Extensions
 
         public static TModel GetModel<TModel>(this ApiResponse<TModel> apiResponse) where TModel : class, new()
         {
-            if (apiResponse.Error) apiResponse.ThrowException();
+            if (apiResponse.Error)
+            {
+                apiResponse.ThrowException();
+            }
 
             return apiResponse.Model;
         }

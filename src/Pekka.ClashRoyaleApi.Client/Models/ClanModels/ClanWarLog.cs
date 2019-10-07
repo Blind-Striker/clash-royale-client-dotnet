@@ -13,7 +13,7 @@ namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
 
         public string CreatedDate { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<ClanWarLogParticipant>))]
+        [JsonConverter(typeof(CustomConverter<ClanWarLogParticipant[]>))]
         public IParticipant[] Participants { get; set; }
 
         public ClanWarLogStanding[] Standings { get; set; }

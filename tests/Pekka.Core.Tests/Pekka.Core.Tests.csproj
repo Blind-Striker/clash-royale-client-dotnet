@@ -36,8 +36,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="Moq" Version="4.13.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
@@ -49,8 +47,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
 
-    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" Condition="'$(TargetFramework)' != 'netcoreapp2.0'" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" Condition="'$(TargetFramework)' == 'netcoreapp2.0'" />
   </ItemGroup>
 
   <ItemGroup>

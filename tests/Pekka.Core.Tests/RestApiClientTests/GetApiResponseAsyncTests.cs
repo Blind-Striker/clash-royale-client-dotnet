@@ -106,7 +106,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
         [Fact]
         public async Task GetApiResponseAsync_Should_Return_ApiResponse_With_Error_True_And_With_Error_Message_If_HttpResponseMessage_IsSuccessStatusCode_True()
         {
-            var errorResponse = new ErrorResponse() {Error = true, Message = "You need do something", Status = 500};
+            var errorResponse = new {Error = true, Message = "You need do something", Status = 500};
             string stringContent = JsonConvert.SerializeObject(errorResponse);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -130,7 +130,7 @@ namespace Pekka.Core.Tests.RestApiClientTests
             Assert.Equal(HttpStatusCode.InternalServerError, apiResponse.HttpStatusCode);
             Assert.True(apiResponse.Error);
             Assert.Null(apiResponse.Model);
-            Assert.Contains(errorResponse.Message, apiResponse.Message);
+            Assert.Contains(stringContent, apiResponse.Message);
         }
     }
 }

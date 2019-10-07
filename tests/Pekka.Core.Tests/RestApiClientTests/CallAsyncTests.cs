@@ -64,15 +64,25 @@ namespace Pekka.Core.Tests.RestApiClientTests
         private static bool IsValidHttpRequestMessage(HttpRequestMessage httpRequestMessage, HttpMethod httpMethod, string path,
                                                       IList<KeyValuePair<string, string>> queryStingParameters, IDictionary<string, string> headerParameters)
         {
-            if (httpRequestMessage.Method != httpMethod) return false;
+            if (httpRequestMessage.Method != httpMethod)
+            {
+                return false;
+            }
 
             string requestUriAbsoluteUri = httpRequestMessage.RequestUri.ToString();
 
-            if (!requestUriAbsoluteUri.Contains(path)) return false;
+            if (!requestUriAbsoluteUri.Contains(path))
+            {
+                return false;
+            }
 
             if (queryStingParameters != null)
+            {
                 if (queryStingParameters.Any(valuePair => !requestUriAbsoluteUri.Contains($"{valuePair.Key}={valuePair.Value}")))
+                {
                     return false;
+                }
+            }
 
             return headerParameters == null || headerParameters.All(valuePair => httpRequestMessage.Headers.GetValues(valuePair.Key).Contains(valuePair.Value));
         }

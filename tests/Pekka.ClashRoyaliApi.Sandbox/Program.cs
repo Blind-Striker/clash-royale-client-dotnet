@@ -6,9 +6,12 @@ using Pekka.Core;
 using Pekka.Core.Contracts;
 
 using System;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
+using Pekka.ClashRoyaleApi.Client.FilterModels;
+using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
 using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
 using Pekka.Core.Responses;
 
@@ -29,7 +32,6 @@ namespace Pekka.ClashRoyaleApi.Sandbox
             {
                 var options = provider.GetRequiredService<ApiOptions>();
                 client.BaseAddress = new Uri(options.BaseUrl);
-
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
             });
 
@@ -48,7 +50,23 @@ namespace Pekka.ClashRoyaleApi.Sandbox
             var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
 
 
-            IApiResponse<Player> playerResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
+            var player = "#C280JCG";
+            var clan = "#Y2JPYJ";
+
+            IApiResponse<Player> playerResponse = await playerClient.GetPlayerResponseAsync(player);
+            IApiResponse<PlayerUpcomingChests> chestsResponseAsync = await playerClient.GetUpcomingChestsResponseAsync(player);
+            IApiResponse<List<PlayerBattleLog>> battlesResponseAsync = await playerClient.GetBattlesResponseAsync(player);
+
+            IApiResponse<Clan> clanResponseAsync = await clanClient.GetClanResponseAsync(clan);
+            IApiResponse<Clans> searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanFilter() {Name = "eyyam"});
+            IApiResponse<Clans> searchClanResponse2Async = await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int)Locations._INT, Limit = 25});
+            IApiResponse<Clans> searchClanResponse3Async = await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int)Locations._INT, Limit = 25, MaxMembers = 10});
+
+            IApiResponse<ClanMembers> membersResponseAsync = await clanClient.GetMembersResponseAsync(clan);
+            IApiResponse<ClanMembers> membersResponse2Async = await clanClient.GetMembersResponseAsync(clan, new ClanMemberFilter(){Limit = 10});
+
+            IApiResponse<ClanWarLogs> warLogResponseAsync = await clanClient.GetWarLogResponseAsync(clan);
+            IApiResponse<ClanWarLogs> warLogResponse2Async = await clanClient.GetWarLogResponseAsync(clan, new ClanWarLogFilter() {Limit = 5});
         }
     }
 }

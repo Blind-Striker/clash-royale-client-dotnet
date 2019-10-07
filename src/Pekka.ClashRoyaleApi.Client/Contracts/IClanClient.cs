@@ -12,7 +12,7 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface IClanClientWithApiResponse
     {
-        Task<IApiResponse<Clan>> SearchClanResponseAsync(ClanFilter clanApiFilter);
+        Task<IApiResponse<Clans>> SearchClanResponseAsync(ClanFilter clanApiFilter);
 
         Task<IApiResponse<Clan>> GetClanResponseAsync(string clanTag);
 
@@ -25,7 +25,7 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface IClanClientWithModel
     {
-        Task<Clan> SearchClanAsync(ClanFilter clanApiFilter);
+        Task<Clans> SearchClanAsync(ClanFilter clanApiFilter);
 
         Task<Clan> GetClanAsync(string clanTag);
 
