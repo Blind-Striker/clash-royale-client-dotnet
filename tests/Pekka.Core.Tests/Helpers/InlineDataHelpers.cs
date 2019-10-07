@@ -9,12 +9,12 @@ namespace Pekka.Core.Tests.Helpers
         {
             if (string.IsNullOrEmpty(value)) return null;
 
-            var @params = value.Split(';');
+            string[] @params = value.Split(';');
 
             IList<KeyValuePair<string, string>> queryStringParameters = @params
-                .Select(param => param.Split('='))
-                .Select(keyValues => new KeyValuePair<string, string>(keyValues[0], keyValues[1]))
-                .ToList();
+                                                                        .Select(param => param.Split('='))
+                                                                        .Select(keyValues => new KeyValuePair<string, string>(keyValues[0], keyValues[1]))
+                                                                        .ToList();
 
             return queryStringParameters;
         }
@@ -25,11 +25,11 @@ namespace Pekka.Core.Tests.Helpers
 
             IDictionary<string, string> headerParameters = new Dictionary<string, string>();
 
-            var @params = value.Split(';');
+            string[] @params = value.Split(';');
 
             foreach (string param in @params)
             {
-                var keyValues = param.Split('=');
+                string[] keyValues = param.Split('=');
 
                 headerParameters.Add(new KeyValuePair<string, string>(keyValues[0], keyValues[1]));
             }

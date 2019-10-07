@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-
-using Pekka.ClashRoyaleApi.Client.FilterModels;
+﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 using Pekka.Core.Responses;
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts

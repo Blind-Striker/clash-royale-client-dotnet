@@ -1,4 +1,5 @@
-﻿using Pekka.Core.Extensions;
+﻿using Pekka.Core.Attributes;
+using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 
 using System;
@@ -8,22 +9,20 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-using Pekka.Core.Attributes;
-
 namespace Pekka.Core.Builders
 {
     public class ExpressionQueryStringBuilder : QueryStringBuilder
     {
-        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams,
-            TFilterModel filter)
+        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams, TFilterModel filter)
         {
             Ensure.ArgumentNotNull(filter, nameof(filter));
 
-            var propertyInfos = filter.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(info =>
-                    Attribute.IsDefined(info, typeof(ExpressionQueryAttribute)) && info.PropertyType.IsArray &&
-                    info.PropertyType.GetElementType()?.BaseType == typeof(LambdaExpression)).ToList();
+            List<PropertyInfo> propertyInfos = filter.GetType()
+                                                     .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                                     .Where(info => Attribute.IsDefined(info, typeof(ExpressionQueryAttribute)) &&
+                                                                    info.PropertyType.IsArray &&
+                                                                    info.PropertyType.GetElementType()?.BaseType == typeof(LambdaExpression))
+                                                     .ToList();
 
             if (!propertyInfos.Any()) Successor?.ProcessRequest(queryStringParams, filter);
 
@@ -47,8 +46,7 @@ namespace Pekka.Core.Builders
                     queryStringValueBuilder.Append(",");
                 }
 
-                queryStringParams.Add(new KeyValuePair<string, string>(queryStringKey,
-                    queryStringValueBuilder.ToString().Remove(queryStringValueBuilder.Length - 1)));
+                queryStringParams.Add(new KeyValuePair<string, string>(queryStringKey, queryStringValueBuilder.ToString().Remove(queryStringValueBuilder.Length - 1)));
             }
 
             Successor?.ProcessRequest(queryStringParams, filter);

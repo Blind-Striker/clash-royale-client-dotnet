@@ -7,8 +7,15 @@ using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.FilterModels;
 
 using System;
+using System.Collections.Generic;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+
+using Pekka.Core.Responses;
+using Pekka.RoyaleApi.Client.Models.ClanModels;
+using Pekka.RoyaleApi.Client.Models.ConstantModels;
+using Pekka.RoyaleApi.Client.Models.PlayerModels;
+using Pekka.RoyaleApi.Client.Models.VersionModels;
 
 namespace Pekka.RoyaleApi.Sandbox
 {
@@ -16,7 +23,6 @@ namespace Pekka.RoyaleApi.Sandbox
     {
         private static async Task Main(string[] args)
         {
-
             string token = Environment.GetEnvironmentVariable("ROYALE_API_TOKEN");
 
             var apiOptions = new ApiOptions(token, "https://api.royaleapi.com/");
@@ -29,8 +35,10 @@ namespace Pekka.RoyaleApi.Sandbox
             {
                 var options = provider.GetRequiredService<ApiOptions>();
                 client.BaseAddress = new Uri(options.BaseUrl);
+
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
             });
+
             services.AddTransient<IPlayerClient, PlayerClient>();
             services.AddTransient<IClanClient, ClanClient>();
             services.AddTransient<IVersionClient, VersionClient>();
@@ -44,24 +52,26 @@ namespace Pekka.RoyaleApi.Sandbox
             var constantClient = buildServiceProvider.GetRequiredService<IConstantClient>();
             var restApiClient = buildServiceProvider.GetRequiredService<IRestApiClient>();
 
-            string[] playerList = { "C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8" };
-            string[] clanList = { "Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL" };
+            string[] playerList = {"C280JCG", "JGL2LGQ8", "JUQUG92Q", "JLQVYCV", "2P080VG0", "R0LR9RUQ", "Q8UUJ0JJ", "PYLQLCL8"};
 
-            var versionResponse = await versionClient.GetVersionResponseAsync();
-            var constantsResponse = await constantClient.GetConstantsResponseAsync();
+            string[] clanList = {"Y2JPYJ", "282GJC9J", "9CQ2R8UY", "9C2YLQL"};
 
-            var playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
-            var playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
-            var playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
+            IApiResponse<Ver> versionResponse = await versionClient.GetVersionResponseAsync();
+            IApiResponse<Constants> constantsResponse = await constantClient.GetConstantsResponseAsync();
 
-            var clanResponse = await clanClient.GetClanResponseAsync(clanList[0]);
-            var battlesResponse = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
-            var searchClanResponse = await clanClient.SearchClanResponseAsync(new ClanSummaryFilter() { Name = "Eyy", Max = 10 });
+            IApiResponse<Player> playerCurrent = await playerClient.GetPlayerResponseAsync(playerList[0]);
+            IApiResponse<List<PlayerBattle>> playerCurrentBattle = await playerClient.GetBattlesResponseAsync(playerList[0]);
+            IApiResponse<PlayerChest> playerCurrentChest = await playerClient.GetChestResponseAsync(playerList[0]);
 
-            var eyyamWars = await clanClient.GetWarResponseAsync("Y2JPYJ");
-            var warrs = await clanClient.GetWarResponseAsync("9PJ82CRC");
-            var eyyamWarLogs = await clanClient.GetWarLogsResponseAsync("Y2JPYJ");
-            var warrsLogs = await clanClient.GetWarLogsResponseAsync("9PJ82CRC");
+            IApiResponse<Clan> clanResponse = await clanClient.GetClanResponseAsync(clanList[0]);
+            IApiResponse<List<ClanBattle>> battlesResponse = await clanClient.GetBattlesResponseAsync("9PJ82CRC");
+
+            IApiResponse<List<ClanSummary>> searchClanResponse = await clanClient.SearchClanResponseAsync(new ClanSummaryFilter() {Name = "Eyy", Max = 10});
+
+            IApiResponse<ClanWar> eyyamWars = await clanClient.GetWarResponseAsync("Y2JPYJ");
+            IApiResponse<ClanWar> warrs = await clanClient.GetWarResponseAsync("9PJ82CRC");
+            IApiResponse<List<ClanWarLog>> eyyamWarLogs = await clanClient.GetWarLogsResponseAsync("Y2JPYJ");
+            IApiResponse<List<ClanWarLog>> warrsLogs = await clanClient.GetWarLogsResponseAsync("9PJ82CRC");
         }
     }
 }

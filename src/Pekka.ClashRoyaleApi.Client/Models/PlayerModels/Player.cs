@@ -52,9 +52,9 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
 
         public PlayerBadge[] Badges { get; set; }
 
-        public PlayerAchievement Achievements { get; set; }
+        public PlayerAchievement[] Achievements { get; set; }
 
-        public PlayerCard Cards { get; set; }
+        public PlayerCard[] Cards { get; set; }
 
         public PlayerCard[] CurrentDeck { get; set; }
 

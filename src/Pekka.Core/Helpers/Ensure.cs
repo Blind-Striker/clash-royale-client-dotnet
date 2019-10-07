@@ -83,7 +83,7 @@ namespace Pekka.Core.Helpers
         {
             ArgumentNotNull(value, name);
 
-            var propertyInfos = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
+            PropertyInfo[] propertyInfos = typeof(T).GetProperties(BindingFlags.Instance | BindingFlags.Public);
 
             bool allNull = propertyInfos.All(info => info.GetValue(value) == null);
 

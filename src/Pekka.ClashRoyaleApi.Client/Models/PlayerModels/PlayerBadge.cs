@@ -7,9 +7,13 @@ namespace Pekka.ClashRoyaleApi.Client.Models.PlayerModels
     public class PlayerBadge
     {
         public string Name { get; set; }
+
         public int Progress { get; set; }
+
         public int? Level { get; set; }
+
         public int? MaxLevel { get; set; }
+
         public int? Target { get; set; }
     }
 }

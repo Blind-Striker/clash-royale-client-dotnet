@@ -1,13 +1,12 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Contracts;
 using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
+using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
@@ -21,7 +20,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await RestApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
+            IApiResponse<Player> apiResponse = await RestApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag));
 
             return apiResponse;
         }
@@ -30,7 +29,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await RestApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
+            IApiResponse<List<PlayerBattleLog>> apiResponse = await RestApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
 
             return apiResponse;
         }
@@ -39,28 +38,29 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await RestApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
+            IApiResponse<PlayerUpcomingChests> apiResponse =
+                await RestApiClient.GetApiResponseAsync<PlayerUpcomingChests>(UrlPathBuilder.GetUpcomingChestsUrl(playerTag));
 
             return apiResponse;
         }
 
         public async Task<Player> GetPlayerAsync(string playerTag)
         {
-            var apiResponse = await GetPlayerResponseAsync(playerTag);
+            IApiResponse<Player> apiResponse = await GetPlayerResponseAsync(playerTag);
 
             return apiResponse.Model;
         }
 
         public async Task<List<PlayerBattleLog>> GetBattlesAsync(string playerTag)
         {
-            var apiResponse = await GetBattlesResponseAsync(playerTag);
+            IApiResponse<List<PlayerBattleLog>> apiResponse = await GetBattlesResponseAsync(playerTag);
 
             return apiResponse.Model;
         }
 
         public async Task<PlayerUpcomingChests> GetUpcomingChests(string playerTag)
         {
-            var apiResponse = await GetUpcomingChestsResponseAsync(playerTag);
+            IApiResponse<PlayerUpcomingChests> apiResponse = await GetUpcomingChestsResponseAsync(playerTag);
 
             return apiResponse.Model;
         }

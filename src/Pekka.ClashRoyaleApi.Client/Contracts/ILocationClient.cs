@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-using Pekka.ClashRoyaleApi.Client.FilterModels;
+﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
 using Pekka.ClashRoyaleApi.Client.Models.LocationModels;
-using Pekka.Core;
 using Pekka.Core.Responses;
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using LocationEnum = Pekka.Core.Locations;

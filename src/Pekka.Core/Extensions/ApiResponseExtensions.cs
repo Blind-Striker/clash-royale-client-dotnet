@@ -7,8 +7,7 @@ namespace Pekka.Core.Extensions
     {
         public static UnsuccessfulResponseException GetException(this ApiResponse apiResponse)
         {
-            return new UnsuccessfulResponseException(apiResponse.Message, apiResponse.UrlPath,
-                apiResponse.HttpStatusCode);
+            return new UnsuccessfulResponseException(apiResponse.Message, apiResponse.UrlPath, apiResponse.HttpStatusCode);
         }
 
         public static UnsuccessfulResponseException ThrowException(this ApiResponse apiResponse)

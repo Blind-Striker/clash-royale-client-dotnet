@@ -7,8 +7,7 @@ namespace Pekka.Core.Extensions
 {
     public static class FilterExtensions
     {
-        public static IList<KeyValuePair<string, string>> ToQueryParams<TFilterModel>(this TFilterModel filter)
-            where TFilterModel : class, IFilter, new()
+        public static IList<KeyValuePair<string, string>> ToQueryParams<TFilterModel>(this TFilterModel filter) where TFilterModel : class, IFilter, new()
         {
             var expressionQueryStringBuilder = new ExpressionQueryStringBuilder();
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();

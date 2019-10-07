@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using Pekka.ClashRoyaleApi.Client.Models.CardModels;
+﻿using Pekka.ClashRoyaleApi.Client.Models.CardModels;
 using Pekka.Core.Responses;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
 {

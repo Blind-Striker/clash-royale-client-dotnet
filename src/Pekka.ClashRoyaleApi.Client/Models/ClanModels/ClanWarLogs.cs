@@ -1,5 +1,4 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Contracts.Models;
-using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 
 namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
 {

@@ -5,8 +5,7 @@ namespace Pekka.Core.Exceptions
 {
     public class UnsuccessfulResponseException : Exception
     {
-        public UnsuccessfulResponseException(string message, string urlPath, HttpStatusCode code)
-            : base(message)
+        public UnsuccessfulResponseException(string message, string urlPath, HttpStatusCode code) : base(message)
         {
             UrlPath = urlPath;
             Code = code;

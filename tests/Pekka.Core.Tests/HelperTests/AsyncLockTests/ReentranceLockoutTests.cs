@@ -17,16 +17,17 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests
 
     public class ReentranceLockoutTests
     {
+        private readonly Random _random = new Random((int) DateTime.UtcNow.Ticks);
+        private CountdownEvent _countdown;
         private AsyncLock _lock;
         private LimitedResource _resource;
-        private CountdownEvent _countdown;
-        private readonly Random _random = new Random((int) DateTime.UtcNow.Ticks);
 
         private int DelayInterval => _random.Next(5, 10) * 10;
 
         private void ResourceSimulation(Action action)
         {
             _lock = new AsyncLock();
+
             //start n threads and have them obtain the lock and randomly wait, then verify
             var failure = new ManualResetEventSlim(false);
             _resource = new LimitedResource(() => { failure.Set(); });

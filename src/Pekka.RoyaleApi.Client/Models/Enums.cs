@@ -2,6 +2,10 @@
 {
     public sealed class ClanBattleType
     {
+        public static readonly ClanBattleType All = new ClanBattleType("all");
+        public static readonly ClanBattleType War = new ClanBattleType("war");
+        public static readonly ClanBattleType ClanMate = new ClanBattleType("clanMate");
+
         private ClanBattleType()
         {
         }
@@ -12,10 +16,6 @@
         }
 
         public string Type { get; }
-
-        public static readonly ClanBattleType All = new ClanBattleType("all");
-        public static readonly ClanBattleType War = new ClanBattleType("war");
-        public static readonly ClanBattleType ClanMate = new ClanBattleType("clanMate");
 
         public override string ToString()
         {

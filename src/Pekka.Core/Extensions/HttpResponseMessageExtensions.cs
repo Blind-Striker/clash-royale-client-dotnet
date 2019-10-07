@@ -10,8 +10,7 @@ namespace Pekka.Core.Extensions
 {
     public static class HttpResponseMessageExtensions
     {
-        public static async Task<IApiResponse<TModel>> ConvertToApiResponse<TModel>(
-            this HttpResponseMessage httpResponseMessage, string urlPath = null)
+        public static async Task<IApiResponse<TModel>> ConvertToApiResponse<TModel>(this HttpResponseMessage httpResponseMessage, string urlPath = null)
             where TModel : class
         {
             string stringContent = await httpResponseMessage.Content.ReadAsStringAsync();
@@ -25,9 +24,8 @@ namespace Pekka.Core.Extensions
 
             if (!httpResponseMessage.IsSuccessStatusCode)
             {
-                bool converted = stringContent.TryDeserializeObject(out ErrorResponse errorResponse);
                 apiResponse.Error = true;
-                apiResponse.Message = converted ? $"{errorResponse.Message}" : stringContent;
+                apiResponse.Message = stringContent;
 
                 return apiResponse;
             }

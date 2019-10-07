@@ -1,10 +1,9 @@
-﻿using System;
-
-using Pekka.Core;
+﻿using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.RoyaleApi.Client.Clients;
 using Pekka.RoyaleApi.Client.Contracts;
 
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -12,16 +11,13 @@ namespace Pekka.RoyaleApi.Client.Standalone
 {
     public class RoyaleApiStandalone : IRoyaleApiClientContext
     {
-        private RoyaleApiStandalone(
-            IVersionClient versionClient,
-            IConstantClient constantClient,
-            IPlayerClient playerClient,
-            IClanClient clanClient)
+        private RoyaleApiStandalone(IVersionClient versionClient, IConstantClient constantClient, IPlayerClient playerClient, IClanClient clanClient)
         {
             VersionClient = versionClient;
             ConstantClient = constantClient;
             PlayerClient = playerClient;
             ClanClient = clanClient;
+
             //TournamentClient = tournamentClient;
         }
 
@@ -45,15 +41,13 @@ namespace Pekka.RoyaleApi.Client.Standalone
             if (httpClient == null) httpClient = new HttpClient();
 
             httpClient.BaseAddress = new Uri(apiOptions.BaseUrl);
+
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiOptions.BearerToken);
 
             IRestApiClient restApiClient = new RestApiClient(httpClient);
 
-            IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(
-                new VersionClient(restApiClient),
-                new ConstantClient(restApiClient),
-                new PlayerClient(restApiClient),
-                new ClanClient(restApiClient));
+            IRoyaleApiClientContext apiClientContext = new RoyaleApiStandalone(new VersionClient(restApiClient), new ConstantClient(restApiClient),
+                                                                               new PlayerClient(restApiClient), new ClanClient(restApiClient));
 
             return apiClientContext;
         }

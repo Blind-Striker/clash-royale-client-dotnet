@@ -6,6 +6,7 @@ namespace Pekka.RoyaleApi.Client.FilterModels
 {
     public class ClanBattleFilter : BaseFilter<PlayerBattle>
     {
-        [Query("type")] public ClanBattleType ClanBattleType { get; set; }
+        [Query("type")]
+        public ClanBattleType ClanBattleType { get; set; }
     }
 }

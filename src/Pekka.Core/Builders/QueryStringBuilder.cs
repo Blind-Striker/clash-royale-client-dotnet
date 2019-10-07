@@ -16,7 +16,7 @@ namespace Pekka.Core.Builders
             Successor = successor;
         }
 
-        public abstract void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams,
-            TFilterModel filter) where TFilterModel : class, IFilter, new();
+        public abstract void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams, TFilterModel filter)
+            where TFilterModel : class, IFilter, new();
     }
 }

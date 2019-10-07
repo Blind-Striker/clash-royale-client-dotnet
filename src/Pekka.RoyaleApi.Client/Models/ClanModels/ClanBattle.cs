@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 using Pekka.Core.JsonConverters;
 using Pekka.RoyaleApi.Client.Contracts.Models;
+
+using System;
 
 namespace Pekka.RoyaleApi.Client.Models.ClanModels
 {

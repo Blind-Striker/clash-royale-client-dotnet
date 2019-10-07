@@ -13,9 +13,9 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes
     /// </summary>
     internal class LimitedResource
     {
+        private readonly Action _failureCallback;
         private readonly int _max = 1;
         private int _unsafe = 0;
-        private readonly Action _failureCallback;
 
         public LimitedResource(Action onFailure, int maxSimultaneous = 1)
         {
