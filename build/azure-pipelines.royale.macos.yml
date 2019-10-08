@@ -15,6 +15,27 @@ pool:
   vmImage: macOS-10.14
 steps:
   - task: UseDotNet@2
+    displayName: 'Install .net core 2.0'
+    inputs:
+      packageType: sdk
+      version: '2.1.202'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - task: UseDotNet@2
+    displayName: 'Install .net core 2.1'
+    inputs:
+      packageType: sdk
+      version: '2.1.802'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - task: UseDotNet@2
+    displayName: 'Install .net core 2.2'
+    inputs:
+      packageType: sdk
+      version: '2.2.402'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - task: UseDotNet@2
     displayName: 'Install .net core 3.0'
     inputs:
       packageType: sdk

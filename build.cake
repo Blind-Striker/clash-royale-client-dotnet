@@ -19,7 +19,7 @@ string clashRoyaleApiPath = "src/Pekka.ClashRoyaleApi.Client";
 string royaleApiCsProjPath = $"{royaleApiPath}/Pekka.RoyaleApi.Client.csproj";
 string clashRoyaleApiCsProjPath = $"{clashRoyaleApiPath}/Pekka.ClashRoyaleApi.Client.csproj";
 
-Task("Default")
+Task("default")
     .IsDependentOn("init")
     .IsDependentOn("tests");
 
