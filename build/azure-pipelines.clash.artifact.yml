@@ -8,6 +8,7 @@ trigger:
     include:
       - src/Pekka.ClashRoyaleApi.Client/*
       - src/Pekka.Core/*
+      - build/*      
 pr: none
 pool:
   vmImage: ubuntu-16.04

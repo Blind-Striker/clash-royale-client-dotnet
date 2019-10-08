@@ -6,6 +6,7 @@ trigger:
     include:
       - src/Pekka.ClashRoyaleApi.Client/*
       - src/Pekka.Core/*
+      - build/*      
 pr:
   branches:
     include:
@@ -16,7 +17,7 @@ steps:
   - task: DotNetCoreInstaller@0
     inputs:
       version: '3.0.0'
-      
+
   - task: Bash@3
     displayName: 'Compile & Tests'
     inputs:

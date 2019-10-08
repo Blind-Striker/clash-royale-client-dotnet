@@ -6,6 +6,7 @@ trigger:
     include:
       - src/Pekka.RoyaleApi.Client/*
       - src/Pekka.Core/*
+      - build/*
 pr:
   branches:
     include:
