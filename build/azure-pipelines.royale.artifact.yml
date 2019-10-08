@@ -8,7 +8,7 @@ trigger:
       - src/Pekka.Core/*
 pr: none
 pool:
-  name: Hosted Ubuntu 1604
+  vmImage: ubuntu-16.04
 variables:
   Version.MajorMinor: 3.0.0
   Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]

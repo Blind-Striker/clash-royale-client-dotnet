@@ -11,7 +11,7 @@ pr:
     include:
       - "*"
 pool:
-  name: Hosted macOS
+  vmImage: macOS-10.14
 steps:
   - task: Bash@3
     displayName: 'Compile & Tests'

@@ -10,9 +10,9 @@ trigger:
       - src/Pekka.Core/*
 pr: none
 pool:
-  name: Hosted Ubuntu 1604
+  vmImage: ubuntu-16.04
 variables:
-  Version.MajorMinor: 1.0.0
+  Version.MajorMinor: 1.1.0
   Version.Revision: $[counter(variables['Version.MajorMinor'], 0)]
 steps:
   - bash: "sudo apt install nuget && mkdir ./testrunner && sudo chmod -R 777 ./testrunner && ls"
