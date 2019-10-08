@@ -1,6 +1,6 @@
 ﻿namespace Pekka.Core
 {
-    public enum Locations
+    public enum LocationsEnum
     {
         None,
         _EU = 57000000,

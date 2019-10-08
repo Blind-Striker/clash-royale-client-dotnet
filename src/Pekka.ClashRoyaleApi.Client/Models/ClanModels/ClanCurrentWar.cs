@@ -16,10 +16,10 @@ namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
         [JsonConverter(typeof(CustomConverter<ClanCurrentWarClan>))]
         public IClanSummary Clan { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<ClanCurrentWarParticipant>))]
+        [JsonConverter(typeof(CustomConverter<ClanCurrentWarParticipant[]>))]
         public IParticipant[] Participants { get; set; }
 
-        [JsonConverter(typeof(CustomConverter<ClanCurrentWarParticipant>))]
+        [JsonConverter(typeof(CustomConverter<ClanCurrentWarParticipant[]>))]
         public IParticipant[] Clans { get; set; }
     }
 }

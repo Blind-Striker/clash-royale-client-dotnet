@@ -2,7 +2,7 @@
 
 namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
 {
-    public class ClanWarLogs : IPaged<ClanWarLog>
+    public class PagedClanWarLogs : IPaged<ClanWarLog>
     {
         public ClanWarLog[] Items { get; set; }
 

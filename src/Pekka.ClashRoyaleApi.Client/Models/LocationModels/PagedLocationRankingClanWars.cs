@@ -6,9 +6,9 @@ using Pekka.ClashRoyaleApi.Client.Contracts.Models;
 namespace Pekka.ClashRoyaleApi.Client.Models.LocationModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class LocationRankingClans : IPaged<LocationRankingClan>
+    public class PagedLocationRankingClanWars : IPaged<LocationRankingClanWar>
     {
-        public LocationRankingClan[] Items { get; set; }
+        public LocationRankingClanWar[] Items { get; set; }
 
         public Paging Paging { get; set; }
     }

@@ -12,26 +12,26 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface IClanClientWithApiResponse
     {
-        Task<IApiResponse<Clans>> SearchClanResponseAsync(ClanFilter clanApiFilter);
+        Task<IApiResponse<PagedClans>> SearchClanResponseAsync(ClanFilter clanApiFilter);
 
         Task<IApiResponse<Clan>> GetClanResponseAsync(string clanTag);
 
-        Task<IApiResponse<ClanMembers>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null);
+        Task<IApiResponse<PagedClanMembers>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null);
 
-        Task<IApiResponse<ClanWarLogs>> GetWarLogResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
+        Task<IApiResponse<PagedClanWarLogs>> GetWarLogResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
 
         Task<IApiResponse<ClanCurrentWar>> GetCurrentWarResponseAsync(string clanTag);
     }
 
     public interface IClanClientWithModel
     {
-        Task<Clans> SearchClanAsync(ClanFilter clanApiFilter);
+        Task<PagedClans> SearchClanAsync(ClanFilter clanApiFilter);
 
         Task<Clan> GetClanAsync(string clanTag);
 
-        Task<ClanMembers> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null);
+        Task<PagedClanMembers> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null);
 
-        Task<ClanWarLogs> GetWarLogAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
+        Task<PagedClanWarLogs> GetWarLogAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null);
 
         Task<ClanCurrentWar> GetCurrentWar(string clanTag);
     }

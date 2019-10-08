@@ -4,7 +4,6 @@ using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.Core.Responses;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
@@ -15,16 +14,16 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
         }
 
-        public async Task<IApiResponse<List<Card>>> GetCardsResponseAsync()
+        public async Task<IApiResponse<PagedCards>> GetCardsResponseAsync()
         {
-            IApiResponse<List<Card>> apiResponse = await RestApiClient.GetApiResponseAsync<List<Card>>(UrlPathBuilder.CardUrl);
+            IApiResponse<PagedCards> apiResponse = await RestApiClient.GetApiResponseAsync<PagedCards>(UrlPathBuilder.CardUrl);
 
             return apiResponse;
         }
 
-        public async Task<List<Card>> GetCardsAsync()
+        public async Task<PagedCards> GetCardsAsync()
         {
-            IApiResponse<List<Card>> apiResponse = await GetCardsResponseAsync();
+            IApiResponse<PagedCards> apiResponse = await GetCardsResponseAsync();
 
             return apiResponse.Model;
         }

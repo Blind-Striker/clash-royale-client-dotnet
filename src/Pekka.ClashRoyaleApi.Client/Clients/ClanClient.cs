@@ -18,7 +18,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
         }
 
-        public async Task<IApiResponse<Clans>> SearchClanResponseAsync(ClanFilter clanApiFilter)
+        public async Task<IApiResponse<PagedClans>> SearchClanResponseAsync(ClanFilter clanApiFilter)
         {
             Ensure.ArgumentNotNull(clanApiFilter, nameof(clanApiFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(clanApiFilter, nameof(clanApiFilter));
@@ -33,7 +33,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
             }
 
-            IApiResponse<Clans> apiResponse = await RestApiClient.GetApiResponseAsync<Clans>(UrlPathBuilder.ClanUrl, clanApiFilter.ToQueryParams());
+            IApiResponse<PagedClans> apiResponse = await RestApiClient.GetApiResponseAsync<PagedClans>(UrlPathBuilder.ClanUrl, clanApiFilter.ToQueryParams());
 
             return apiResponse;
         }
@@ -47,7 +47,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<IApiResponse<ClanMembers>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
+        public async Task<IApiResponse<PagedClanMembers>> GetMembersResponseAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -56,13 +56,13 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
             }
 
-            IApiResponse<ClanMembers> apiResponse =
-                await RestApiClient.GetApiResponseAsync<ClanMembers>(UrlPathBuilder.GetMemberUrl(clanTag), clanMemberFilter?.ToQueryParams());
+            IApiResponse<PagedClanMembers> apiResponse =
+                await RestApiClient.GetApiResponseAsync<PagedClanMembers>(UrlPathBuilder.GetMemberUrl(clanTag), clanMemberFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<ClanWarLogs>> GetWarLogResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
+        public async Task<IApiResponse<PagedClanWarLogs>> GetWarLogResponseAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(clanTag, nameof(clanTag));
 
@@ -71,7 +71,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
             }
 
-            IApiResponse<ClanWarLogs> apiResponse = await RestApiClient.GetApiResponseAsync<ClanWarLogs>(UrlPathBuilder.GetWarlogUrl(clanTag),
+            IApiResponse<PagedClanWarLogs> apiResponse = await RestApiClient.GetApiResponseAsync<PagedClanWarLogs>(UrlPathBuilder.GetWarlogUrl(clanTag),
                                                                                                          clanWarLogFilter?.ToQueryParams());
 
             return apiResponse;
@@ -86,9 +86,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<Clans> SearchClanAsync(ClanFilter clanApiFilter)
+        public async Task<PagedClans> SearchClanAsync(ClanFilter clanApiFilter)
         {
-            IApiResponse<Clans> apiResponse = await SearchClanResponseAsync(clanApiFilter);
+            IApiResponse<PagedClans> apiResponse = await SearchClanResponseAsync(clanApiFilter);
 
             return apiResponse.Model;
         }
@@ -100,16 +100,16 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse.Model;
         }
 
-        public async Task<ClanMembers> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
+        public async Task<PagedClanMembers> GetMembersAsync(string clanTag, ClanMemberFilter clanMemberFilter = null)
         {
-            IApiResponse<ClanMembers> apiResponse = await GetMembersResponseAsync(clanTag, clanMemberFilter);
+            IApiResponse<PagedClanMembers> apiResponse = await GetMembersResponseAsync(clanTag, clanMemberFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<ClanWarLogs> GetWarLogAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
+        public async Task<PagedClanWarLogs> GetWarLogAsync(string clanTag, ClanWarLogFilter clanWarLogFilter = null)
         {
-            IApiResponse<ClanWarLogs> apiResponse = await GetWarLogResponseAsync(clanTag, clanWarLogFilter);
+            IApiResponse<PagedClanWarLogs> apiResponse = await GetWarLogResponseAsync(clanTag, clanWarLogFilter);
 
             return apiResponse.Model;
         }

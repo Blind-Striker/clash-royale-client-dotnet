@@ -5,7 +5,7 @@ using Pekka.Core.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using LocationEnum = Pekka.Core.Locations;
+using Pekka.Core;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
 {
@@ -15,27 +15,27 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface ILocationClientWithApiResponse
     {
-        Task<IApiResponse<List<Location>>> GetLocationsResponseAsync(LocationFilter locationApiFilter = null);
+        Task<IApiResponse<PagedLocations>> GetLocationsResponseAsync(LocationFilter locationApiFilter = null);
 
-        Task<IApiResponse<Location>> GetLocationResponseAsync(LocationEnum location);
+        Task<IApiResponse<Location>> GetLocationResponseAsync(LocationsEnum locationEnum);
 
-        Task<IApiResponse<LocationRankingClans>> GetClanRankingsResponseAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<PagedLocationRankingClans>> GetClanRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
 
-        Task<IApiResponse<LocationRankingPlayers>> GetPlayerRankingsResponseAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<PagedLocationRankingPlayers>> GetPlayerRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
 
-        Task<IApiResponse<LocationRankingClanWars>> GetClanWarsRankingsResponseAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<IApiResponse<PagedLocationRankingClanWars>> GetClanWarsRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
     }
 
     public interface ILocationClientModel
     {
-        Task<List<Location>> GetLocationsAsync(LocationFilter locationApiFilter = null);
+        Task<PagedLocations> GetLocationsAsync(LocationFilter locationApiFilter = null);
 
-        Task<Location> GetLocationAsync(LocationEnum location);
+        Task<Location> GetLocationAsync(LocationsEnum locationEnum);
 
-        Task<LocationRankingClans> GetClanRankingsAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<PagedLocationRankingClans> GetClanRankingsAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
 
-        Task<LocationRankingPlayers> GetPlayerRankingsAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<PagedLocationRankingPlayers> GetPlayerRankingsAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
 
-        Task<LocationRankingClanWars> GetClanWarsRankingsAsync(LocationEnum location, LocationFilter locationApiFilter = null);
+        Task<PagedLocationRankingClanWars> GetClanWarsRankingsAsync(LocationsEnum locationEnum, LocationFilter locationApiFilter = null);
     }
 }

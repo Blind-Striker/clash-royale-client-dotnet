@@ -3,12 +3,12 @@ using Newtonsoft.Json.Serialization;
 
 using Pekka.ClashRoyaleApi.Client.Contracts.Models;
 
-namespace Pekka.ClashRoyaleApi.Client.Models.TournamentModels
+namespace Pekka.ClashRoyaleApi.Client.Models.GlobalTournamentModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class Tournaments : IPaged<Tournament>
+    public class PagedGlobalTournaments: IPaged<GlobalTournament>
     {
-        public Tournament[] Items { get; set; }
+        public GlobalTournament[] Items { get; set; }
 
         public Paging Paging { get; set; }
     }

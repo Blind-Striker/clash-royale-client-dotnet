@@ -25,7 +25,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         //Task<IApiResponse<List<PlayerChest>>> GetChestsResponseAsync(string[] playerTags, PlayerChestFilter playerChestFilter = null);
 
-        //Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(Locations location = Locations.None,
+        //Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(LocationsEnum locationEnum = LocationsEnum.None,
         //    PlayerSummaryFilter playerSummaryFilter = null);
 
         //Task<IApiResponse<List<Player>>> GetPopularPlayersResponseAsync(PlayerFilter playerFilter = null);
@@ -45,7 +45,7 @@ namespace Pekka.RoyaleApi.Client.Contracts
 
         //Task<List<PlayerChest>> GetChestsAsync(string[] playerTags, PlayerChestFilter playerChestFilter);
 
-        //Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None,
+        //Task<List<PlayerSummary>> GetTopPlayersAsync(LocationsEnum locationEnum = LocationsEnum.None,
         //    PlayerSummaryFilter playerSummaryFilter = null);
 
         //Task<List<Player>> GetPopularPlayersAsync(PlayerFilter playerFilter = null);

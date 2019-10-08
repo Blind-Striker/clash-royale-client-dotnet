@@ -68,9 +68,9 @@ namespace Pekka.RoyaleApi.Client
             return string.Format(ChestsTemplate, playerTags.JoinToString(","));
         }
 
-        public static string GetTopPlayersUrl(Locations location)
+        public static string GetTopPlayersUrl(LocationsEnum locationEnum)
         {
-            return string.Format(TopPlayersTemplate, location.ToString());
+            return string.Format(TopPlayersTemplate, locationEnum.ToString());
         }
 
         public static string GetClanUrl(params string[] clanTags)
@@ -108,14 +108,14 @@ namespace Pekka.RoyaleApi.Client
             return string.Format(ClanHistoryWeeklyTemplate, clanTag);
         }
 
-        public static string GetTopClansUrl(Locations location)
+        public static string GetTopClansUrl(LocationsEnum locationEnum)
         {
-            return string.Format(TopClansTemplate, location.ToString());
+            return string.Format(TopClansTemplate, locationEnum.ToString());
         }
 
-        public static string GetTopWarClanWarsUrl(Locations location)
+        public static string GetTopWarClanWarsUrl(LocationsEnum locationEnum)
         {
-            return string.Format(TopWarClanWarsTemplate, location.ToString());
+            return string.Format(TopWarClanWarsTemplate, locationEnum.ToString());
         }
 
         public static string GetTournamentUrl(params string[] tournamentTags)

@@ -3,12 +3,12 @@ using Newtonsoft.Json.Serialization;
 
 using Pekka.ClashRoyaleApi.Client.Contracts.Models;
 
-namespace Pekka.ClashRoyaleApi.Client.Models.LocationModels
+namespace Pekka.ClashRoyaleApi.Client.Models.ClanModels
 {
     [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class LocationRankingPlayers : IPaged<LocationRankingPlayer>
+    public class PagedClanMembers : IPaged<ClanMember>
     {
-        public LocationRankingPlayer[] Items { get; set; }
+        public ClanMember[] Items { get; set; }
 
         public Paging Paging { get; set; }
     }

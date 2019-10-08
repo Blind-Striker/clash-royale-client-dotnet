@@ -17,6 +17,8 @@ namespace Pekka.ClashRoyaleApi.Client
 
         public const string CardUrl = "cards";
 
+        public const string GlobalTournaments = "globaltournaments";
+
         public const string LocationUrl = "locations";
         public const string RankingsClanUrl = "rankings/clans";
         public const string RankingsPlayerUrl = "rankings/players";
@@ -43,7 +45,7 @@ namespace Pekka.ClashRoyaleApi.Client
             return string.Format(PlayerTemplate, HttpUtility.UrlEncode(playerTag));
         }
 
-        public static string GetBattlelogUrl(string playerTag)
+        public static string GetBattleLogUrl(string playerTag)
         {
             return string.Format(BattleLogTemplate, HttpUtility.UrlEncode(playerTag));
         }

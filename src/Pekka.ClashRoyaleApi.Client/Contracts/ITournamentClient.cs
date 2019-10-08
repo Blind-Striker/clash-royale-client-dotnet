@@ -13,14 +13,14 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface ITournamentClientWithApiResponse
     {
-        Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter);
+        Task<IApiResponse<PagedTournaments>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter);
 
         Task<IApiResponse<Tournament>> GetTournamentResponseAsync(string tournamentTag);
     }
 
     public interface ITournamentClientModel
     {
-        Task<List<Tournament>> SearchTournamentAsync(TournamentFilter tournamentFilter);
+        Task<PagedTournaments> SearchTournamentAsync(TournamentFilter tournamentFilter);
 
         Task<Tournament> GetTournamentAsync(string tournamentTag);
     }

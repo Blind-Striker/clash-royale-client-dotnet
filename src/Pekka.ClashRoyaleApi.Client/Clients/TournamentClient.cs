@@ -8,7 +8,6 @@ using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
@@ -19,7 +18,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
         }
 
-        public async Task<IApiResponse<List<Tournament>>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter)
+        public async Task<IApiResponse<PagedTournaments>> SearchTournamentResponseAsync(TournamentFilter tournamentFilter)
         {
             Ensure.ArgumentNotNull(tournamentFilter, nameof(tournamentFilter));
             Ensure.AtleastOneCriteriaMustBeDefined(tournamentFilter, nameof(tournamentFilter));
@@ -34,8 +33,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
             }
 
-            IApiResponse<List<Tournament>> apiResponse =
-                await RestApiClient.GetApiResponseAsync<List<Tournament>>(UrlPathBuilder.TournamentUrl, tournamentFilter.ToQueryParams());
+            IApiResponse<PagedTournaments> apiResponse = await RestApiClient.GetApiResponseAsync<PagedTournaments>(UrlPathBuilder.TournamentUrl, tournamentFilter.ToQueryParams());
 
             return apiResponse;
         }
@@ -49,9 +47,9 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
             return apiResponse;
         }
 
-        public async Task<List<Tournament>> SearchTournamentAsync(TournamentFilter tournamentFilter)
+        public async Task<PagedTournaments> SearchTournamentAsync(TournamentFilter tournamentFilter)
         {
-            IApiResponse<List<Tournament>> apiResponse = await SearchTournamentResponseAsync(tournamentFilter);
+            IApiResponse<PagedTournaments> apiResponse = await SearchTournamentResponseAsync(tournamentFilter);
 
             return apiResponse.Model;
         }

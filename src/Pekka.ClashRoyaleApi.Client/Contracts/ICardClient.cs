@@ -12,11 +12,11 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface ICardClientWithApiResponse
     {
-        Task<IApiResponse<List<Card>>> GetCardsResponseAsync();
+        Task<IApiResponse<PagedCards>> GetCardsResponseAsync();
     }
 
     public interface ICardClientModel
     {
-        Task<List<Card>> GetCardsAsync();
+        Task<PagedCards> GetCardsAsync();
     }
 }

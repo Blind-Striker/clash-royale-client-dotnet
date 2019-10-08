@@ -88,10 +88,10 @@ namespace Pekka.RoyaleApi.Client.Clients
         //}
 
         //public async Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(
-        //    Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null)
+        //    LocationsEnum locationEnum = LocationsEnum.None, PlayerSummaryFilter playerSummaryFilter = null)
         //{
         //    var apiResponse =
-        //        await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(location),
+        //        await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(locationEnum),
         //            playerSummaryFilter?.ToQueryParams());
 
         //    return apiResponse;
@@ -160,10 +160,10 @@ namespace Pekka.RoyaleApi.Client.Clients
         //    return response.Model;
         //}
 
-        //public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None,
+        //public async Task<List<PlayerSummary>> GetTopPlayersAsync(LocationsEnum locationEnum = LocationsEnum.None,
         //    PlayerSummaryFilter playerSummaryFilter = null)
         //{
-        //    var response = await GetTopPlayersResponseAsync(location, playerSummaryFilter);
+        //    var response = await GetTopPlayersResponseAsync(locationEnum, playerSummaryFilter);
 
         //    return response.Model;
         //}

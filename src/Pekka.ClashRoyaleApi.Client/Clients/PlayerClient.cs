@@ -29,7 +29,7 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            IApiResponse<List<PlayerBattleLog>> apiResponse = await RestApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattlelogUrl(playerTag));
+            IApiResponse<List<PlayerBattleLog>> apiResponse = await RestApiClient.GetApiResponseAsync<List<PlayerBattleLog>>(UrlPathBuilder.GetBattleLogUrl(playerTag));
 
             return apiResponse;
         }

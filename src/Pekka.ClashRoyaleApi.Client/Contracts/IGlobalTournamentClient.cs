@@ -1,8 +1,8 @@
-﻿using Pekka.ClashRoyaleApi.Client.Models.CardModels;
-using Pekka.Core.Responses;
+﻿using Pekka.Core.Responses;
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
+
+using Pekka.ClashRoyaleApi.Client.Models.GlobalTournamentModels;
 
 namespace Pekka.ClashRoyaleApi.Client.Contracts
 {
@@ -12,11 +12,11 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 
     public interface IGlobalTournamentClientWithModel
     {
-        Task<List<Card>> GetGlobalTournamentsAsync();
+        Task<PagedGlobalTournaments> GetGlobalTournamentsAsync();
     }
 
     public interface IGlobalTournamentClientWithResponse
     {
-        Task<IApiResponse<List<Card>>> GetGlobalTournamentsResponseAsync();
+        Task<IApiResponse<PagedGlobalTournaments>> GetGlobalTournamentsResponseAsync();
     }
 }

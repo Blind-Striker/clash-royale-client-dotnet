@@ -7,6 +7,8 @@ using Pekka.Core.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Pekka.ClashRoyaleApi.Client.Models.GlobalTournamentModels;
+
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
     public class GlobalTournamentClient : BaseClient, IGlobalTournamentClient
@@ -15,16 +17,16 @@ namespace Pekka.ClashRoyaleApi.Client.Clients
         {
         }
 
-        public async Task<IApiResponse<List<Card>>> GetGlobalTournamentsResponseAsync()
+        public async Task<IApiResponse<PagedGlobalTournaments>> GetGlobalTournamentsResponseAsync()
         {
-            IApiResponse<List<Card>> apiResponse = await RestApiClient.GetApiResponseAsync<List<Card>>(UrlPathBuilder.CardUrl);
+            IApiResponse<PagedGlobalTournaments> apiResponse = await RestApiClient.GetApiResponseAsync<PagedGlobalTournaments>(UrlPathBuilder.GlobalTournaments);
 
             return apiResponse;
         }
 
-        public async Task<List<Card>> GetGlobalTournamentsAsync()
+        public async Task<PagedGlobalTournaments> GetGlobalTournamentsAsync()
         {
-            IApiResponse<List<Card>> apiResponse = await GetGlobalTournamentsResponseAsync();
+            IApiResponse<PagedGlobalTournaments> apiResponse = await GetGlobalTournamentsResponseAsync();
 
             return apiResponse.Model;
         }
