@@ -14,9 +14,12 @@ pr:
 pool:
   vmImage: macOS-10.14
 steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
+    displayName: 'Install .net core 3.0'
     inputs:
+      packageType: sdk
       version: '3.0.100'
+      installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: Bash@3
     displayName: 'Compile & Tests'

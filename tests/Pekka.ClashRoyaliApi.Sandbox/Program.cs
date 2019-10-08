@@ -67,11 +67,8 @@ namespace Pekka.ClashRoyaleApi.Sandbox
             IApiResponse<PagedClans> searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanFilter() {Name = "eyyam"});
             PagedClans searchClanAsync = await clanClient.SearchClanAsync(new ClanFilter() {Name = "eyyam"});
 
-            IApiResponse<PagedClans> searchClanResponse2Async =
-                await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25});
-
-            IApiResponse<PagedClans> searchClanResponse3Async =
-                await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25, MaxMembers = 10});
+            IApiResponse<PagedClans> searchClanResponse2Async = await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25});
+            IApiResponse<PagedClans> searchClanResponse3Async =await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25, MaxMembers = 10});
 
             IApiResponse<PagedClanMembers> membersResponseAsync = await clanClient.GetMembersResponseAsync(clanTag);
             IApiResponse<PagedClanMembers> membersResponse2Async = await clanClient.GetMembersResponseAsync(clanTag, new ClanMemberFilter() {Limit = 10});
@@ -92,19 +89,12 @@ namespace Pekka.ClashRoyaleApi.Sandbox
             IApiResponse<PagedLocations> locationsResponseAsync = await locationClient.GetLocationsResponseAsync();
             IApiResponse<PagedLocations> locationsResponse2Async = await locationClient.GetLocationsResponseAsync(new LocationFilter() {Limit = 10});
             IApiResponse<PagedLocationRankingClans> clanRankingsResponseAsync = await locationClient.GetClanRankingsResponseAsync(LocationsEnum.TR);
-
-            IApiResponse<PagedLocationRankingClans> clanRankingsResponse2Async =
-                await locationClient.GetClanRankingsResponseAsync(LocationsEnum._INT, new LocationFilter() {Limit = 10});
-
+            IApiResponse<PagedLocationRankingClans> clanRankingsResponse2Async = await locationClient.GetClanRankingsResponseAsync(LocationsEnum._INT, new LocationFilter() {Limit = 10});
             IApiResponse<PagedLocationRankingPlayers> playerRankingsResponseAsync = await locationClient.GetPlayerRankingsResponseAsync(LocationsEnum.DE);
-
-            IApiResponse<PagedLocationRankingPlayers> playerRankingsResponse2Async =
-                await locationClient.GetPlayerRankingsResponseAsync(LocationsEnum.US, new LocationFilter() {Limit = 25});
-
+            IApiResponse<PagedLocationRankingPlayers> playerRankingsResponse2Async = await locationClient.GetPlayerRankingsResponseAsync(LocationsEnum.US, new LocationFilter() {Limit = 25});
             IApiResponse<PagedLocationRankingClanWars> clanWarsRankingsResponseAsync = await locationClient.GetClanWarsRankingsResponseAsync(LocationsEnum.TR);
 
-            IApiResponse<PagedLocationRankingClanWars> clanWarsRankingsResponse2Async =
-                await locationClient.GetClanWarsRankingsResponseAsync(LocationsEnum.GB, new LocationFilter() {Limit = 5});
+            IApiResponse<PagedLocationRankingClanWars> clanWarsRankingsResponse2Async = await locationClient.GetClanWarsRankingsResponseAsync(LocationsEnum.GB, new LocationFilter() {Limit = 5});
         }
     }
 }
