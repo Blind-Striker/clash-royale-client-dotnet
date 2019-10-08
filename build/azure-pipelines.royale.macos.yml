@@ -12,7 +12,7 @@ pr:
     include:
       - "*"
 pool:
-  vmImage: macOS-10.14
+  name: 'Hosted macOS High Sierra'
 steps:
   - task: UseDotNet@2
     displayName: 'Install .net core 2.0'
