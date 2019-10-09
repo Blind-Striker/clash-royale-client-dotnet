@@ -15,8 +15,7 @@ namespace Pekka.Core.Extensions
 {
     public static class HttpRequestMessageExtensions
     {
-        public static HttpRequestMessage AddQueryParameter(this HttpRequestMessage requestMessage, string key,
-            string value)
+        public static HttpRequestMessage AddQueryParameter(this HttpRequestMessage requestMessage, string key, string value)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
             Ensure.ArgumentNotNullOrEmptyString(key, nameof(key));
@@ -24,24 +23,25 @@ namespace Pekka.Core.Extensions
 
             string requestUriQuery = requestMessage.RequestUri.Query;
 
-            NameValueCollection queryStringCollection =
-                HttpUtility.ParseQueryString(string.IsNullOrEmpty(requestUriQuery) ? string.Empty : requestUriQuery);
+            NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(string.IsNullOrEmpty(requestUriQuery) ? string.Empty : requestUriQuery);
 
             queryStringCollection[key] = value;
 
             requestMessage.RequestUri = string.IsNullOrEmpty(requestUriQuery)
-                ? new Uri($"{requestMessage.RequestUri}?{queryStringCollection}")
-                : new Uri(requestMessage.RequestUri.ToString().Replace(requestUriQuery, $"?{queryStringCollection}"));
+                                            ? new Uri($"{requestMessage.RequestUri}?{queryStringCollection}")
+                                            : new Uri(requestMessage.RequestUri.ToString().Replace(requestUriQuery, $"?{queryStringCollection}"));
 
             return requestMessage;
         }
 
-        public static HttpRequestMessage AddQueryParameters(this HttpRequestMessage requestMessage,
-            IList<KeyValuePair<string, string>> queryParams)
+        public static HttpRequestMessage AddQueryParameters(this HttpRequestMessage requestMessage, IList<KeyValuePair<string, string>> queryParams)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
 
-            if (queryParams == null || queryParams.Count == 0) return requestMessage;
+            if (queryParams == null || queryParams.Count == 0)
+            {
+                return requestMessage;
+            }
 
             string url = requestMessage.RequestUri.ToString();
 
@@ -50,16 +50,18 @@ namespace Pekka.Core.Extensions
 
             NameValueCollection queryStringCollection = HttpUtility.ParseQueryString(query);
 
-            foreach (var queryParam in queryParams) queryStringCollection[queryParam.Key] = queryParam.Value;
+            foreach (KeyValuePair<string, string> queryParam in queryParams)
+            {
+                queryStringCollection[queryParam.Key] = queryParam.Value;
+            }
 
-            string queryStrings = queryStringCollection.AllKeys.Select(key => $"{key}={queryStringCollection[key]}")
-                .JoinToString("&");
+            string queryStrings = queryStringCollection.AllKeys.Select(key => $"{key}={queryStringCollection[key]}").JoinToString("&");
 
             UriKind uriKind = GetUriKind(url);
 
             requestMessage.RequestUri = string.IsNullOrEmpty(query)
-                ? new Uri($"{requestMessage.RequestUri}?{queryStrings}", uriKind)
-                : new Uri(requestMessage.RequestUri.ToString().Replace(query, $"?{queryStrings}"), uriKind);
+                                            ? new Uri($"{requestMessage.RequestUri}?{queryStrings}", uriKind)
+                                            : new Uri(requestMessage.RequestUri.ToString().Replace(query, $"?{queryStrings}"), uriKind);
 
             return requestMessage;
         }
@@ -75,21 +77,24 @@ namespace Pekka.Core.Extensions
             return requestMessage;
         }
 
-        public static HttpRequestMessage AddHeaders(this HttpRequestMessage requestMessage,
-            IDictionary<string, string> headerParams)
+        public static HttpRequestMessage AddHeaders(this HttpRequestMessage requestMessage, IDictionary<string, string> headerParams)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
 
-            if (headerParams == null || headerParams.Count == 0) return requestMessage;
+            if (headerParams == null || headerParams.Count == 0)
+            {
+                return requestMessage;
+            }
 
-            foreach (var headerParam in headerParams) requestMessage.Headers.Add(headerParam.Key, headerParam.Value);
+            foreach (KeyValuePair<string, string> headerParam in headerParams)
+            {
+                requestMessage.Headers.Add(headerParam.Key, headerParam.Value);
+            }
 
             return requestMessage;
         }
 
-        public static HttpRequestMessage AddOAuth2AuthorizationRequestHeader(
-            this HttpRequestMessage requestMessage,
-            string key, string secret)
+        public static HttpRequestMessage AddOAuth2AuthorizationRequestHeader(this HttpRequestMessage requestMessage, string key, string secret)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
             Ensure.ArgumentNotNullOrEmptyString(key, nameof(key));
@@ -102,8 +107,7 @@ namespace Pekka.Core.Extensions
             return requestMessage;
         }
 
-        public static HttpRequestMessage AddFormUrlEncodedContent(this HttpRequestMessage requestMessage,
-            IList<KeyValuePair<string, string>> formData)
+        public static HttpRequestMessage AddFormUrlEncodedContent(this HttpRequestMessage requestMessage, IList<KeyValuePair<string, string>> formData)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
             Ensure.ArgumentNotNullOrEmptyEnumerable(formData, nameof(formData));
@@ -113,15 +117,12 @@ namespace Pekka.Core.Extensions
             return requestMessage;
         }
 
-        public static HttpRequestMessage AddJsonContent(this HttpRequestMessage requestMessage, object data,
-            JsonSerializerSettings jsonSerializerSettings = null)
+        public static HttpRequestMessage AddJsonContent(this HttpRequestMessage requestMessage, object data, JsonSerializerSettings jsonSerializerSettings = null)
         {
             Ensure.ArgumentNotNull(requestMessage, nameof(requestMessage));
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            string stringContent = jsonSerializerSettings == null
-                ? JsonConvert.SerializeObject(data)
-                : JsonConvert.SerializeObject(data, jsonSerializerSettings);
+            string stringContent = jsonSerializerSettings == null ? JsonConvert.SerializeObject(data) : JsonConvert.SerializeObject(data, jsonSerializerSettings);
 
             var content = new StringContent(stringContent, Encoding.UTF8, "application/json");
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

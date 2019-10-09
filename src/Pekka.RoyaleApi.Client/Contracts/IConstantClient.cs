@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-
-using Pekka.Core.Responses;
+﻿using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Models.ConstantModels;
+
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {

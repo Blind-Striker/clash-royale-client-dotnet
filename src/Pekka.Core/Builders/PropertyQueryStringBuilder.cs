@@ -1,24 +1,23 @@
-﻿using Pekka.Core.Helpers;
+﻿using Pekka.Core.Attributes;
+using Pekka.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Pekka.Core.Attributes;
-
 namespace Pekka.Core.Builders
 {
     public class PropertyQueryStringBuilder : QueryStringBuilder
     {
-        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams,
-            TFilterModel filter)
+        public override void ProcessRequest<TFilterModel>(IList<KeyValuePair<string, string>> queryStringParams, TFilterModel filter)
         {
             Ensure.ArgumentNotNull(filter, nameof(filter));
 
-            var propertyInfos = filter.GetType()
-                .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                .Where(info => Attribute.IsDefined(info, typeof(QueryAttribute))).ToList();
+            List<PropertyInfo> propertyInfos = filter.GetType()
+                                                     .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+                                                     .Where(info => Attribute.IsDefined(info, typeof(QueryAttribute)))
+                                                     .ToList();
 
             if (!propertyInfos.Any())
             {
@@ -33,7 +32,10 @@ namespace Pekka.Core.Builders
             {
                 object value = propertyInfo.GetValue(filter);
 
-                if (value == null) continue;
+                if (value == null)
+                {
+                    continue;
+                }
 
                 var customAttribute = propertyInfo.GetCustomAttribute<QueryAttribute>();
                 string queryStringKey = customAttribute.QueryStringKey;

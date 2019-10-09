@@ -1,12 +1,11 @@
 ﻿using Moq;
 
+using Pekka.Core.Attributes;
 using Pekka.Core.Builders;
 using Pekka.Core.Contracts;
 
 using System;
 using System.Collections.Generic;
-
-using Pekka.Core.Attributes;
 
 using Xunit;
 
@@ -19,8 +18,7 @@ namespace Pekka.Core.Tests
         {
             var builder = new PropertyQueryStringBuilder();
 
-            Assert.Throws<ArgumentNullException>(() =>
-                builder.ProcessRequest<FilterWithoutQueryAttribute>(new List<KeyValuePair<string, string>>(), null));
+            Assert.Throws<ArgumentNullException>(() => builder.ProcessRequest<FilterWithoutQueryAttribute>(new List<KeyValuePair<string, string>>(), null));
         }
 
         [Fact]
@@ -34,16 +32,14 @@ namespace Pekka.Core.Tests
             var filterWithoutQueryAttribute = new FilterWithoutQueryAttribute();
             var queryParameters = new List<KeyValuePair<string, string>>();
 
-            queryStringBuilder.Setup(builder =>
-                builder.ProcessRequest(
-                    It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => Equals(queryParameters, stringBuilder)),
-                    It.Is<FilterWithoutQueryAttribute>(dummyFilter => dummyFilter == filterWithoutQueryAttribute)));
+            queryStringBuilder.Setup(builder => builder.ProcessRequest(
+                                         It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => Equals(queryParameters, stringBuilder)),
+                                         It.Is<FilterWithoutQueryAttribute>(dummyFilter => dummyFilter == filterWithoutQueryAttribute)));
 
             propertyQueryStringBuilder.ProcessRequest(queryParameters, filterWithoutQueryAttribute);
 
-            queryStringBuilder.Verify(
-                builder => builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(),
-                    It.IsAny<FilterWithoutQueryAttribute>()), Times.Once);
+            queryStringBuilder.Verify(builder => builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(), It.IsAny<FilterWithoutQueryAttribute>()),
+                                      Times.Once);
         }
 
         [Fact]
@@ -53,21 +49,17 @@ namespace Pekka.Core.Tests
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
             propertyQueryStringBuilder.SetSuccessor(queryStringBuilder.Object);
 
-            queryStringBuilder.Setup(builder =>
-                builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(),
-                    It.IsAny<PairPropertyFilter>()));
+            queryStringBuilder.Setup(builder => builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(), It.IsAny<PairPropertyFilter>()));
 
             propertyQueryStringBuilder.ProcessRequest(null, new PairPropertyFilter());
 
             queryStringBuilder.Verify(
-                builder => builder.ProcessRequest(
-                    It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => stringBuilder != null),
-                    It.IsAny<PairPropertyFilter>()), Times.Once);
+                builder => builder.ProcessRequest(It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => stringBuilder != null), It.IsAny<PairPropertyFilter>()),
+                Times.Once);
         }
 
         [Fact]
-        public void
-            ProcessRequest_Should_Not_Add_Property_Value_As_Query_String_Parameter_If_Value_Of_The_Property_Is_Null()
+        public void ProcessRequest_Should_Not_Add_Property_Value_As_Query_String_Parameter_If_Value_Of_The_Property_Is_Null()
         {
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
 
@@ -102,9 +94,7 @@ namespace Pekka.Core.Tests
             var propertyQueryStringBuilder = new PropertyQueryStringBuilder();
             propertyQueryStringBuilder.SetSuccessor(queryStringBuilder.Object);
 
-            queryStringBuilder.Setup(builder =>
-                builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(),
-                    It.IsAny<PairPropertyFilter>()));
+            queryStringBuilder.Setup(builder => builder.ProcessRequest(It.IsAny<IList<KeyValuePair<string, string>>>(), It.IsAny<PairPropertyFilter>()));
 
             var clanFilter = new PairPropertyFilter {Name = "Eyyam", Tag = "ATSGEDS"};
             var queryParameters = new List<KeyValuePair<string, string>>();
@@ -112,9 +102,8 @@ namespace Pekka.Core.Tests
             propertyQueryStringBuilder.ProcessRequest(queryParameters, clanFilter);
 
             queryStringBuilder.Verify(
-                builder => builder.ProcessRequest(
-                    It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => Equals(stringBuilder, queryParameters)),
-                    It.Is<PairPropertyFilter>(filter => Equals(filter, clanFilter))), Times.Once);
+                builder => builder.ProcessRequest(It.Is<IList<KeyValuePair<string, string>>>(stringBuilder => Equals(stringBuilder, queryParameters)),
+                                                  It.Is<PairPropertyFilter>(filter => Equals(filter, clanFilter))), Times.Once);
         }
     }
 
@@ -127,8 +116,10 @@ namespace Pekka.Core.Tests
 
     public class PairPropertyFilter : IFilter
     {
-        [Query("name")] public string Name { get; set; }
+        [Query("name")]
+        public string Name { get; set; }
 
-        [Query("tag")] public string Tag { get; set; }
+        [Query("tag")]
+        public string Tag { get; set; }
     }
 }

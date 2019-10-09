@@ -1,4 +1,6 @@
-﻿using Pekka.Core.Contracts;
+﻿using Newtonsoft.Json.Serialization;
+
+using Pekka.Core.Contracts;
 using Pekka.Core.Extensions;
 using Pekka.Core.Helpers;
 using Pekka.Core.Responses;
@@ -8,8 +10,6 @@ using Pekka.RoyaleApi.Client.Models.PlayerModels;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using Newtonsoft.Json.Serialization;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {
@@ -22,13 +22,12 @@ namespace Pekka.RoyaleApi.Client.Clients
             _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag,
-            PlayerFilter playerFilter = null)
+        public async Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag, PlayerFilter playerFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag),
-                playerFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
+            IApiResponse<Player> apiResponse = await _restApiClient.GetApiResponseAsync<Player>(UrlPathBuilder.GetPlayerUrl(playerTag),
+                                                                                                playerFilter?.ToQueryParams(), null, new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
@@ -45,14 +44,13 @@ namespace Pekka.RoyaleApi.Client.Clients
         //    return apiResponse;
         //}
 
-        public async Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string playerTag,
-            PlayerBattleFilter playerBattleFilter = null)
+        public async Task<IApiResponse<List<PlayerBattle>>> GetBattlesResponseAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerBattle>>(
-                UrlPathBuilder.GetPlayerBattlesUrl(playerTag), playerBattleFilter?.ToQueryParams(), null,
-                new CamelCaseNamingStrategy());
+            IApiResponse<List<PlayerBattle>> apiResponse = await _restApiClient.GetApiResponseAsync<List<PlayerBattle>>(
+                                                               UrlPathBuilder.GetPlayerBattlesUrl(playerTag), playerBattleFilter?.ToQueryParams(), null,
+                                                               new CamelCaseNamingStrategy());
 
             return apiResponse;
         }
@@ -68,14 +66,12 @@ namespace Pekka.RoyaleApi.Client.Clients
         //    return apiResponse;
         //}
 
-        public async Task<IApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag,
-            PlayerChestFilter playerChestFilter = null)
+        public async Task<IApiResponse<PlayerChest>> GetChestResponseAsync(string playerTag, PlayerChestFilter playerChestFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag),
-                    playerChestFilter?.ToQueryParams());
+            IApiResponse<PlayerChest> apiResponse =
+                await _restApiClient.GetApiResponseAsync<PlayerChest>(UrlPathBuilder.GetPlayerChestsUrl(playerTag), playerChestFilter?.ToQueryParams());
 
             return apiResponse;
         }
@@ -92,10 +88,10 @@ namespace Pekka.RoyaleApi.Client.Clients
         //}
 
         //public async Task<IApiResponse<List<PlayerSummary>>> GetTopPlayersResponseAsync(
-        //    Locations location = Locations.None, PlayerSummaryFilter playerSummaryFilter = null)
+        //    LocationsEnum locationEnum = LocationsEnum.None, PlayerSummaryFilter playerSummaryFilter = null)
         //{
         //    var apiResponse =
-        //        await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(location),
+        //        await _restApiClient.GetApiResponseAsync<List<PlayerSummary>>(UrlPathBuilder.GetTopPlayersUrl(locationEnum),
         //            playerSummaryFilter?.ToQueryParams());
 
         //    return apiResponse;
@@ -113,7 +109,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var response = await GetPlayerResponseAsync(playerTag, playerFilter);
+            IApiResponse<Player> response = await GetPlayerResponseAsync(playerTag, playerFilter);
 
             return response.Model;
         }
@@ -127,12 +123,11 @@ namespace Pekka.RoyaleApi.Client.Clients
         //    return response.Model;
         //}
 
-        public async Task<List<PlayerBattle>> GetBattlesAsync(string playerTag,
-            PlayerBattleFilter playerBattleFilter = null)
+        public async Task<List<PlayerBattle>> GetBattlesAsync(string playerTag, PlayerBattleFilter playerBattleFilter = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var response = await GetBattlesResponseAsync(playerTag, playerBattleFilter);
+            IApiResponse<List<PlayerBattle>> response = await GetBattlesResponseAsync(playerTag, playerBattleFilter);
 
             return response.Model;
         }
@@ -151,7 +146,7 @@ namespace Pekka.RoyaleApi.Client.Clients
         {
             Ensure.ArgumentNotNullOrEmptyString(playerTag, nameof(playerTag));
 
-            var response = await GetChestResponseAsync(playerTag, playerChestFilter);
+            IApiResponse<PlayerChest> response = await GetChestResponseAsync(playerTag, playerChestFilter);
 
             return response.Model;
         }
@@ -165,10 +160,10 @@ namespace Pekka.RoyaleApi.Client.Clients
         //    return response.Model;
         //}
 
-        //public async Task<List<PlayerSummary>> GetTopPlayersAsync(Locations location = Locations.None,
+        //public async Task<List<PlayerSummary>> GetTopPlayersAsync(LocationsEnum locationEnum = LocationsEnum.None,
         //    PlayerSummaryFilter playerSummaryFilter = null)
         //{
-        //    var response = await GetTopPlayersResponseAsync(location, playerSummaryFilter);
+        //    var response = await GetTopPlayersResponseAsync(locationEnum, playerSummaryFilter);
 
         //    return response.Model;
         //}

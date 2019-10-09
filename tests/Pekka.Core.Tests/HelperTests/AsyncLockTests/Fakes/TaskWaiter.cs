@@ -13,8 +13,7 @@ namespace Pekka.Core.Tests.HelperTests.AsyncLockTests.Fakes
     /// </summary>
     internal class TaskWaiter : EventWaitHandle
     {
-        public TaskWaiter(Task task)
-            : base(false, EventResetMode.ManualReset)
+        public TaskWaiter(Task task) : base(false, EventResetMode.ManualReset)
         {
             new Thread(async () =>
             {

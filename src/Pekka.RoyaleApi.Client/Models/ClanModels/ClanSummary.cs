@@ -19,7 +19,7 @@ namespace Pekka.RoyaleApi.Client.Models.ClanModels
         public int MemberCount { get; set; }
 
         public int RequiredScore { get; set; }
-            
+
         public int Donations { get; set; }
 
         public ClanBadge Badge { get; set; }

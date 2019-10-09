@@ -25,8 +25,7 @@ All API requests must be accompanied by a developer key. You need to register th
 | ----------------- | -------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | Royale API Client | Windows  | Azure Pipelines | [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/Windows?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=9&branchName=master) |                   |
 | Royale API Client | Ubuntu   | Azure Pipelines | [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/Ubuntu?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=8&branchName=master)  |                   |
-| Royale API Client | MacOS    | Azure Pipelines | [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/macOS?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=10&branchName=master)  |                   |
-| Royale API Client | Linux    | Travis          | [![Build Status](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet.svg?branch=master) ](https://travis-ci.org/Blind-Striker/clash-royale-client-dotnet)                                                                      |                   |
+| Royale API Client | MacOS    | Azure Pipelines | [![Build Status](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_apis/build/status/macOS?branchName=master)](https://dev.azure.com/denizirgindev/localstack-dotnet-client/_build/latest?definitionId=10&branchName=master)  |
 | Royale API Client | Windows  | AppVeyor        | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true) ](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)                                                                       |                   |
 
 ## Table of Contents
@@ -34,10 +33,11 @@ All API requests must be accompanied by a developer key. You need to register th
 1. [Installation](#installation)
 2. [Usage](#usage)
    - [Standalone Initialization](#standalone-initialization)
-     - [Royale Api Standalone](#royaleapistandalone)
-     - [Clash Royale Api Standalone](#clashroyaleapistandalone)
+     - [Royale Api](#royaleapistandalone)
+     - [Clash Royale Api](#clashroyaleapistandalone)
    - [Microsoft.Extensions.DependencyInjection Initialization](#microsoftextensionsdependencyinjection-initialization)
      - [Royale Api](#royaleapi)
+     - [Clash Royale Api](#clashroyaleapi)
    - [Call Endpoints](t#call-endpoints)
    - [Synchronous Wrapper](#synchronous-wrapper)
 3. [License](#license)
@@ -107,6 +107,42 @@ dotnet add package Microsoft.Extensions.Http
 By installing `Microsoft.Extensions.Http` you will be able to use [`HttpClientFactory`](https://www.stevejgordon.co.uk/introduction-to-httpclientfactory-aspnetcore).In the words of the ASP.NET Team it is “an opinionated factory for creating HttpClient instances” and is a new feature comes with the release of ASP.NET Core 2.1.
 
 If you don't want to use `HttpClientFactory`, you must register `HttpClient` yourself with the container.
+
+#### <a name="clashroyaleapi"></a> Clash Royale Api
+
+Register necessary dependencies to `ServiceCollection` as follows
+
+```csharp
+ApiOptions apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+
+var services = new ServiceCollection();
+
+services.AddSingleton(apiOptions);
+services.AddHttpClient<IRestApiClient, RestApiClient>((provider, client) =>
+{
+    var options = provider.GetRequiredService<ApiOptions>();
+    client.BaseAddress = new Uri(options.BaseUrl);
+    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+});
+
+services.AddTransient<IPlayerClient, PlayerClient>();
+services.AddTransient<IClanClient, ClanClient>();
+services.AddTransient<ITournamentClient, TournamentClient>();
+services.AddTransient<ICardClient, CardClient>();
+services.AddTransient<ILocationClient, LocationClient>();
+services.AddTransient<IGlobalTournamentClient, GlobalTournamentClient>();
+
+ServiceProvider buildServiceProvider = services.BuildServiceProvider();
+
+var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
+var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
+var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+var globalTournamentClient = buildServiceProvider.GetRequiredService<IGlobalTournamentClient>();
+```
+
+See [sandbox project](https://github.com/Blind-Striker/clash-royale-client-dotnet/blob/master/tests/Pekka.ClashRoyaliApi.Sandbox/Program.cs) for more examples.
 
 #### <a name="royaleapi"></a> Royale Api
 

@@ -4,8 +4,7 @@ namespace Pekka.Core.Extensions
 {
     public static class JsonConvertExtensions
     {
-        public static bool TryDeserializeObject<T>(this string value, out T model,
-            JsonSerializerSettings jsonSerializerSettings = null)
+        public static bool TryDeserializeObject<T>(this string value, out T model, JsonSerializerSettings jsonSerializerSettings = null)
         {
             model = default(T);
 

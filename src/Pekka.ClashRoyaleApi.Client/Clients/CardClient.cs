@@ -1,5 +1,6 @@
 ﻿using Pekka.ClashRoyaleApi.Client.Contracts;
-using Pekka.ClashRoyaleApi.Client.Models;
+using Pekka.ClashRoyaleApi.Client.Models.CardModels;
+using Pekka.Core;
 using Pekka.Core.Contracts;
 using Pekka.Core.Responses;
 
@@ -7,25 +8,22 @@ using System.Threading.Tasks;
 
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
-    public class CardClient : ICardClient
+    public class CardClient : BaseClient, ICardClient
     {
-        private readonly IRestApiClient _restApiClient;
-
-        public CardClient(IRestApiClient restApiClient)
+        public CardClient(IRestApiClient restApiClient) : base(restApiClient)
         {
-            _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<CardList>> GetCardsResponseAsync()
+        public async Task<IApiResponse<PagedCards>> GetCardsResponseAsync()
         {
-            var apiResponse = await _restApiClient.GetApiResponseAsync<CardList>(UrlPathBuilder.CardUrl);
+            IApiResponse<PagedCards> apiResponse = await RestApiClient.GetApiResponseAsync<PagedCards>(UrlPathBuilder.CardUrl);
 
             return apiResponse;
         }
 
-        public async Task<CardList> GetCardsAsync()
+        public async Task<PagedCards> GetCardsAsync()
         {
-            var apiResponse = await GetCardsResponseAsync();
+            IApiResponse<PagedCards> apiResponse = await GetCardsResponseAsync();
 
             return apiResponse.Model;
         }

@@ -6,13 +6,18 @@ trigger:
     include:
       - src/Pekka.ClashRoyaleApi.Client/*
       - src/Pekka.Core/*
+      - build/*      
 pr:
   branches:
     include:
       - "*"
 pool:
-  name: Hosted macOS
+  name: 'Hosted macOS High Sierra'
 steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: '3.0.100'
+
   - task: Bash@3
     displayName: 'Compile & Tests'
     inputs:

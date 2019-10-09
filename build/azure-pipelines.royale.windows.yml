@@ -6,12 +6,13 @@ trigger:
     include:
       - src/Pekka.RoyaleApi.Client/*
       - src/Pekka.Core/*
+      - build/*      
 pr:
   branches:
     include:
       - "*"
 pool:
-  name: Hosted VS2017
+  vmImage: windows-2019
 steps:
   - task: PowerShell@2
     displayName: "Compile & Tests"

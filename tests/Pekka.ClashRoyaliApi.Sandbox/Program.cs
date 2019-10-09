@@ -1,13 +1,24 @@
-﻿using Pekka.ClashRoyaleApi.Client.FilterModels;
-using Pekka.ClashRoyaleApi.Client.Standalone;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+using Pekka.ClashRoyaleApi.Client.Clients;
+using Pekka.ClashRoyaleApi.Client.Contracts;
+using Pekka.ClashRoyaleApi.Client.FilterModels;
+using Pekka.ClashRoyaleApi.Client.Models.CardModels;
+using Pekka.ClashRoyaleApi.Client.Models.ClanModels;
+using Pekka.ClashRoyaleApi.Client.Models.GlobalTournamentModels;
+using Pekka.ClashRoyaleApi.Client.Models.LocationModels;
+using Pekka.ClashRoyaleApi.Client.Models.PlayerModels;
+using Pekka.ClashRoyaleApi.Client.Models.TournamentModels;
 using Pekka.Core;
+using Pekka.Core.Contracts;
+using Pekka.Core.Responses;
 
 using System;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-using Pekka.ClashRoyaleApi.Client.Contracts;
-
-namespace Pekka.ClashRoyaliApi.Sandbox
+namespace Pekka.ClashRoyaleApi.Sandbox
 {
     internal class Program
     {
@@ -15,65 +26,75 @@ namespace Pekka.ClashRoyaliApi.Sandbox
         {
             string token = Environment.GetEnvironmentVariable("CLASH_API_TOKEN");
 
-            var apiOptions = new ApiOptions("<your token>", "https://api.clashroyale.com/v1/");
+            var apiOptions = new ApiOptions(token, "https://api.clashroyale.com/v1/");
 
-            //var services = new ServiceCollection();
-            //services.AddSingleton(apiOptions);
-            //services.AddHttpClient<IRestApiClient, RestApiClient>();
-            //services.AddTransient<IPlayerClient, PlayerClient>();
-            //services.AddTransient<IClanClient, ClanClient>();
-            //services.AddTransient<ITournamentClient, TournamentClient>();
-            //services.AddTransient<ICardClient, CardClient>();
-            //services.AddTransient<ILocationClient, LocationClient>();
+            var services = new ServiceCollection();
+            services.AddSingleton(apiOptions);
 
-            //var buildServiceProvider = services.BuildServiceProvider();
+            services.AddHttpClient<IRestApiClient, RestApiClient>((provider, client) =>
+            {
+                var options = provider.GetRequiredService<ApiOptions>();
+                client.BaseAddress = new Uri(options.BaseUrl);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", options.BearerToken);
+            });
 
-            //var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
-            //var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
-            //var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
-            //var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
-            //var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+            services.AddTransient<IPlayerClient, PlayerClient>();
+            services.AddTransient<IClanClient, ClanClient>();
+            services.AddTransient<ITournamentClient, TournamentClient>();
+            services.AddTransient<ICardClient, CardClient>();
+            services.AddTransient<ILocationClient, LocationClient>();
+            services.AddTransient<IGlobalTournamentClient, GlobalTournamentClient>();
 
-            IClashRoyaleApiClientContext clashRoyaleApiStandalone = ClashRoyaleApiStandalone.Create(apiOptions);
+            ServiceProvider buildServiceProvider = services.BuildServiceProvider();
 
-            ILocationClient locationClient = clashRoyaleApiStandalone.LocationClient;
+            var playerClient = buildServiceProvider.GetRequiredService<IPlayerClient>();
+            var clanClient = buildServiceProvider.GetRequiredService<IClanClient>();
+            var tournamentClient = buildServiceProvider.GetRequiredService<ITournamentClient>();
+            var cardClient = buildServiceProvider.GetRequiredService<ICardClient>();
+            var locationClient = buildServiceProvider.GetRequiredService<ILocationClient>();
+            var globalTournamentClient = buildServiceProvider.GetRequiredService<IGlobalTournamentClient>();
 
-            // ApiResponse<PlayerDetail> apiResponse = await playerClient.GetPlayerResponseAsync("#C280JCG");
+            var playerTag = "#C280JCG";
+            var clanTag = "#Y2JPYJ";
+            var tournamentTag = "#22QGPCLU";
 
-            // var response = await playerClient.GetUpcomingChestsResponseAsync("#C280JCG");
+            IApiResponse<Player> playerResponse = await playerClient.GetPlayerResponseAsync(playerTag);
+            Player playerAsync = await playerClient.GetPlayerAsync(playerTag);
+            IApiResponse<PlayerUpcomingChests> chestsResponseAsync = await playerClient.GetUpcomingChestsResponseAsync(playerTag);
+            IApiResponse<List<PlayerBattleLog>> battlesResponseAsync = await playerClient.GetBattlesResponseAsync(playerTag);
 
-            //var apiResponse =
-            //    await clanClient.SearchClanResponseAsync(new ClanFilter()
-            //    {
-            //        Name = "Eyyam",
-            //        LocationId = 57000006
-            //    });
+            IApiResponse<Clan> clanResponseAsync = await clanClient.GetClanResponseAsync(clanTag);
+            IApiResponse<PagedClans> searchClanResponseAsync = await clanClient.SearchClanResponseAsync(new ClanFilter() {Name = "eyyam"});
+            PagedClans searchClanAsync = await clanClient.SearchClanAsync(new ClanFilter() {Name = "eyyam"});
 
-            //var tag = apiResponse.Model.Items[0].Tag;
+            IApiResponse<PagedClans> searchClanResponse2Async = await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25});
+            IApiResponse<PagedClans> searchClanResponse3Async =await clanClient.SearchClanResponseAsync(new ClanFilter() {LocationId = (int) LocationsEnum._INT, Limit = 25, MaxMembers = 10});
 
-            //var clanResponse = await clanClient.GetClanResponseAsync(tag);
-            //var membersResponse = await clanClient.GetMembersResponseAsync(tag);
-            //var warlogResponse = await clanClient.GetWarlogResponseAsync(tag);
-            //var currentWarResponse = await clanClient.GetCurrentWarResponseAsync(tag);
+            IApiResponse<PagedClanMembers> membersResponseAsync = await clanClient.GetMembersResponseAsync(clanTag);
+            IApiResponse<PagedClanMembers> membersResponse2Async = await clanClient.GetMembersResponseAsync(clanTag, new ClanMemberFilter() {Limit = 10});
 
-            //var apiResponse = await tournamentClient.SearchTournamentResponseAsync(new TournamentFilter() {Limit = 10, Name = "deniz"});
+            IApiResponse<PagedClanWarLogs> warLogResponseAsync = await clanClient.GetWarLogResponseAsync(clanTag);
+            IApiResponse<PagedClanWarLogs> warLogResponse2Async = await clanClient.GetWarLogResponseAsync(clanTag, new ClanWarLogFilter() {Limit = 5});
 
-            //var apiResponse = await cardClient.GetCardsResponseAsync();
+            IApiResponse<ClanCurrentWar> currentWarResponseAsync = await clanClient.GetCurrentWarResponseAsync(clanTag);
 
-            var apiResponse = await locationClient.GetLocationsResponseAsync();
-            var api10Response = await locationClient.GetLocationsResponseAsync(new LocationFilter() {Limit = 10});
+            IApiResponse<PagedTournaments> searchTournamentResponseAsync = await tournamentClient.SearchTournamentResponseAsync(new TournamentFilter() {Name = "Hel"});
+            IApiResponse<Tournament> tournamentResponseAsync = await tournamentClient.GetTournamentResponseAsync(tournamentTag);
 
-            var locationResponse = await locationClient.GetLocationResponseAsync(Locations._INT);
+            IApiResponse<PagedCards> cardsResponseAsync = await cardClient.GetCardsResponseAsync();
 
-            var clanRankingsResponse =
-                await locationClient.GetClanRankingsResponseAsync(Locations._INT, new LocationFilter() {Limit = 10});
+            IApiResponse<PagedGlobalTournaments> globalTournamentsResponseAsync = await globalTournamentClient.GetGlobalTournamentsResponseAsync();
 
-            var playerRankingsResponse =
-                await locationClient.GetPlayerRankingsResponseAsync(Locations._INT, new LocationFilter() {Limit = 10});
+            IApiResponse<Location> locationResponseAsync = await locationClient.GetLocationResponseAsync(LocationsEnum.TR);
+            IApiResponse<PagedLocations> locationsResponseAsync = await locationClient.GetLocationsResponseAsync();
+            IApiResponse<PagedLocations> locationsResponse2Async = await locationClient.GetLocationsResponseAsync(new LocationFilter() {Limit = 10});
+            IApiResponse<PagedLocationRankingClans> clanRankingsResponseAsync = await locationClient.GetClanRankingsResponseAsync(LocationsEnum.TR);
+            IApiResponse<PagedLocationRankingClans> clanRankingsResponse2Async = await locationClient.GetClanRankingsResponseAsync(LocationsEnum._INT, new LocationFilter() {Limit = 10});
+            IApiResponse<PagedLocationRankingPlayers> playerRankingsResponseAsync = await locationClient.GetPlayerRankingsResponseAsync(LocationsEnum.DE);
+            IApiResponse<PagedLocationRankingPlayers> playerRankingsResponse2Async = await locationClient.GetPlayerRankingsResponseAsync(LocationsEnum.US, new LocationFilter() {Limit = 25});
+            IApiResponse<PagedLocationRankingClanWars> clanWarsRankingsResponseAsync = await locationClient.GetClanWarsRankingsResponseAsync(LocationsEnum.TR);
 
-            var clanWarsRankingsResponse =
-                await locationClient.GetClanWarsRankingsResponseAsync(Locations._INT,
-                    new LocationFilter() {Limit = 10});
+            IApiResponse<PagedLocationRankingClanWars> clanWarsRankingsResponse2Async = await locationClient.GetClanWarsRankingsResponseAsync(LocationsEnum.GB, new LocationFilter() {Limit = 5});
         }
     }
 }

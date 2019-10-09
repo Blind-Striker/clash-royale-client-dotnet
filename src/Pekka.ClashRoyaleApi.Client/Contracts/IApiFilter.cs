@@ -7,5 +7,7 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
         int? Limit { get; set; }
 
         int? After { get; set; }
+
+        int? Before { get; set; }
     }
 }

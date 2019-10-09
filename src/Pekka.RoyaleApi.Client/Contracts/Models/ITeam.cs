@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Pekka.RoyaleApi.Client.Contracts.Models
+﻿namespace Pekka.RoyaleApi.Client.Contracts.Models
 {
     public interface ITeam
     {
@@ -15,6 +13,7 @@ namespace Pekka.RoyaleApi.Client.Contracts.Models
         IClanLight Clan { get; set; }
 
         string DeckLink { get; set; }
+
         ICard[] Deck { get; set; }
     }
 }

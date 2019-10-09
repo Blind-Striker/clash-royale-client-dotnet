@@ -9,108 +9,104 @@ using Pekka.Core.Responses;
 using System;
 using System.Threading.Tasks;
 
+
 namespace Pekka.ClashRoyaleApi.Client.Clients
 {
-    public class LocationClient : ILocationClient
+    public class LocationClient : BaseClient, ILocationClient
     {
-        private readonly IRestApiClient _restApiClient;
-
-        public LocationClient(IRestApiClient restApiClient)
+        public LocationClient(IRestApiClient restApiClient) : base(restApiClient)
         {
-            _restApiClient = restApiClient;
         }
 
-        public async Task<IApiResponse<LocationList>> GetLocationsResponseAsync(LocationFilter locationFilter = null)
+        public async Task<IApiResponse<PagedLocations>> GetLocationsResponseAsync(LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<LocationList>(UrlPathBuilder.LocationUrl,
-                    locationFilter?.ToQueryParams());
+            IApiResponse<PagedLocations> apiResponse = await RestApiClient.GetApiResponseAsync<PagedLocations>(UrlPathBuilder.LocationUrl, locationFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<Location>> GetLocationResponseAsync(Locations location)
+        public async Task<IApiResponse<Location>> GetLocationResponseAsync(LocationsEnum locationEnum)
         {
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<Location>(UrlPathBuilder.GetLocationUrl((int) location));
+            IApiResponse<Location> apiResponse = await RestApiClient.GetApiResponseAsync<Location>(UrlPathBuilder.GetLocationUrl((int) locationEnum));
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<ClanRankingList>> GetClanRankingsResponseAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<IApiResponse<PagedLocationRankingClans>> GetClanRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
-            var apiResponse =
-                await _restApiClient.GetApiResponseAsync<ClanRankingList>(
-                    UrlPathBuilder.GetRankingsClanUrl((int) location), locationFilter?.ToQueryParams());
+            IApiResponse<PagedLocationRankingClans> apiResponse =
+                await RestApiClient.GetApiResponseAsync<PagedLocationRankingClans>(UrlPathBuilder.GetRankingsClanUrl((int) locationEnum), locationFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<PlayerRankingList>> GetPlayerRankingsResponseAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<IApiResponse<PagedLocationRankingPlayers>> GetPlayerRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<PlayerRankingList>(
-                UrlPathBuilder.GetRankingsPlayerUrl((int) location), locationFilter?.ToQueryParams());
+            IApiResponse<PagedLocationRankingPlayers> apiResponse = await RestApiClient.GetApiResponseAsync<PagedLocationRankingPlayers>(
+                                                                   UrlPathBuilder.GetRankingsPlayerUrl((int) locationEnum), locationFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<IApiResponse<ClanWarsRankingList>> GetClanWarsRankingsResponseAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<IApiResponse<PagedLocationRankingClanWars>> GetClanWarsRankingsResponseAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
             if (locationFilter?.After != null && locationFilter.Before != null)
+            {
                 throw new InvalidOperationException("Only after or before can be specified for a request, not both.");
+            }
 
-            var apiResponse = await _restApiClient.GetApiResponseAsync<ClanWarsRankingList>(
-                UrlPathBuilder.GetRankingsClanWarUrl((int) location), locationFilter?.ToQueryParams());
+            IApiResponse<PagedLocationRankingClanWars> apiResponse = await RestApiClient.GetApiResponseAsync<PagedLocationRankingClanWars>(
+                                                                    UrlPathBuilder.GetRankingsClanWarUrl((int) locationEnum), locationFilter?.ToQueryParams());
 
             return apiResponse;
         }
 
-        public async Task<LocationList> GetLocationsAsync(LocationFilter locationFilter = null)
+        public async Task<PagedLocations> GetLocationsAsync(LocationFilter locationFilter = null)
         {
-            var apiResponse = await GetLocationsResponseAsync(locationFilter);
+            IApiResponse<PagedLocations> apiResponse = await GetLocationsResponseAsync(locationFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<Location> GetLocationAsync(Locations location)
+        public async Task<Location> GetLocationAsync(LocationsEnum locationEnum)
         {
-            var apiResponse = await GetLocationResponseAsync(location);
+            IApiResponse<Location> apiResponse = await GetLocationResponseAsync(locationEnum);
 
             return apiResponse.Model;
         }
 
-        public async Task<ClanRankingList> GetClanRankingsAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<PagedLocationRankingClans> GetClanRankingsAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
-            var apiResponse = await GetClanRankingsResponseAsync(location, locationFilter);
+            IApiResponse<PagedLocationRankingClans> apiResponse = await GetClanRankingsResponseAsync(locationEnum, locationFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<PlayerRankingList> GetPlayerRankingsAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<PagedLocationRankingPlayers> GetPlayerRankingsAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
-            var apiResponse = await GetPlayerRankingsResponseAsync(location, locationFilter);
+            IApiResponse<PagedLocationRankingPlayers> apiResponse = await GetPlayerRankingsResponseAsync(locationEnum, locationFilter);
 
             return apiResponse.Model;
         }
 
-        public async Task<ClanWarsRankingList> GetClanWarsRankingsAsync(Locations location,
-            LocationFilter locationFilter = null)
+        public async Task<PagedLocationRankingClanWars> GetClanWarsRankingsAsync(LocationsEnum locationEnum, LocationFilter locationFilter = null)
         {
-            var apiResponse = await GetClanWarsRankingsResponseAsync(location, locationFilter);
+            IApiResponse<PagedLocationRankingClanWars> apiResponse = await GetClanWarsRankingsResponseAsync(locationEnum, locationFilter);
 
             return apiResponse.Model;
         }

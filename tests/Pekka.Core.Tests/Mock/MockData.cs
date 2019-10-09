@@ -1,11 +1,8 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+﻿using Moq;
 
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
-using Moq;
 
 namespace Pekka.Core.Tests.Mock
 {
@@ -19,8 +16,9 @@ namespace Pekka.Core.Tests.Mock
 
         public static HttpClient GetMockHttpClient(Mock<HttpMessageHandler> httpMessageHandler)
         {
-            var httpClient = new HttpClient(httpMessageHandler.Object) {BaseAddress = new Uri(MockData.BaseUrl)};
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", MockData.MockApiOptions.BearerToken);
+            var httpClient = new HttpClient(httpMessageHandler.Object) {BaseAddress = new Uri(BaseUrl)};
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", MockApiOptions.BearerToken);
 
             return httpClient;
         }

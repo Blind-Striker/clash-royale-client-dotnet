@@ -8,16 +8,16 @@ namespace Pekka.ClashRoyaleApi.Client.Contracts
 {
     public interface IPlayerClient
     {
-        Task<IApiResponse<PlayerDetail>> GetPlayerResponseAsync(string playerTag);
+        Task<IApiResponse<Player>> GetPlayerResponseAsync(string playerTag);
 
-        Task<IApiResponse<List<BattleLog>>> GetBattlesResponseAsync(string playerTag);
+        Task<IApiResponse<List<PlayerBattleLog>>> GetBattlesResponseAsync(string playerTag);
 
-        Task<IApiResponse<UpcomingChestsList>> GetUpcomingChestsResponseAsync(string playerTag);
+        Task<IApiResponse<PlayerUpcomingChests>> GetUpcomingChestsResponseAsync(string playerTag);
 
-        Task<PlayerDetail> GetPlayerAsync(string playerTag);
+        Task<Player> GetPlayerAsync(string playerTag);
 
-        Task<List<BattleLog>> GetBattlesAsync(string playerTag);
+        Task<List<PlayerBattleLog>> GetBattlesAsync(string playerTag);
 
-        Task<UpcomingChestsList> GetUpcomingChests(string playerTag);
+        Task<PlayerUpcomingChests> GetUpcomingChests(string playerTag);
     }
 }

@@ -1,9 +1,7 @@
 ﻿using Pekka.Core.Responses;
-using Pekka.RoyaleApi.Client.Models;
+using Pekka.RoyaleApi.Client.Models.VersionModels;
 
 using System.Threading.Tasks;
-
-using Pekka.RoyaleApi.Client.Models.VersionModels;
 
 namespace Pekka.RoyaleApi.Client.Contracts
 {

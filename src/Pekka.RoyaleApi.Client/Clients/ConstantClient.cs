@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-
-using Pekka.Core.Contracts;
+﻿using Pekka.Core.Contracts;
 using Pekka.Core.Responses;
 using Pekka.RoyaleApi.Client.Contracts;
 using Pekka.RoyaleApi.Client.Models.ConstantModels;
+
+using System.Threading.Tasks;
 
 namespace Pekka.RoyaleApi.Client.Clients
 {
@@ -23,7 +23,7 @@ namespace Pekka.RoyaleApi.Client.Clients
 
         public async Task<Constants> GetConstantsAsync()
         {
-            var constantsResponseAsync = await GetConstantsResponseAsync();
+            IApiResponse<Constants> constantsResponseAsync = await GetConstantsResponseAsync();
 
             return constantsResponseAsync.Model;
         }

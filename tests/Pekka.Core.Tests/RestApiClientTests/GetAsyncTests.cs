@@ -30,23 +30,16 @@ namespace Pekka.Core.Tests.RestApiClientTests
         [Fact]
         public async Task GetAsync_Should_Return_DeserializedObject()
         {
-            var sampleData = new SampleData()
-                {Owner = "Fatma", SampleCount = 5, CreateDate = TimeProvider.Current.UtcNow};
+            var sampleData = new SampleData() {Owner = "Fatma", SampleCount = 5, CreateDate = TimeProvider.Current.UtcNow};
 
             string stringContent = JsonConvert.SerializeObject(sampleData);
 
             var httpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
 
-            httpMessageHandler
-                .Protected()
-                .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(),
-                    ItExpr.IsAny<CancellationToken>())
-                .ReturnsAsync(new HttpResponseMessage()
-                {
-                    StatusCode = HttpStatusCode.OK,
-                    Content = new StringContent(stringContent)
-                })
-                .Verifiable();
+            httpMessageHandler.Protected()
+                              .Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                              .ReturnsAsync(new HttpResponseMessage() {StatusCode = HttpStatusCode.OK, Content = new StringContent(stringContent)})
+                              .Verifiable();
 
             HttpClient httpClient = MockData.GetMockHttpClient(httpMessageHandler);
             var restApiClient = new RestApiClient(httpClient);
@@ -54,10 +47,9 @@ namespace Pekka.Core.Tests.RestApiClientTests
             SampleData statisticResult = await restApiClient.GetAsync<SampleData>("statistic");
 
             httpMessageHandler.Protected()
-                .Verify("SendAsync", Times.Once(),
-                    ItExpr.Is<HttpRequestMessage>(message =>
-                        message.Method == HttpMethod.Get && message.RequestUri.ToString().Contains("statistic")),
-                    ItExpr.IsAny<CancellationToken>());
+                              .Verify("SendAsync", Times.Once(),
+                                      ItExpr.Is<HttpRequestMessage>(message => message.Method == HttpMethod.Get && message.RequestUri.ToString().Contains("statistic")),
+                                      ItExpr.IsAny<CancellationToken>());
 
             Assert.NotNull(statisticResult);
             Assert.Equal(sampleData.SampleCount, statisticResult.SampleCount);
