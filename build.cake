@@ -9,7 +9,9 @@ var packProject = Argument<string>("packProject", "all");
 
 // Variables
 var royaleNugetOutput = "./artifacts/Pekka.RoyaleApi.Client";
+var royaleNugetOutputPre = "./artifacts/Pekka.RoyaleApi.Client-Pre";
 var clashRoyaleNugetOutput = "./artifacts/Pekka.ClashRoyaleApi.Client";
+var clashRoyaleNugetOutputPre = "./artifacts/Pekka.ClashRoyaleApi.Client-Pre";
 
 var testResults = "results.trx";
 
@@ -100,20 +102,20 @@ Task("nuget-pack")
         if(packProject == "royale")
         {
             NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, false);
-            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, true);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutputPre, true);
         }
         else if (packProject == "clash")
         {
             NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, false);
-            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, true);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutputPre, true);
         }
         else
         {
             NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, false);
-            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutput, true);
+            NugetPack(royaleApiPath, royaleApiCsProjPath, royaleNugetOutputPre, true);
 
             NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, false);
-            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutput, true);
+            NugetPack(clashRoyaleApiPath, clashRoyaleApiCsProjPath , clashRoyaleNugetOutputPre, true);
         }
     });
 
@@ -145,7 +147,7 @@ private void NugetPack(string projectPath, string csProjPath, string outputPath,
 
     var settings = new DotNetCorePackSettings();
     settings.Configuration = configuration;
-    settings.OutputDirectory = royaleNugetOutput;
+    settings.OutputDirectory = outputPath;
     settings.MSBuildSettings = new DotNetCoreMSBuildSettings();
     settings.MSBuildSettings.SetVersion(GetProjectVersion(csProjPath, !packBeta));
 

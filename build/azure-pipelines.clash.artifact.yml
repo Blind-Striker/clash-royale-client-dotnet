@@ -38,5 +38,11 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: "Publish Artifact: Pekka.ClashRoyaleApi.Client"
     inputs:
-      PathtoPublish: artifacts/
+      PathtoPublish: artifacts/Pekka.ClashRoyaleApi.Client
       ArtifactName: Pekka.ClashRoyaleApi.Client
+
+  - task: PublishBuildArtifacts@1
+    displayName: "Publish Artifact: Pekka.RoyaleApi.Client Pre Release"
+    inputs:
+      PathtoPublish: artifacts/Pekka.ClashRoyaleApi.Client-Pre
+      ArtifactName: Pekka.ClashRoyaleApi.Client-Pre
