@@ -29,7 +29,7 @@ All API requests must be accompanied by a developer key. You need to register th
 | Royale API Client | Windows  | Azure Pipelines | [![Build Status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Royale%20API%20Client%20-%20Windows?branchName=master)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=22&branchName=master) |                   |
 | Royale API Client | Ubuntu   | Azure Pipelines | [![Build Status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Royale%20API%20Client%20-%20Ubuntu?branchName=master)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=23&branchName=master)  |                   |
 | Royale API Client | MacOS    | Azure Pipelines | [![Build Status](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_apis/build/status/Royale%20API%20Client%20-%20MacOs?branchName=master)](https://denizirgindev.visualstudio.com/clash-royale-client-dotnet/_build/latest?definitionId=24&branchName=master) |
-| Royale API Client & Clash Royale API Client | Windows  | AppVeyor        | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true) ](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)                                                                       |                   |
+| All | Windows  | AppVeyor        | [![Build status](https://ci.appveyor.com/api/projects/status/ogciqii9ek7na1oa?svg=true) ](https://ci.appveyor.com/project/Blind-Striker/clash-royale-client-dotnet)                                                                       |                   |
 
 ## Table of Contents
 
