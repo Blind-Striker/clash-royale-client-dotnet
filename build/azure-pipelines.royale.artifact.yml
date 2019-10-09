@@ -1,7 +1,9 @@
 trigger:
   branches:
     include:
-      - "*"
+      - master
+      - releases/*
+      - feature/*
   paths:
     include:
       - src/Pekka.RoyaleApi.Client/*

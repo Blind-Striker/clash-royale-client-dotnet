@@ -3,8 +3,8 @@ sudo: required
 dist: xenial  
 env:  
   - CLI_VERSION=latest
-mono: latest
-dotnet:  3.0.100
+mono: 5.20.0
+dotnet: 3.0.100
 os:  
   - linux
 branches:  

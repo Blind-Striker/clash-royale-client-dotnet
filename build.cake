@@ -38,7 +38,7 @@ Task("init")
             });
 
             StartProcess("mono", new ProcessSettings {
-                Arguments = "--info"
+                Arguments = "--version"
             });
 
             InstallXUnitNugetPackage();
