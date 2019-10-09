@@ -15,7 +15,7 @@
     <PackageTags>clashroyale, clash-royale-api, clash-royale, client-library, dotnet-core, dotnet, unofficial</PackageTags>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
 
     <!-- When compiling .NET SDK 2.0 projects targeting .NET 4.x on Mono using 'dotnet build' you -->
     <!-- have to teach MSBuild where the Mono copy of the reference asssemblies is -->
